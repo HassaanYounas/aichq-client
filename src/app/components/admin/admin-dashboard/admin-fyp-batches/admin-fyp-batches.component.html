@@ -1,0 +1,143 @@
+<div class="text-dark">
+    <div class="container">
+        <h3 class="my-3">FYP Batches</h3>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">New</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add a New FYP Batch</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Batch Year</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Batch Year">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Program</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Program">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword2">FYP Phase</label>
+                                <input type="number" class="form-control" id="exampleInputPassword2" placeholder="Enter FYP Phase">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#exampleModal2">Edit</button>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModal2Label">Edit FYP Batch</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Batch Year</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Batch Year">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Program</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Program">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">New Batch Year</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Batch Year">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">New Program</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Program">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword2">New FYP Phase</label>
+                                <input type="number" class="form-control" id="exampleInputPassword2" placeholder="Enter FYP Phase">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal3">Delete</button>
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModal3Label">Delete FYP Batch</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Batch Year</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Batch Year">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Program</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Program">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <h5 class="my-3">Ongoing and Completed FYP Batches:</h5>
+    </div>
+   
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Year</th>
+            <th scope="col">Phase</th>
+            <th scope="col">Program</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>2021</td>
+            <td>II</td>
+            <td>CS</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>2021</td>
+            <td>II</td>
+            <td>IT</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>2020</td>
+            <td>Completed</td>
+            <td>CS</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
