@@ -10,6 +10,11 @@ import { StudentRegComponent } from './components/student/student-reg/student-re
 import { StudentLoginComponent } from './components/student/student-login/student-login.component';
 import { AdminFypBatchesComponent } from './components/admin/admin-dashboard/admin-fyp-batches/admin-fyp-batches.component';
 import { AdminSupervisorsComponent } from './components/admin/admin-dashboard/admin-supervisors/admin-supervisors.component';
+import { AdminStudentsComponent } from './components/admin/admin-dashboard/admin-students/admin-students.component';
+import { AdminSettingsComponent } from './components/admin/admin-dashboard/admin-settings/admin-settings.component';
+import { StudentDashboardComponent } from './components/student/student-dashboard/student-dashboard.component';
+import { SupervisorDashboardComponent } from './components/supervisor/supervisor-dashboard/supervisor-dashboard.component';
+import { SupervisorLoginComponent } from './components/supervisor/supervisor-login/supervisor-login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { AdminSupervisorsComponent } from './components/admin/admin-dashboard/ad
     StudentRegComponent,
     StudentLoginComponent,
     AdminFypBatchesComponent,
-    AdminSupervisorsComponent
+    AdminSupervisorsComponent,
+    AdminStudentsComponent,
+    AdminSettingsComponent,
+    StudentDashboardComponent,
+    SupervisorDashboardComponent,
+    SupervisorLoginComponent
   ],
   imports: [
     BrowserModule,

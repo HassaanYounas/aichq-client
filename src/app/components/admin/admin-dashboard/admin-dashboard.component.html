@@ -1,5 +1,5 @@
 <div class="d-flex text-white" id="wrapper" [ngClass]="{toggled: toggle}">
-    <div class="bg-dark" id="sidebar-wrapper">
+    <div class="bg-dark d-flex flex-column" id="sidebar-wrapper">
         <div class="sidebar-heading">Dashboard</div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(0)">FYP Batches</a>
@@ -8,8 +8,8 @@
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(3)">FYP Groups</a>
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(4)">Notifications</a>
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(5)">Settings</a>
-            <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(6)">Sign Out</a>
         </div>
+        <button id="sideBarSignOut" type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#exampleModal3">Sign Out</button>
     </div>
     <div class="d-flex flex-column" id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
@@ -22,10 +22,28 @@
                     <li class="nav-item">Welcome, Imran Ihsan</li>
                 </ul>
             </div>
+            <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-dark" id="exampleModal3Label">Do you want to Sign Out?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </nav>
         <div id="page-content" (click)="closeMenu()">
             <app-admin-fyp-batches *ngIf="currentComponent === 0"></app-admin-fyp-batches>
             <app-admin-supervisors *ngIf="currentComponent === 1" ></app-admin-supervisors>
+            <app-admin-students *ngIf="currentComponent === 2" ></app-admin-students>
+            <app-admin-settings *ngIf="currentComponent === 5" ></app-admin-settings>
         </div>
         <footer id="sticky-footer" class="py-3 bg-dark">
             <div class="container text-center">
