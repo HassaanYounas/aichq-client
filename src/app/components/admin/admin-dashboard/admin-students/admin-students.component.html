@@ -4,77 +4,69 @@
         <h5 class="my-3">FYP Batch List</h5>
         <div id="accordion">
             <div class="card">
-              <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    CS-2021 (Phase II)
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal">Add</button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add a New Student</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">ID</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Student ID">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex align-items-center">
-                            <span class="mr-auto">Dulcie Bains</span>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal3">Edit</button>
-                            <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModal3Label">Edit Supervisor Info</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">ID</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Student ID">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">New ID</label>
-                                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter New Student ID">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">CS-2021 (Phase II)</button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal1">Add</button>
+                        <div class="modal fade" id="addStudentModal1" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addStudentModal1Label">Add a New Student</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="inputStudentID1">ID</label>
+                                                <input type="text" class="form-control" id="inputStudentID1" placeholder="Enter Student ID">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Add</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="mr-auto">Dulcie Bains</span>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal33">Edit</button>
+                                <div class="modal fade" id="editStudentModal1" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editStudentModal1Label">Edit Supervisor Info</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="inputEditStudentID1">ID</label>
+                                                        <input type="text" class="form-control" id="inputEditStudentID1" placeholder="Enter Student ID">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEditNewStudentID1">New ID</label>
+                                                        <input type="text" class="form-control" id="inputEditNewStudentID1" placeholder="Enter New Student ID">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary" data-dismiss="modal">Edit</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
     </div>
 </div>

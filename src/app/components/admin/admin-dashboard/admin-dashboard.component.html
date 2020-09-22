@@ -1,5 +1,5 @@
-<div class="d-flex text-white" id="wrapper" [ngClass]="{toggled: toggle}">
-    <div class="bg-dark d-flex flex-column" id="sidebar-wrapper">
+<div class="wrapper d-flex text-white" [ngClass]="{toggled: toggle}">
+    <div class="bg-dark d-flex flex-column sidebar-wrapper">
         <div class="sidebar-heading">Dashboard</div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(0)">FYP Batches</a>
@@ -9,9 +9,9 @@
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(4)">Notifications</a>
             <a class="list-group-item list-group-item-action bg-dark text-white" (click)="changeComponent(5)">Settings</a>
         </div>
-        <button id="sideBarSignOut" type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#exampleModal3">Sign Out</button>
+        <button type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#adminSignOutModal">Sign Out</button>
     </div>
-    <div class="d-flex flex-column" id="page-content-wrapper">
+    <div class="d-flex flex-column page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
             <h4 class="font-weight-normal my-auto">AichQ | Administrator</h4>
             <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,11 +22,11 @@
                     <li class="nav-item">Welcome, Imran Ihsan</li>
                 </ul>
             </div>
-            <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+            <div class="modal fade" id="adminSignOutModal" tabindex="-1" role="dialog" aria-labelledby="adminSignOutModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-dark" id="exampleModal3Label">Do you want to Sign Out?</h5>
+                            <h5 class="modal-title text-dark" id="adminSignOutModalLabel">Do you want to Sign Out?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -39,13 +39,15 @@
                 </div>
             </div>
         </nav>
-        <div id="page-content" (click)="closeMenu()">
+        <div class="page-content" (click)="closeMenu()">
             <app-admin-fyp-batches *ngIf="currentComponent === 0"></app-admin-fyp-batches>
             <app-admin-supervisors *ngIf="currentComponent === 1" ></app-admin-supervisors>
             <app-admin-students *ngIf="currentComponent === 2" ></app-admin-students>
+            <app-admin-groups *ngIf="currentComponent === 3" ></app-admin-groups>
+            <app-admin-notifications *ngIf="currentComponent === 4" ></app-admin-notifications>
             <app-admin-settings *ngIf="currentComponent === 5" ></app-admin-settings>
         </div>
-        <footer id="sticky-footer" class="py-3 bg-dark">
+        <footer class="sticky-footer" class="py-3 bg-dark">
             <div class="container text-center">
               <small>Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</small>
             </div>

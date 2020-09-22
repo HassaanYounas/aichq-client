@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AdminDashboardComponent {
 
   toggle: boolean = false;
-  currentComponent: number = 2;
+  currentComponent: number = 0;
 
   constructor() { }
   

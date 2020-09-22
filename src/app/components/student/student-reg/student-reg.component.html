@@ -1,1 +1,53 @@
-<p>student-reg works!</p>
+<div class="d-flex flex-column text-center authentication-wrapper text-white">
+    <h1 class="text-dark h3 mb-3 font-weight-normal">FYP Group Registration</h1>
+    <div id="studentRegCarousel" class="carousel slide bg-dark pb-5 pt-2 carousel-c" data-interval="false" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#studentRegCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#studentRegCarousel" data-slide-to="1"></li>
+            <li data-target="#studentRegCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <form class="form-signin">
+                    <h3 class="h3 mb-3 font-weight-normal">Student One Information</h3>
+                    <input type="text" class="form-control" placeholder="Name">
+                    <input type="number" class="form-control mt-2" placeholder="Roll Number">
+                    <input type="email" class="form-control mt-2" placeholder="Email">
+                    <input type="number" class="form-control mt-2" placeholder="CGPA">
+                    <input type="number" class="form-control mt-2" placeholder="Contact Number">
+                </form>
+            </div>
+            <div class="carousel-item">
+                <form class="form-signin">
+                    <h3 class="h3 mb-3 font-weight-normal">Student Two Information</h3>
+                    <input type="text" class="form-control" placeholder="Name">
+                    <input type="number" class="form-control mt-2" placeholder="Roll Number">
+                    <input type="email" class="form-control mt-2" placeholder="Email">
+                    <input type="number" class="form-control mt-2" placeholder="CGPA">
+                    <input type="number" class="form-control mt-2" placeholder="Contact Number">
+                </form>
+            </div>
+            <div class="carousel-item">
+                <form class="form-signin">
+                    <h3 class="h3 mb-3 font-weight-normal">Team Information</h3>
+                    <input type="text" class="form-control" placeholder="Team Name">
+                    <input type="text" class="form-control mt-2" placeholder="Department e.g. CS">
+                    <input type="number" class="form-control mt-2" placeholder="Batch Year e.g. 2020">
+                    <input type="password" class="form-control mt-2" placeholder="Password">
+                    <input type="password" class="form-control mt-2" placeholder="Confirm Password">
+                </form>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#studentRegCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#studentRegCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <button class="btn btn-lg btn-primary mt-2" type="submit" routerLink="/student/dashboard">Register</button>
+    <button class="btn btn-lg btn-danger mt-2" routerLink="/">Back to Home</button>
+    <p class="my-3 text-muted">Copyright &copy; 2020</p>
+</div>
