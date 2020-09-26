@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-fyp-batches',
@@ -7,8 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminFypBatchesComponent implements OnInit {
 
+  newBatchForm: FormGroup;
+  editBatchForm: FormGroup;
+  deleteBatchForm: FormGroup;
+
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.newBatchForm = new FormGroup({
+      Username: new FormControl('')
+    });
+    this.editBatchForm = new FormGroup({
+      Username: new FormControl('')
+    });
+    this.deleteBatchForm = new FormGroup({
+      Username: new FormControl('')
+    });
+  }
 
 }

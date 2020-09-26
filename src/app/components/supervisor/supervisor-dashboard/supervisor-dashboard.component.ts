@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-supervisor-dashboard',
@@ -10,7 +11,13 @@ export class SupervisorDashboardComponent {
   toggle: boolean = false;
   currentComponent: number = 2;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+    if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
+    else if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
+  }
+  
   
   changeComponent(currentComponent: number): void {
     this.currentComponent = currentComponent;

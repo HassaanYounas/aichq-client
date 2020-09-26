@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,7 +11,12 @@ export class AdminDashboardComponent {
   toggle: boolean = false;
   currentComponent: number = 0;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+    if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
+    else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
+  }
   
   changeComponent(currentComponent: number): void {
     this.currentComponent = currentComponent;
@@ -22,5 +28,10 @@ export class AdminDashboardComponent {
 
   closeMenu(): void {
     this.toggle = false;
+  }
+
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['/admin/login']);
   }
 }

@@ -1,0 +1,5 @@
+{
+    
+    "loginAdmin": "http://localhost:4000/api/admin/login",
+    "updateAdmin": "http://localhost:4000/api/admin/update"
+}
