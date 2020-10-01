@@ -42,7 +42,7 @@ export class AdminLoginComponent implements OnInit {
       if (this.inputValidation.isAlphabetsAndNumbersOnly(
         this.loginForm.value.Username
       )) {
-        this.api.adminLogin(formData).subscribe(
+        this.api.loginAdmin(formData).subscribe(
           (res: any) => {
             if (res.token !== '') {
               this.validLogin = true;

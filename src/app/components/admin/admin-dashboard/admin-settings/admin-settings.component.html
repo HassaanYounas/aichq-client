@@ -1,35 +1,26 @@
 <div class="text-dark">
     <div class="container">
         <h3 class="my-3">Settings</h3>
-        <form>
+        <form [formGroup]="adminInfoUpdateForm" (ngSubmit)="onSubmit(adminInfoUpdateForm.value)">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputFullName">Full Name</label>
-                    <input type="text" class="form-control" id="inputFullName" placeholder="Full Name">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputFullNameNew">New Full Name</label>
-                    <input type="text" class="form-control" id="inputFullNameNew" placeholder="New Full Name">
+                    <label>Full Name</label>
+                    <input formControlName="FullName" type="text" class="form-control" placeholder="Full Name">
+                    <div class="text-danger mt-2" [ngClass]="{'d-none': validFullName}">Invalid or empty.</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Username">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputUsernameNew">New Username</label>
-                    <input type="text" class="form-control" id="inputUsernameNew" placeholder="New Username">
+                    <label>Username</label>
+                    <input formControlName="Username" type="text" class="form-control" placeholder="Username">
+                    <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid or empty.</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputPasswordNew">New Password</label>
-                    <input type="password" class="form-control" id="inputPasswordNew" placeholder="New Password">
+                    <label>Password</label>
+                    <input formControlName="Password" type="password" class="form-control" placeholder="Password">
+                    <div class="text-danger mt-2" [ngClass]="{'d-none': validPassword}">Cannot be empty.</div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>

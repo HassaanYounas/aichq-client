@@ -31,4 +31,11 @@ export class InputValidationService {
     const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
     return str.match(regex) ? true : false;
   }
+
+  isProgram(str: string): boolean {
+    if (str.length === 4) {
+      if (str[0] === 'B' && str[1] === 'S')
+        if (this.isAlphabetsOnly(str[2]) && this.isAlphabetsOnly(str[3])) return true;
+    } return false;
+  }
 }
