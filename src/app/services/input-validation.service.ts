@@ -38,4 +38,15 @@ export class InputValidationService {
         if (this.isAlphabetsOnly(str[2]) && this.isAlphabetsOnly(str[3])) return true;
     } return false;
   }
+
+  isSupervisorUsername(str: string): boolean {
+    const regex = /^[A-Z0-9-]+$/;
+    if (str.match(regex)) {
+      if (this.isAlphabetsOnly(str[0]) && this.isAlphabetsOnly(str[1])) {
+        if (str[2] === '-') {
+          if (this.isAlphabetsOnly(str[3]) && this.isAlphabetsOnly(str[4])) return true;
+        }
+      }
+    } return false;
+  }
 }

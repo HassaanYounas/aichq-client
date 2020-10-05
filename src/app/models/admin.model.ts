@@ -1,7 +1,7 @@
 export class Admin {
-    FullName: string;
-    Username: string;
-    Password: string;
+    FullName: String;
+    Username: String;
+    Password: String;
 
     constructor() {
         this.FullName = '';

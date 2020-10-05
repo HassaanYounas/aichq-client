@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Admin } from 'src/app/models/admin.model';
 import { Batch } from 'src/app/models/batch.model';
+import { Supervisor } from 'src/app/models/supervisor.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class AdminDashboardComponent {
 
   admin: Admin;
   batches: Batch[];
+  supervisors: Supervisor[];
   
   greetingMessage: string = '';
   toggle: boolean = false;
@@ -36,6 +38,12 @@ export class AdminDashboardComponent {
         this.admin.FullName = res.FullName;
         this.admin.Username = res.Username;
         this.greetingMessage = 'Welcome, ' + this.admin.FullName;
+      }, (error: any) => { console.log(error); }
+    );
+    this.api.getSupervisors().subscribe(
+      (res: any) => {
+        this.supervisors = new Array<Supervisor>();
+        this.setSupervisors(res);
       }, (error: any) => { console.log(error); }
     );
   }
@@ -63,6 +71,14 @@ export class AdminDashboardComponent {
       let batch = new Batch();
       batch.assignValues(e);
       this.batches.push(batch);
+    });
+  }
+
+  setSupervisors(res: any) {
+    res.forEach(e => {
+      let supervisor = new Supervisor();
+      supervisor.assignValues(e);
+      this.supervisors.push(supervisor);
     });
   }
 }

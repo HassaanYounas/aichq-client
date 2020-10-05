@@ -1,113 +1,116 @@
 <div class="text-dark">
     <div class="container">
         <h3 class="my-3">Supervisors</h3>
-        <h5 class="my-3">FYP Batch List</h5>
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="heading1">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#batch1">CS-2021 (Phase II)</button>
-                    </h5>
-                </div>
-                <div id="batch1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addSupervisorModal1">Add</button>
-                        <div class="modal fade" id="addSupervisorModal1" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="addSupervisorModal1">Add a New Supervisor</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="inputSupervisorName1">Full Name</label>
-                                                <input type="text" class="form-control" id="inputSupervisorName1" aria-describedby="inputSupervisorName1Help" placeholder="Enter Full Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputSupervisorUserName1">Username</label>
-                                                <input type="text" class="form-control" id="inputSupervisorUserName1" placeholder="Enter Username">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="mr-auto">Dulcie Bains</span>
-                                <button type="button" class="btn btn-info mr-3" data-toggle="modal" data-target="#viewSupervisorProjectsModal1">Projects</button>
-                                <div class="modal fade" id="viewSupervisorProjectsModal1" tabindex="-1" role="dialog" aria-labelledby="viewSupervisorProjectsModal1Label" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="viewSupervisorProjectsModal1Label">Supervisor Projects</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item">Cras justo odio</li>
-                                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                                    <li class="list-group-item">Morbi leo risus</li>
-                                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                                    <li class="list-group-item">Vestibulum at eros</li>
-                                                </ul>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editSupervisorModal1">Edit</button>
-                                <div class="modal fade" id="editSupervisorModal1" tabindex="-1" role="dialog" aria-labelledby="editSupervisorModal1Label" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editSupervisorModal1Label">Edit Supervisor Info</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="inputSupervisorNameEdit1">Full Name</label>
-                                                        <input type="text" class="form-control" id="inputSupervisorNameEdit1" placeholder="Enter Full Name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputSupervisorUserNameEdit1">Username</label>
-                                                        <input type="text" class="form-control" id="inputSupervisorUserNameEdit1" placeholder="Enter Username">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputSupervisorNewNameEdit1">New Full Name</label>
-                                                        <input type="text" class="form-control" id="inputSupervisorNewNameEdit1" placeholder="Enter New Full Name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputSupervisorNewUserNameEdit1">New Username</label>
-                                                        <input type="text" class="form-control" id="inputSupervisorNewUserNameEdit1" placeholder="Enter New Username">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" data-dismiss="modal">Edit</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSupervisorModal">Add</button>
+        <div id="addSupervisorModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Supervisor</h4>
                     </div>
+                    <div class="modal-body">
+                        <form id="addSupervisorForm" [formGroup]="addSupervisorForm" (ngSubmit)="onAddSupervisorFormSubmit(addSupervisorForm.value)">
+                            <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid Full Name.</div>
+                            <input formControlName="Username" type="text" class="form-control" placeholder="Username">
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid Username. Valid examples are CS-II or CS-II3.</div>
+                        </form>
+                        <div class="text-danger mt-2" [innerHTML]="addSupervisorError"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button form="addSupervisorForm" type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteSupervisorModal">Delete</button>
+        <div id="deleteSupervisorModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Supervisor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="deleteSupervisorForm" [formGroup]="deleteSupervisorForm" (ngSubmit)="onDeleteSupervisorFormSubmit(deleteSupervisorForm.value)">
+                            <input formControlName="Username" type="text" class="form-control" placeholder="Username">
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validDeleteUsername}">Username Cannot be Empty.</div>
+                        </form>
+                        <div class="text-danger mt-2" [innerHTML]="deleteSupervisorError"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button form="deleteSupervisorForm" type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewSupervisorsAccordingToBatchModal">View According to Batches</button>
+        <div id="viewSupervisorsAccordingToBatchModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Supervisors in Each Batch</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="accordion">
+                            <div class="card" *ngFor="let sb of supervisorBatches; let i = index">
+                                <div class="card-header">
+                                    <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse' + i">{{ sb.Batch }}</button>
+                                </div>
+                                <div [attr.id]="'collapse' + i" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <ul class="list-group" *ngFor="let supervisor of sb.Supervisors">
+                                            <li class="list-group-item">{{ supervisor.FullName }} | {{ supervisor.Username }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="my-3">List of all FYP Supervisors:</h5>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Add to Batch</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let supervisor of supervisors; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ supervisor.FullName }}</td>
+                <td>{{ supervisor.Username }}</td>
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSupervisorToBatchModal" (click)="setCurrentSupervisor(i)">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="addSupervisorToBatchModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" [innerHTML]="addSupervisorToBatchModalTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group" role="tablist">
+                        <a *ngFor="let batch of batches; let i = index" class="list-group-item list-group-item-action" data-toggle="list" role="tab" (click)="setCurrentBatch(i)">{{ batch.Program }}-{{ batch.Year }}</a>
+                    </div>
+                    <div class="text-danger mt-2" [innerHTML]="addSupervisorToBatchError"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="addSupervisorToBatch()">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

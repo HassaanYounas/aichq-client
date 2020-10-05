@@ -18,6 +18,8 @@ export class AdminFypBatchesComponent implements OnInit {
   validProgram: Boolean = true;
   validPhase: Boolean = true;
   validPromoteBatch: Boolean = true;
+  validDeleteBatchYear: Boolean = true;
+  validDeleteBatchProgram: Boolean = true;
 
   addBatchError: String = '';
   promoteBatchError: String = '';
@@ -98,13 +100,19 @@ export class AdminFypBatchesComponent implements OnInit {
   }
 
   onDeleteBatchFormSubmit(formData: any): void {
-    this.api.deleteBatch(formData).subscribe(
-      (res: any) => {
-        window.location.reload();
-      }, (error: any) => {
-        this.deleteBatchError = error;
-        setTimeout(() => this.deleteBatchError = '', 3000); 
-      }
-    );
+    if (formData.Year === '') this.validDeleteBatchYear = false;
+    else this.validDeleteBatchYear = true;
+    if (formData.Program === '') this.validDeleteBatchProgram = false;
+    else this.validDeleteBatchProgram = true;
+    if (this.validDeleteBatchYear && this.validDeleteBatchProgram) {
+      this.api.deleteBatch(formData).subscribe(
+        (res: any) => {
+          window.location.reload();
+        }, (error: any) => {
+          this.deleteBatchError = error;
+          setTimeout(() => this.deleteBatchError = '', 3000); 
+        }
+      );
+    }
   }
 }

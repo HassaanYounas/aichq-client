@@ -68,18 +68,20 @@
                     <div class="modal-body">
                         <form id="deleteBatchForm" [formGroup]="deleteBatchForm" (ngSubmit)="onDeleteBatchFormSubmit(deleteBatchForm.value)">
                             <input formControlName="Year" type="number" class="form-control mb-2" placeholder="Batch Year">
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validDeleteBatchYear}">Batch Cannot be Empty.</div>
                             <input formControlName="Program" type="text" class="form-control" placeholder="Program e.g. BSCS, BSIT">
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validDeleteBatchProgram}">Program Cannot be Empty.</div>
                         </form>
                         <div class="text-danger mt-2" [innerHTML]="deleteBatchError"></div>
                     </div>
                     <div class="modal-footer">
-                        <button form="deleteBatchForm" type="submit" class="btn btn-primary">Delete</button>
+                        <button form="deleteBatchForm" type="submit" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-        <h5 class="my-3">Ongoing and Completed FYP Batches:</h5>
+        <h5 class="my-3">List of all FYP Batches:</h5>
     </div>
     <table class="table">
         <thead>

@@ -5,5 +5,9 @@
     "createBatch": "http://localhost:4000/api/batch/create",
     "promoteBatch": "http://localhost:4000/api/batch/promote",
     "deleteBatch": "http://localhost:4000/api/batch/delete",
-    "getBatches": "http://localhost:4000/api/batch/all"
+    "getBatches": "http://localhost:4000/api/batch/all",
+    "addSupervisorToBatch": "http://localhost:4000/api/batch/add/supervisor",
+    "addSupervisor": "http://localhost:4000/api/supervisor/add",
+    "deleteSupervisor": "http://localhost:4000/api/supervisor/delete",
+    "getSupervisors": "http://localhost:4000/api/supervisor/all"
 }

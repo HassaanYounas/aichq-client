@@ -43,6 +43,22 @@ export class ApiService {
     return this.requestWithToken({}, API.getBatches);
   }
 
+  addSupervisorToBatch(body: any) {
+    return this.requestWithToken(body, API.addSupervisorToBatch);
+  }
+
+  addSupervisor(body: any) {
+    return this.requestWithToken(body, API.addSupervisor);
+  }
+
+  deleteSupervisor(body: any) {
+    return this.requestWithToken(body, API.deleteSupervisor);
+  }
+
+  getSupervisors() {
+    return this.requestWithToken({}, API.getSupervisors);
+  }
+  
   requestWithToken(body: any, url: any) {
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',

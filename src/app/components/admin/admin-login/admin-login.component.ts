@@ -12,8 +12,8 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 export class AdminLoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  validLogin: boolean = true;
-  errorMessage: string = '';
+  validLogin: Boolean = true;
+  errorMessage: String = '';
 
   constructor(
     private inputValidation: InputValidationService,
