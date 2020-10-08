@@ -1,13 +1,13 @@
 {
-    "loginAdmin": "http://localhost:4000/api/admin/login",
-    "updateAdmin": "http://localhost:4000/api/admin/update",
-    "getAdmin": "http://localhost:4000/api/admin/get",
-    "createBatch": "http://localhost:4000/api/batch/create",
-    "promoteBatch": "http://localhost:4000/api/batch/promote",
-    "deleteBatch": "http://localhost:4000/api/batch/delete",
-    "getBatches": "http://localhost:4000/api/batch/all",
-    "addSupervisorToBatch": "http://localhost:4000/api/batch/add/supervisor",
-    "addSupervisor": "http://localhost:4000/api/supervisor/add",
-    "deleteSupervisor": "http://localhost:4000/api/supervisor/delete",
-    "getSupervisors": "http://localhost:4000/api/supervisor/all"
+    "loginAdmin": "http://localhost:8080/api/admin/login",
+    "updateAdmin": "http://localhost:8080/api/admin/update",
+    "getAdmin": "http://localhost:8080/api/admin/get",
+    "createBatch": "http://localhost:8080/api/batch/create",
+    "promoteBatch": "http://localhost:8080/api/batch/promote",
+    "deleteBatch": "http://localhost:8080/api/batch/delete",
+    "getBatches": "http://localhost:8080/api/batch/all",
+    "addSupervisorToBatch": "http://localhost:8080/api/batch/add/supervisor",
+    "addSupervisor": "http://localhost:8080/api/supervisor/add",
+    "deleteSupervisor": "http://localhost:8080/api/supervisor/delete",
+    "getSupervisors": "http://localhost:8080/api/supervisor/all"
 }

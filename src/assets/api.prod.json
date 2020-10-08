@@ -1,0 +1,13 @@
+{
+    "loginAdmin": "https://aichq-fyp.herokuapp.com/api/admin/login",
+    "updateAdmin": "https://aichq-fyp.herokuapp.com/api/admin/update",
+    "getAdmin": "https://aichq-fyp.herokuapp.com/api/admin/get",
+    "createBatch": "https://aichq-fyp.herokuapp.com/api/batch/create",
+    "promoteBatch": "https://aichq-fyp.herokuapp.com/api/batch/promote",
+    "deleteBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete",
+    "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/all",
+    "addSupervisorToBatch": "https://aichq-fyp.herokuapp.com/api/batch/add/supervisor",
+    "addSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/add",
+    "deleteSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/delete",
+    "getSupervisors": "https://aichq-fyp.herokuapp.com/api/supervisor/all"
+}
