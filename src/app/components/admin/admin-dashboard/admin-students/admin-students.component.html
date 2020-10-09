@@ -1,72 +1,70 @@
 <div class="text-dark">
     <div class="container">
         <h3 class="my-3">Students</h3>
-        <h5 class="my-3">FYP Batch List</h5>
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">CS-2021 (Phase II)</button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal1">Add</button>
-                        <div class="modal fade" id="addStudentModal1" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="addStudentModal1Label">Add a New Student</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="inputStudentID1">ID</label>
-                                                <input type="text" class="form-control" id="inputStudentID1" placeholder="Enter Student ID">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Add</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="mr-auto">Dulcie Bains</span>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editStudentModal1">Edit</button>
-                                <div class="modal fade" id="editStudentModal1" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editStudentModal1Label">Edit Student Info</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="inputEditStudentID1">ID</label>
-                                                        <input type="text" class="form-control" id="inputEditStudentID1" placeholder="Enter Student ID">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputEditNewStudentID1">New ID</label>
-                                                        <input type="text" class="form-control" id="inputEditNewStudentID1" placeholder="Enter New Student ID">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" data-dismiss="modal">Edit</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add</button>
+        <div id="addStudentModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Student</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
+                            <select formControlName="BatchID" class="form-control mb-2">
+                                <option selected>Choose Batch</option>
+                                <option *ngFor="let batch of batches">{{ batch.Program }}-{{ batch.Year }}</option>
+                            </select>
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBatch}">Invalid Batch.</div>
+                            <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
+                        </form>
+                        <div class="text-danger mt-2" [innerHTML]="addStudentError"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button form="addStudentForm" type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteStudentModal">Delete</button>
+        <div id="deleteStudentModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Student</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="deleteStudentForm" [formGroup]="deleteStudentForm" (ngSubmit)="onDeleteStudentFormSubmit(deleteStudentForm.value)">
+                            <select formControlName="BatchID" class="form-control mb-2">
+                                <option selected>Choose Batch</option>
+                                <option *ngFor="let batch of batches">{{ batch.Program }}-{{ batch.Year }}</option>
+                            </select>
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validDeleteStudentBatch}">Invalid Batch.</div>
+                            <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
+                        </form>
+                        <div class="text-danger mt-2" [innerHTML]="deleteStudentError"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button form="deleteStudentForm" type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="my-3">List of all FYP Students according to Batches:</h5>
+        <div id="accordion" class="mt-3">
+            <div class="card" *ngFor="let batch of batches; let i = index">
+                <div class="card-header">
+                    <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse' + i">{{ batch.Program }}-{{ batch.Year }}</button>
+                </div>
+                <div [attr.id]="'collapse' + i" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li *ngFor="let student of batch.Students" class="list-group-item">{{ student.RollNumber }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 </div>

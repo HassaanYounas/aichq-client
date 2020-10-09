@@ -47,6 +47,14 @@ export class ApiService {
     return this.requestWithToken(body, API.addSupervisorToBatch);
   }
 
+  addStudentToBatch(body: any) {
+    return this.requestWithToken(body, API.addStudentToBatch);
+  }
+
+  deleteStudentFromBatch(body: any) {
+    return this.requestWithToken(body, API.deleteStudentFromBatch);
+  }
+
   addSupervisor(body: any) {
     return this.requestWithToken(body, API.addSupervisor);
   }

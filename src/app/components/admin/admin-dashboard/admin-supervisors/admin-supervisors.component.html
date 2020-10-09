@@ -60,8 +60,8 @@
                                 </div>
                                 <div [attr.id]="'collapse' + i" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <ul class="list-group" *ngFor="let supervisor of sb.Supervisors">
-                                            <li class="list-group-item">{{ supervisor.FullName }} | {{ supervisor.Username }}</li>
+                                        <ul class="list-group">
+                                            <li *ngFor="let supervisor of sb.Supervisors" class="list-group-item">{{ supervisor.FullName }} | {{ supervisor.Username }}</li>
                                         </ul>
                                     </div>
                                 </div>

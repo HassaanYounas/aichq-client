@@ -23,6 +23,11 @@ export class Batch {
                 Proposals: new Array<Proposal>()
             });
         }
+        for (let i = 0; i < res.Students.length; i++) {
+            this.Students.push({
+                RollNumber: res.Students[i].RollNumber
+            });
+        }
     }
 }
 

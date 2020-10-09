@@ -7,6 +7,9 @@
     "deleteBatch": "http://localhost:8080/api/batch/delete",
     "getBatches": "http://localhost:8080/api/batch/all",
     "addSupervisorToBatch": "http://localhost:8080/api/batch/add/supervisor",
+    "deleteSupervisorFromBatch": "http://localhost:8080/api/batch/delete/supervisor",
+    "addStudentToBatch": "http://localhost:8080/api/batch/add/student",
+    "deleteStudentFromBatch": "http://localhost:8080/api/batch/delete/student",
     "addSupervisor": "http://localhost:8080/api/supervisor/add",
     "deleteSupervisor": "http://localhost:8080/api/supervisor/delete",
     "getSupervisors": "http://localhost:8080/api/supervisor/all"

@@ -7,6 +7,9 @@
     "deleteBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete",
     "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/all",
     "addSupervisorToBatch": "https://aichq-fyp.herokuapp.com/api/batch/add/supervisor",
+    "deleteSupervisorFromBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete/supervisor",
+    "addStudentToBatch": "https://aichq-fyp.herokuapp.com/api/batch/add/student",
+    "deleteStudentFromBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete/student",
     "addSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/add",
     "deleteSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/delete",
     "getSupervisors": "https://aichq-fyp.herokuapp.com/api/supervisor/all"
