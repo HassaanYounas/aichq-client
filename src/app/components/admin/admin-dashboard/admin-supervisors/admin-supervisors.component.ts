@@ -8,8 +8,7 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 
 @Component({
   selector: 'app-admin-supervisors',
-  templateUrl: './admin-supervisors.component.html',
-  styleUrls: ['./admin-supervisors.component.scss']
+  templateUrl: './admin-supervisors.component.html'
 })
 export class AdminSupervisorsComponent implements OnInit {
 

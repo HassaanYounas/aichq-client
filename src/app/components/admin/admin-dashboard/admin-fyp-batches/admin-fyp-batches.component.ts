@@ -6,8 +6,7 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 
 @Component({
   selector: 'app-admin-fyp-batches',
-  templateUrl: './admin-fyp-batches.component.html',
-  styleUrls: ['./admin-fyp-batches.component.scss']
+  templateUrl: './admin-fyp-batches.component.html'
 })
 export class AdminFypBatchesComponent implements OnInit {
 

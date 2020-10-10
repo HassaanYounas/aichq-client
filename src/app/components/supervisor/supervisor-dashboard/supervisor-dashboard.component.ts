@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-supervisor-dashboard',
-  templateUrl: './supervisor-dashboard.component.html',
-  styleUrls: ['./supervisor-dashboard.component.scss']
+  templateUrl: './supervisor-dashboard.component.html'
 })
 export class SupervisorDashboardComponent {
 
-  toggle: boolean = false;
-  currentComponent: number = 2;
+  toggle: Boolean = false;
+  currentComponent: Number = 2;
+  greetingMessage: String = '';
 
   constructor(
     private router: Router
@@ -18,16 +18,16 @@ export class SupervisorDashboardComponent {
     else if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
   }
   
-  
-  changeComponent(currentComponent: number): void {
-    this.currentComponent = currentComponent;
-  }
-
   openMenu(): void {
     this.toggle = true;
   }
 
   closeMenu(): void {
     this.toggle = false;
+  }
+
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['/supervisor/login']);
   }
 }

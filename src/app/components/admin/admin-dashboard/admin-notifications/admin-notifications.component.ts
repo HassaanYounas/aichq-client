@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-notifications',
-  templateUrl: './admin-notifications.component.html',
-  styleUrls: ['./admin-notifications.component.scss']
+  templateUrl: './admin-notifications.component.html'
 })
 export class AdminNotificationsComponent implements OnInit {
 

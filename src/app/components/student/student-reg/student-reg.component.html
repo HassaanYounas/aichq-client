@@ -8,27 +8,27 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <form class="form-signin">
+                <form class="form-signin" [formGroup]="registerStudentOneForm">
                     <h3 class="h3 mb-3 font-weight-normal">Student One Information</h3>
-                    <input type="text" class="form-control" placeholder="Name">
-                    <input type="number" class="form-control mt-2" placeholder="Roll Number">
-                    <input type="email" class="form-control mt-2" placeholder="Email">
-                    <input type="number" class="form-control mt-2" placeholder="CGPA">
-                    <input type="number" class="form-control mt-2" placeholder="Contact Number">
+                    <input formControlName="Name" type="text" class="form-control" placeholder="Name">
+                    <input formControlName="RollNumber" type="number" class="form-control mt-2" placeholder="Roll Number">
+                    <input formControlName="Email" type="email" class="form-control mt-2" placeholder="Email">
+                    <input formControlName="CGPA" type="number" class="form-control mt-2" placeholder="CGPA">
+                    <input formControlName="Contact" type="number" class="form-control mt-2" placeholder="Contact Number">
                 </form>
             </div>
             <div class="carousel-item">
-                <form class="form-signin">
+                <form class="form-signin" [formGroup]="registerStudentTwoForm">
                     <h3 class="h3 mb-3 font-weight-normal">Student Two Information</h3>
-                    <input type="text" class="form-control" placeholder="Name">
-                    <input type="number" class="form-control mt-2" placeholder="Roll Number">
-                    <input type="email" class="form-control mt-2" placeholder="Email">
-                    <input type="number" class="form-control mt-2" placeholder="CGPA">
-                    <input type="number" class="form-control mt-2" placeholder="Contact Number">
+                    <input formControlName="Name" type="text" class="form-control" placeholder="Name">
+                    <input formControlName="RollNumber" type="number" class="form-control mt-2" placeholder="Roll Number">
+                    <input formControlName="Email" type="email" class="form-control mt-2" placeholder="Email">
+                    <input formControlName="CGPA" type="number" class="form-control mt-2" placeholder="CGPA">
+                    <input formControlName="Contact" type="number" class="form-control mt-2" placeholder="Contact Number">
                 </form>
             </div>
             <div class="carousel-item">
-                <form class="form-signin">
+                <form class="form-signin" [formGroup]="registerTeamForm">
                     <h3 class="h3 mb-3 font-weight-normal">Team Information</h3>
                     <input type="text" class="form-control" placeholder="Team Name">
                     <input type="text" class="form-control mt-2" placeholder="Department e.g. CS">

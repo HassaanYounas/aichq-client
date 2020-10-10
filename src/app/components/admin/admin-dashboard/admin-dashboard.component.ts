@@ -7,8 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  templateUrl: './admin-dashboard.component.html'
 })
 export class AdminDashboardComponent {
 
@@ -16,9 +15,9 @@ export class AdminDashboardComponent {
   batches: Batch[];
   supervisors: Supervisor[];
   
-  greetingMessage: string = '';
-  toggle: boolean = false;
-  currentComponent: number = 0;
+  greetingMessage: String = '';
+  toggle: Boolean = false;
+  currentComponent: Number = 0;
 
   constructor(
     private api: ApiService,

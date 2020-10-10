@@ -6,8 +6,7 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 
 @Component({
   selector: 'app-admin-settings',
-  templateUrl: './admin-settings.component.html',
-  styleUrls: ['./admin-settings.component.scss']
+  templateUrl: './admin-settings.component.html'
 })
 export class AdminSettingsComponent implements OnInit {
 

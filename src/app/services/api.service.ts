@@ -4,6 +4,7 @@ import { Admin } from '../models/admin.model';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as API from '../../assets/api.json';
+import { Supervisor } from '../models/supervisor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,13 @@ export class ApiService {
 
   getBatches() {
     return this.requestWithToken({}, API.getBatches);
+  }
+
+  loginSupervisor(supervisor: Supervisor) {
+    const url = API.loginSupervisor;
+    const body = { Username: supervisor.Username, Password: supervisor.Password };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
   }
 
   addSupervisorToBatch(body: any) {

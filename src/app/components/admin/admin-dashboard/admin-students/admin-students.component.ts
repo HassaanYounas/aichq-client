@@ -5,8 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-admin-students',
-  templateUrl: './admin-students.component.html',
-  styleUrls: ['./admin-students.component.scss']
+  templateUrl: './admin-students.component.html'
 })
 export class AdminStudentsComponent implements OnInit {
 
