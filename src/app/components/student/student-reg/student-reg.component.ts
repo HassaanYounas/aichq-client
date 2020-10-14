@@ -94,9 +94,11 @@ export class StudentRegComponent implements OnInit {
       this.validPassword &&
       this.validPasswordConfirm
     ) {
-      if (registerStudentOneFormData.RollNumber === registerStudentTwoFormData.RollNumber)
+      if (registerStudentOneFormData.RollNumber === registerStudentTwoFormData.RollNumber) {
+        this.invalidRegistration = true;
         this.errorMessage = 'Roll numbers cannot be same.';
-      else {
+      } else {
+        this.invalidRegistration = false;
         this.errorMessage = '';
         let batch = registerTeamFormData.BatchID.split('-');
         const body = {
