@@ -17,16 +17,20 @@ export class Batch {
         this.Year = res.Year;
         this.Program = res.Program;
         this.Phase = res.Phase;
-        for (let i = 0; i < res.Supervisors.length; i++) {
-            this.Supervisors.push({
-                Username: res.Supervisors[i].Username,
-                Proposals: new Array<Proposal>()
-            });
+        if ('Supervisors' in res) {
+            for (let i = 0; i < res.Supervisors.length; i++) {
+                this.Supervisors.push({
+                    Username: res.Supervisors[i].Username,
+                    Proposals: new Array<Proposal>()
+                });
+            }
         }
-        for (let i = 0; i < res.Students.length; i++) {
-            this.Students.push({
-                RollNumber: res.Students[i].RollNumber
-            });
+        if ('Students' in res) {
+            for (let i = 0; i < res.Students.length; i++) {
+                this.Students.push({
+                    RollNumber: res.Students[i].RollNumber
+                });
+            }
         }
     }
 }

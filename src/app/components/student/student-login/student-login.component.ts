@@ -21,16 +21,16 @@ export class StudentLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      Username: new FormControl(''),
+      GroupUsername: new FormControl(''),
       Password: new FormControl(''),
     });
   }
 
   onSubmit(formData: any): void {
-    if (formData.Password === '' && formData.Username === '') {
+    if (formData.Password === '' && formData.GroupUsername === '') {
       this.validLogin = false;
       this.errorMessage = 'Username and Password are required.';
-    } else if (formData.Username === '') {
+    } else if (formData.GroupUsername === '') {
       this.validLogin = false;
       this.errorMessage = 'Username cannot be empty.';
     } else if (formData.Password === '') {

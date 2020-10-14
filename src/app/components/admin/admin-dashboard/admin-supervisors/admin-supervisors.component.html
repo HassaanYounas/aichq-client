@@ -11,9 +11,9 @@
                     <div class="modal-body">
                         <form id="addSupervisorForm" [formGroup]="addSupervisorForm" (ngSubmit)="onAddSupervisorFormSubmit(addSupervisorForm.value)">
                             <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
-                            <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid Full Name.</div>
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid full bame.</div>
                             <input formControlName="Username" type="text" class="form-control" placeholder="Username">
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid Username. Valid examples are CS-II or CS-II3.</div>
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid username. Valid examples are CS-II or CS-II3.</div>
                         </form>
                         <div class="text-danger mt-2" [innerHTML]="addSupervisorError"></div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="modal-body">
                         <form id="deleteSupervisorForm" [formGroup]="deleteSupervisorForm" (ngSubmit)="onDeleteSupervisorFormSubmit(deleteSupervisorForm.value)">
                             <input formControlName="Username" type="text" class="form-control" placeholder="Username">
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validDeleteUsername}">Username Cannot be Empty.</div>
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validDeleteUsername}">Username cannot be empty.</div>
                         </form>
                         <div class="text-danger mt-2" [innerHTML]="deleteSupervisorError"></div>
                     </div>

@@ -31,7 +31,7 @@ export class AdminLoginComponent implements OnInit {
   onSubmit(formData: any): void {
     if (formData.Password === '' && formData.Username === '') {
       this.validLogin = false;
-      this.errorMessage = 'Username and Password are required.';
+      this.errorMessage = 'Username and password are required.';
     } else if (formData.Username === '') {
       this.validLogin = false;
       this.errorMessage = 'Username cannot be empty.';

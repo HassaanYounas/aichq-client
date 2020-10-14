@@ -4,37 +4,38 @@
         <ol class="carousel-indicators">
             <li data-target="#studentRegCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#studentRegCarousel" data-slide-to="1"></li>
-            <li data-target="#studentRegCarousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <form class="form-signin" [formGroup]="registerStudentOneForm">
-                    <h3 class="h3 mb-3 font-weight-normal">Student One Information</h3>
-                    <input formControlName="Name" type="text" class="form-control" placeholder="Name">
-                    <input formControlName="RollNumber" type="number" class="form-control mt-2" placeholder="Roll Number">
-                    <input formControlName="Email" type="email" class="form-control mt-2" placeholder="Email">
-                    <input formControlName="CGPA" type="number" class="form-control mt-2" placeholder="CGPA">
-                    <input formControlName="Contact" type="number" class="form-control mt-2" placeholder="Contact Number">
+                    <h3 class="h4 mb-3 font-weight-normal">Team Member 1</h3>
+                    <input formControlName="Name" type="text" class="form-control" placeholder="Full Name">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validStudentOneName}">Invalid full name.</div>
+                    <input formControlName="RollNumber" type="text" class="form-control mt-2" placeholder="Roll Number">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validStudentOneRollNumber}">Invalid roll number.</div>
                 </form>
-            </div>
-            <div class="carousel-item">
                 <form class="form-signin" [formGroup]="registerStudentTwoForm">
-                    <h3 class="h3 mb-3 font-weight-normal">Student Two Information</h3>
-                    <input formControlName="Name" type="text" class="form-control" placeholder="Name">
-                    <input formControlName="RollNumber" type="number" class="form-control mt-2" placeholder="Roll Number">
-                    <input formControlName="Email" type="email" class="form-control mt-2" placeholder="Email">
-                    <input formControlName="CGPA" type="number" class="form-control mt-2" placeholder="CGPA">
-                    <input formControlName="Contact" type="number" class="form-control mt-2" placeholder="Contact Number">
+                    <h3 class="h4 mb-3 font-weight-normal">Team Member 2</h3>
+                    <input formControlName="Name" type="text" class="form-control" placeholder="Full Name">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validStudentTwoName}">Invalid full name.</div>
+                    <input formControlName="RollNumber" type="text" class="form-control mt-2" placeholder="Roll Number">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validStudentTwoRollNumber}">Invalid roll number.</div>
                 </form>
             </div>
             <div class="carousel-item">
-                <form class="form-signin" [formGroup]="registerTeamForm">
-                    <h3 class="h3 mb-3 font-weight-normal">Team Information</h3>
-                    <input type="text" class="form-control" placeholder="Team Name">
-                    <input type="text" class="form-control mt-2" placeholder="Department e.g. CS">
-                    <input type="number" class="form-control mt-2" placeholder="Batch Year e.g. 2020">
-                    <input type="password" class="form-control mt-2" placeholder="Password">
-                    <input type="password" class="form-control mt-2" placeholder="Confirm Password">
+                <form class="form-signin mt-4" [formGroup]="registerTeamForm">
+                    <h3 class="h4 mb-3 font-weight-normal">Team Information</h3>
+                    <select formControlName="BatchID" class="form-control mb-2">
+                        <option selected>Choose Batch</option>
+                        <option *ngFor="let batch of batches">{{ batch.Program }}-{{ batch.Year }}</option>
+                    </select>
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validBatch}">Invalid batch.</div>
+                    <input formControlName="GroupUsername" type="text" class="form-control" placeholder="Group Username">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validGroupUsername}">Invalid group username.</div>
+                    <input formControlName="Password" type="password" class="form-control mt-2" placeholder="Password">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validPassword}">Password length must be at least 8.</div>
+                    <input formControlName="PasswordConfirm" type="password" class="form-control mt-2" placeholder="Confirm Password">
+                    <div class="text-danger my-2" [ngClass]="{'d-none': validPasswordConfirm}">Passwords do not match.</div>
                 </form>
             </div>
         </div>
@@ -47,7 +48,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <button class="btn btn-lg btn-primary mt-2" type="submit" routerLink="/student/dashboard">Register</button>
+    <div class="text-danger my-2" [ngClass]="{'d-none': !invalidRegistration}" [innerHTML]="errorMessage"></div>
+    <div class="text-success my-2" [ngClass]="{'d-none': !validRegistration}" [innerHTML]="successMessage" ></div>
+    <button class="btn btn-lg btn-primary mt-2" type="submit" (click)="submit(registerStudentOneForm.value, registerStudentTwoForm.value, registerTeamForm.value)">Register</button>
     <button class="btn btn-lg btn-danger mt-2" routerLink="/">Back to Home</button>
     <p class="my-3 text-muted">Copyright &copy; 2020</p>
 </div>

@@ -6,6 +6,7 @@
     "promoteBatch": "https://aichq-fyp.herokuapp.com/api/batch/promote",
     "deleteBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete",
     "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/all",
+    "getSlimBatches": "https://aichq-fyp.herokuapp.com/api/batch/all/slim",
     "addSupervisorToBatch": "https://aichq-fyp.herokuapp.com/api/batch/add/supervisor",
     "deleteSupervisorFromBatch": "https://aichq-fyp.herokuapp.com/api/batch/delete/supervisor",
     "addStudentToBatch": "https://aichq-fyp.herokuapp.com/api/batch/add/student",
@@ -13,5 +14,7 @@
     "loginSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/login",
     "addSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/add",
     "deleteSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/delete",
-    "getSupervisors": "https://aichq-fyp.herokuapp.com/api/supervisor/all"
+    "getSupervisors": "https://aichq-fyp.herokuapp.com/api/supervisor/all",
+    "registerGroup": "https://aichq-fyp.herokuapp.com/api/group/reg",
+    "resendTokenGroup": "https://aichq-fyp.herokuapp.com/api/verify/resend"
 }

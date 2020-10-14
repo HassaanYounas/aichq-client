@@ -6,6 +6,7 @@
     "promoteBatch": "http://localhost:8080/api/batch/promote",
     "deleteBatch": "http://localhost:8080/api/batch/delete",
     "getBatches": "http://localhost:8080/api/batch/all",
+    "getSlimBatches": "http://localhost:8080/api/batch/all/slim",
     "addSupervisorToBatch": "http://localhost:8080/api/batch/add/supervisor",
     "deleteSupervisorFromBatch": "http://localhost:8080/api/batch/delete/supervisor",
     "addStudentToBatch": "http://localhost:8080/api/batch/add/student",
@@ -13,5 +14,7 @@
     "loginSupervisor": "http://localhost:8080/api/supervisor/login",
     "addSupervisor": "http://localhost:8080/api/supervisor/add",
     "deleteSupervisor": "http://localhost:8080/api/supervisor/delete",
-    "getSupervisors": "http://localhost:8080/api/supervisor/all"
+    "getSupervisors": "http://localhost:8080/api/supervisor/all",
+    "registerGroup": "http://localhost:8080/api/group/reg",
+    "resendTokenGroup": "http://localhost:8080/api/verify/resend"
 }

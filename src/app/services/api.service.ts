@@ -44,6 +44,10 @@ export class ApiService {
     return this.requestWithToken({}, API.getBatches);
   }
 
+  getSlimBatches() {
+    return this.requestWithToken({}, API.getSlimBatches);
+  }
+
   loginSupervisor(supervisor: Supervisor) {
     const url = API.loginSupervisor;
     const body = { Username: supervisor.Username, Password: supervisor.Password };
@@ -73,6 +77,14 @@ export class ApiService {
 
   getSupervisors() {
     return this.requestWithToken({}, API.getSupervisors);
+  }
+
+  registerGroup(body: any) {
+    return this.requestWithToken(body, API.registerGroup);
+  }
+
+  resendTokenGroup(body: any) {
+    return this.requestWithToken(body, API.resendTokenGroup);
   }
   
   requestWithToken(body: any, url: any) {

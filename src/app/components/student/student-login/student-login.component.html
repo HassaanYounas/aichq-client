@@ -1,7 +1,7 @@
 <div id="login" class="text-center">
   <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onSubmit(loginForm.value)">
       <h1 class="h3 mb-3 font-weight-normal">Student Login</h1>
-      <input formControlName="TeamName" type="text" class="form-control" placeholder="Team Name" required>
+      <input formControlName="GroupUsername" type="text" class="form-control" placeholder="Group Username" required>
       <input formControlName="Password" type="password" class="form-control" placeholder="Password" required>
       <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
