@@ -1,7 +1,17 @@
 <div class="text-dark">
     <div class="container">
-        <h3 class="my-3">Students</h3>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add</button>
+        <div class="row my-3">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Students</h3>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#addStudentModal">Add</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">Upload</button>
+            </div>
+        </div>
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add</button> -->
         <div id="addStudentModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -10,14 +20,38 @@
                     </div>
                     <div class="modal-body">
                         <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
-                            <select formControlName="BatchID" class="form-control mb-2">
-                                <option selected>Choose Batch</option>
-                                <option *ngFor="let batch of batches">{{ batch.Program }}-{{ batch.Year }}</option>
+                            <div class="row">
+                                <div class="col pr-1">
+                                    <input type="text" class="form-control mb-2" placeholder="Full Name">
+                                </div>
+                                <div class="col pl-1">
+                                    <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col pr-1">
+                                    <select class="form-control mb-2">
+                                        <option selected>Choose Department</option>
+                                        <option>Computer Science</option>
+                                        <option>Creative Technologies</option>
+                                        <option>Cybersecurity</option>
+                                    </select>
+                                </div>
+                                <div class="col pl-1">
+                                    <select class="form-control mb-2">
+                                        <option selected>Choose Program</option>
+                                        <option>BSCS</option>
+                                        <option>BSIT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <select class="form-control">
+                                <option selected>Choose FYP Batch</option>
+                                <option>Fall 2017</option>
                             </select>
-                            <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBatch}">Invalid Batch.</div>
-                            <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
+                            <!-- <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBatch}">Invalid Batch.</div> -->
                         </form>
-                        <div class="text-danger mt-2" [innerHTML]="addStudentError"></div>
+                        <!-- <div class="text-danger mt-2" [innerHTML]="addStudentError"></div> -->
                     </div>
                     <div class="modal-footer">
                         <button form="addStudentForm" type="submit" class="btn btn-primary">Add</button>
@@ -26,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteStudentModal">Delete</button>
+        <!-- <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteStudentModal">Delete</button>
         <div id="deleteStudentModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -50,8 +84,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <h5 class="my-3">List of all FYP Students according to Batches:</h5>
+        </div> -->
+        <!-- <h5 class="my-3">List of all FYP Students according to Batches:</h5>
         <div id="accordion" class="mt-3">
             <div class="card" *ngFor="let batch of batches; let i = index">
                 <div class="card-header">
@@ -65,6 +99,67 @@
                     </div>
                 </div>
             </div>  
+        </div> -->
+        <div class="row">
+            <div class="col">
+                <select class="form-control mb-3">
+                    <option selected>Choose Department</option>
+                    <option>Computer Science</option>
+                    <option>Creative Technologies</option>
+                    <option>Cybersecurity</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-control mb-3">
+                    <option selected>Choose Program</option>
+                    <option>BSCS</option>
+                    <option>BSIT</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-control mb-3">
+                    <option selected>Choose FYP Batch</option>
+                    <option>Fall 2017</option>
+                    <option>Fall 2018</option>
+                </select>
+            </div>
+        </div>
+        <h5 class="mb-3">Students of Computer Science department (BSCS Fall 2017):</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Roll Number</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Supervisor</th>
+                        <th scope="col">FYP Phase</th>
+                        <th scope="col">Project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>170273</td>
+                        <td>Muhammad Hassaan Younas</td>
+                        <td>Mr. Imran Ihsan</td>
+                        <td>II</td>
+                        <td>AichQ - FYP Project Management System</td>
+                    </tr>
+                    <tr>
+                        <td>170349</td>
+                        <td>Tehniat</td>
+                        <td>Mr. Imran Ihsan</td>
+                        <td>II</td>
+                        <td>AichQ - FYP Project Management System</td>
+                    </tr>
+                    <tr>
+                        <td>170385</td>
+                        <td>Jazab Murad</td>
+                        <td>Ms. Sidra Siddique</td>
+                        <td>II</td>
+                        <td>Steganographic Malware Detection Tool</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

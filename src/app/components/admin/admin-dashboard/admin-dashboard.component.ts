@@ -17,7 +17,7 @@ export class AdminDashboardComponent {
   
   greetingMessage: String = '';
   toggle: Boolean = false;
-  currentComponent: Number = 1;
+  currentComponent: Number = 2;
 
   constructor(
     private api: ApiService,
