@@ -1,7 +1,16 @@
 <div class="text-dark">
     <div class="container">
-        <h3 class="my-3">Supervisors</h3>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSupervisorModal">Add</button>
+        <div class="row my-3">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Supervisors</h3>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#addSupervisorModal">Add</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSupervisorModal">Upload</button>
+            </div>
+        </div>
         <div id="addSupervisorModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -10,12 +19,45 @@
                     </div>
                     <div class="modal-body">
                         <form id="addSupervisorForm" [formGroup]="addSupervisorForm" (ngSubmit)="onAddSupervisorFormSubmit(addSupervisorForm.value)">
-                            <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
+                            <!-- <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
                             <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid full bame.</div>
                             <input formControlName="Username" type="text" class="form-control" placeholder="Username">
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid username. Valid examples are CS-II or CS-II3.</div>
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validUsername}">Invalid username. Valid examples are CS-II or CS-II3.</div> -->
+                            <div class="form-row align-items-center mb-2">
+                                <div class="col-auto">
+                                    <select class="form-control">
+                                        <option selected>Title</option>
+                                        <option>Mr.</option>
+                                        <option>Dr.</option>
+                                        <option>Ms.</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <select class="form-control">
+                                        <option selected>Designation</option>
+                                        <option>Lecturer</option>
+                                        <option>Assistant Professor</option>
+                                        <option>Associate Professor</option>
+                                        <option>Professor</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-control">
+                                        <option selected>Choose Department</option>
+                                        <option>Computer Science</option>
+                                        <option>Creative Technologies</option>
+                                        <option>Cybersecurity</option>
+                                    </select>
+                                </div>
+                            </div>
+                           
                         </form>
-                        <div class="text-danger mt-2" [innerHTML]="addSupervisorError"></div>
+                        <!-- <div class="text-danger mt-2" [innerHTML]="addSupervisorError"></div> -->
                     </div>
                     <div class="modal-footer">
                         <button form="addSupervisorForm" type="submit" class="btn btn-primary">Add</button>
@@ -24,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteSupervisorModal">Delete</button>
+        <!-- <button type="button" class="btn btn-danger m-3" data-toggle="modal" data-target="#deleteSupervisorModal">Delete</button>
         <div id="deleteSupervisorModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -73,10 +115,103 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+        <!-- <h5 class="my-3">List of all FYP Supervisors:</h5> -->
+        <div class="row">
+            <div class="col">
+                <select class="form-control mb-3">
+                    <option selected>Choose Department</option>
+                    <option>Computer Science</option>
+                    <option>Creative Technologies</option>
+                    <option>Cybersecurity</option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-control mb-3">
+                    <option selected>Choose Program</option>
+                    <option>BSCS</option>
+                    <option>BSIT</option>
+                </select>
+            </div>
         </div>
-        <h5 class="my-3">List of all FYP Supervisors:</h5>
+        <h5 class="mb-3">Supervisors of Computer Science (BSCS) department:</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">FYP-I</th>
+                        <th scope="col">FYP-II</th>
+                        <th scope="col">FYP-III</th>
+                        <th scope="col">Inactive</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr *ngFor="let batch of batches; let i = index">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ batch.Program }}</td>
+                        <td>{{ batch.Year }}</td>
+                        <td>{{ batch.Phase }}</td>
+                    </tr> -->
+                    <tr>
+                        <td>Mr. Atif Muqarrab</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td>                 -->
+                    </tr>
+                    <tr>
+                        <td>Mr. Imran Ihsan</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                <label class="custom-control-label" for="customSwitch2"></label>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td>Mr. Shoaib Malik</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>3(4)</td>
+                        <td>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
+                                <label class="custom-control-label" for="customSwitch3"></label>
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <table class="table">
+    <!-- <table class="table">
         <thead>
             <tr>
                 <th scope="col">No.</th>
@@ -95,8 +230,8 @@
                 </td>
             </tr>
         </tbody>
-    </table>
-    <div id="addSupervisorToBatchModal" class="modal fade" role="dialog">
+    </table> -->
+    <!-- <div id="addSupervisorToBatchModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -114,5 +249,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

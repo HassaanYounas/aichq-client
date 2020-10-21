@@ -40,7 +40,7 @@ export class InputValidationService {
   }
 
   isSupervisorUsername(str: String): Boolean {
-    const regex = /^[A-Z0-9-]+$/;
+    const regex = /^[A-Z0-9_]+$/;
     if (str.match(regex)) {
       if (this.isAlphabetsOnly(str[0]) && this.isAlphabetsOnly(str[1])) {
         if (str[2] === '-') {

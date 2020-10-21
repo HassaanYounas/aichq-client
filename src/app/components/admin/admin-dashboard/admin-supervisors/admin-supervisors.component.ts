@@ -38,9 +38,9 @@ export class AdminSupervisorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.addSupervisorForm = new FormGroup({
-      FullName: new FormControl(''),
-      Username: new FormControl(''),
-      Password: new FormControl('123456789')
+      // FullName: new FormControl(''),
+      // Username: new FormControl(''),
+      // Password: new FormControl('123456789')
     });
     this.deleteSupervisorForm = new FormGroup({
       Username: new FormControl('')
@@ -62,35 +62,35 @@ export class AdminSupervisorsComponent implements OnInit {
   }
 
   onAddSupervisorFormSubmit(formData: any): void {
-    if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
-    else this.validFullName = true;
-    if (!this.validate.isSupervisorUsername(formData.Username)) this.validUsername = false;
-    else this.validUsername = true;
-    if (this.validFullName && this.validUsername) {
-      this.api.addSupervisor(formData).subscribe(
-        (res: any) => {
-          window.location.reload();
-        }, (error: any) => { 
-          this.addSupervisorError = error;
-          setTimeout(() => this.addSupervisorError = '', 3000);
-        }
-      );
-    }
+    // if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
+    // else this.validFullName = true;
+    // if (!this.validate.isSupervisorUsername(formData.Username)) this.validUsername = false;
+    // else this.validUsername = true;
+    // if (this.validFullName && this.validUsername) {
+    //   this.api.addSupervisor(formData).subscribe(
+    //     (res: any) => {
+    //       window.location.reload();
+    //     }, (error: any) => { 
+    //       this.addSupervisorError = error;
+    //       setTimeout(() => this.addSupervisorError = '', 3000);
+    //     }
+    //   );
+    // }
   }
 
   onDeleteSupervisorFormSubmit(formData: any): void {
-    if (formData.Username === '') this.validDeleteUsername = false;
-    else this.validDeleteUsername = true;
-    if (this.validDeleteUsername) {
-      this.api.deleteSupervisor(formData).subscribe(
-        (res: any) => {
-          window.location.reload();
-        }, (error: any) => { 
-          this.deleteSupervisorError = error;
-          setTimeout(() => this.deleteSupervisorError = '', 3000);
-        }
-      );
-    }
+    // if (formData.Username === '') this.validDeleteUsername = false;
+    // else this.validDeleteUsername = true;
+    // if (this.validDeleteUsername) {
+    //   this.api.deleteSupervisor(formData).subscribe(
+    //     (res: any) => {
+    //       window.location.reload();
+    //     }, (error: any) => { 
+    //       this.deleteSupervisorError = error;
+    //       setTimeout(() => this.deleteSupervisorError = '', 3000);
+    //     }
+    //   );
+    // }
   }
 
   setCurrentSupervisor(i: number): void {
@@ -103,17 +103,17 @@ export class AdminSupervisorsComponent implements OnInit {
   }
 
   addSupervisorToBatch(): void {
-    this.api.addSupervisorToBatch({
-      Year: this.currentBatch.Year,
-		  Program: this.currentBatch.Program,
-		  Username: this.currentSupervisor.Username
-    }).subscribe(
-      (res: any) => {
-        window.location.reload();
-      }, (error: any) => { 
-        this.addSupervisorToBatchError = error;
-        setTimeout(() => this.addSupervisorToBatchError = '', 3000);
-      }
-    );
+    // this.api.addSupervisorToBatch({
+    //   Year: this.currentBatch.Year,
+		//   Program: this.currentBatch.Program,
+		//   Username: this.currentSupervisor.Username
+    // }).subscribe(
+    //   (res: any) => {
+    //     window.location.reload();
+    //   }, (error: any) => { 
+    //     this.addSupervisorToBatchError = error;
+    //     setTimeout(() => this.addSupervisorToBatchError = '', 3000);
+    //   }
+    // );
   }
 }

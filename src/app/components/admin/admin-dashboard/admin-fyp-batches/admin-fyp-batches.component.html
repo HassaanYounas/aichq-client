@@ -1,7 +1,9 @@
 <div class="text-dark">
     <div class="container">
-        <h3 class="my-3">FYP Batches</h3>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBatchModal">New</button>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h3>FYP Batches</h3>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newBatchModal">Add</button>
+        </div>
         <div class="modal fade" id="newBatchModal" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -10,12 +12,23 @@
                     </div>
                     <div class="modal-body">
                         <form id="newBatchForm" [formGroup]="newBatchForm" (ngSubmit)="onNewBatchFormSubmit(newBatchForm.value)">
-                            <select formControlName="Year" class="form-control mb-2">
-                                <option selected>Batch Year</option>
-                                <option *ngFor="let year of years">{{ year }}</option>
-                            </select>
-                            <div class="text-danger mb-2" [ngClass]="{'d-none': validYear}">Invalid Year</div>
-                            <input formControlName="Program" type="text" class="form-control mb-2" placeholder="Program e.g. BSCS, BSIT">
+                            <div class="row">
+                                <div class="col pr-1">
+                                    <select class="form-control mb-2">
+                                        <option selected>Session</option>
+                                        <option>Fall</option>
+                                        <option>Spring</option>
+                                    </select>
+                                </div>
+                                <div class="col pl-1">
+                                    <select formControlName="Year" class="form-control mb-2">
+                                        <option selected>Batch Year</option>
+                                        <option *ngFor="let year of years">{{ year }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="text-danger mb-2" [ngClass]="{'d-none': validYear}">Invalid Year</div> -->
+                            <!-- <input formControlName="Program" type="text" class="form-control mb-2" placeholder="Program e.g. BSCS, BSIT">
                             <div class="text-danger mb-2" [ngClass]="{'d-none': validProgram}">Invalid Program</div>
                             <select formControlName="Phase" class="form-control mb-1">
                                 <option selected>FYP Phase</option>
@@ -23,18 +36,29 @@
                                 <option>2</option>
                                 <option>3</option>
                             </select>
-                            <div class="text-danger mb-2" [ngClass]="{'d-none': validPhase}">Invalid Phase</div>
+                            <div class="text-danger mb-2" [ngClass]="{'d-none': validPhase}">Invalid Phase</div> -->
+                            <select class="form-control mb-2">
+                                <option selected>Choose Department</option>
+                                <option>Computer Science</option>
+                                <option>Creative Technologies</option>
+                                <option>Cybersecurity</option>
+                            </select>
+                            <select class="form-control mb-2">
+                                <option selected>Choose Program</option>
+                                <option selected>BSCS</option>
+                                <option>BSIT</option>
+                            </select>
                         </form>
-                        <div class="text-danger mt-2" [innerHTML]="addBatchError"></div>
+                        <!-- <div class="text-danger mt-2" [innerHTML]="addBatchError"></div> -->
                     </div>
                     <div class="modal-footer">
-                        <button form="newBatchForm" type="submit" class="btn btn-primary">Submit</button>
+                        <button form="newBatchForm" type="submit" class="btn btn-primary" data-dismiss="modal">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#promoteBatchModal">Promote Batch</button>
+        <!-- <button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#promoteBatchModal">Promote Batch</button>
         <div class="modal fade" id="promoteBatchModal" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -80,25 +104,113 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+        <select class="form-control mb-3">
+            <option selected>Choose Department</option>
+            <option>Computer Science</option>
+            <option>Creative Technologies</option>
+            <option>Cybersecurity</option>
+        </select>
+        <h5 class="mb-3">Batches of Computer Science department:</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Program</th>
+                        <th scope="col">Batch ID</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Archive</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr *ngFor="let batch of batches; let i = index">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ batch.Program }}</td>
+                        <td>{{ batch.Year }}</td>
+                        <td>{{ batch.Phase }}</td>
+                    </tr> -->
+                    <tr>
+                        <td>BSCS</td>
+                        <td>Fall-2017</td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td>                
+                    </tr>
+                    <tr>
+                        <td>BSIT</td>
+                        <td>Fall-2017</td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BSIT</td>
+                        <td>Fall-2018</td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <h5 class="my-3">List of all FYP Batches:</h5>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Program</th>
-                <th scope="col">Year</th>
-                <th scope="col">Phase</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let batch of batches; let i = index">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{ batch.Program }}</td>
-                <td>{{ batch.Year }}</td>
-                <td>{{ batch.Phase }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="modal fade" id="editBatchModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit FYP Batch</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="editBatchForm" [formGroup]="newBatchForm" (ngSubmit)="onNewBatchFormSubmit(newBatchForm.value)">
+                        <div class="row">
+                            <div class="col pr-1">
+                                <select class="form-control mb-2">
+                                    <option selected>Session</option>
+                                    <option>Fall</option>
+                                    <option>Spring</option>
+                                </select>
+                            </div>
+                            <div class="col pl-1">
+                                <select formControlName="Year" class="form-control mb-2">
+                                    <option selected>Batch Year</option>
+                                    <option *ngFor="let year of years">{{ year }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <select class="form-control mb-2">
+                            <option selected>Choose Program</option>
+                            <option>BSCS</option>
+                            <option>BSIT</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button form="deleteBatchForm" type="submit" class="btn btn-info" data-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="archiveBatchModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure you want to archive this batch?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
