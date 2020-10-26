@@ -19,7 +19,7 @@ export class AdminDashboardComponent {
   
   greetingMessage: String = '';
   toggle: Boolean = false;
-  currentComponent: Number = 1;
+  currentComponent: Number = 0;
 
   constructor(
     private api: ApiService,

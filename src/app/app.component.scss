@@ -3,6 +3,15 @@ html, body {
   overflow: hidden;
 }
 
+.active-dashboard {
+  background: #242424;
+  color: white;
+
+  &:hover {
+    background: #242424;
+  }
+}
+
 .pointer {
   cursor: pointer;
 }

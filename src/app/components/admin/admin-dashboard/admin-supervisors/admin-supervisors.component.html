@@ -99,12 +99,12 @@
             </div>
         </div>
         <form class="mb-3" [formGroup]="departmentSelectForm">
-            <select formControlName="Department" #departmentSelect class="form-control" (change)='onDepartmentFilterSelect(departmentSelect.value)'>
+            <select formControlName="Department" #departmentSelect class="form-control" (change)="onDepartmentFilterSelect(departmentSelect.value)">
                 <option selected>Department</option>
                 <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
             </select>
         </form>
-        <h5 class="mb-3">Supervisors of Computer Science department:</h5>
+        <h5 class="mb-3" [innerHTML]="currentSupervisorsText"></h5>
         <div style="height: 300px; overflow-x: hidden; overflow-y: scroll;">
             <div class="table-responsive">
                 <table class="table table-bordered">

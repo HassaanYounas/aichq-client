@@ -31,7 +31,7 @@
                                 <div class="col pr-1">
                                     <select formControlName="Department" #departmentSelect class="form-control" (change)='onDepartmentSelected(departmentSelect.value)'>
                                         <option selected>Department</option>
-                                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
+                                        <option *ngFor="let department of departments">{{ department.Name }}</option>
                                     </select>
                                 </div>
                                 <div class="col pl-1">
@@ -57,13 +57,13 @@
         <form [formGroup]="batchFilterSelectForm">
             <div class="row mb-3">
                 <div class="col">
-                    <select formControlName="Department" #batchFilterSelect class="form-control" (change)='onBatchFilterSelect(batchFilterSelect.value)'>
+                    <select formControlName="Department" #batchFilterSelect class="form-control" (change)="onBatchFilterSelect(batchFilterSelect.value)">
                         <option selected>Department</option>
                         <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
                     </select>
                 </div>
                 <div class="col">
-                    <select formControlName="Program" #batchFilterCompleteSelect class="form-control" (change)='onBatchFilterCompleteSelect(batchFilterCompleteSelect.value)'>
+                    <select formControlName="Program" #batchFilterCompleteSelect class="form-control" (change)="onBatchFilterCompleteSelect(batchFilterCompleteSelect.value)">
                         <option selected>Program</option>
                         <ng-container *ngIf="departmentFilterSelectBoolean">
                             <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>

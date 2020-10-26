@@ -32,6 +32,7 @@ export class AdminSupervisorsComponent implements OnInit {
   fileUploaded: Boolean = false;
   addSupervisorMessage: String = '';
   addSupervisorBulkMessage: String = '';
+  currentSupervisorsText: String = 'Select a department:';
 
   constructor(
     private api: ApiService,
@@ -62,6 +63,7 @@ export class AdminSupervisorsComponent implements OnInit {
 
   onDepartmentFilterSelect(departmentOption: String): void {
     if (departmentOption !== 'Department') {
+      this.currentSupervisorsText = `Supervisors of ${departmentOption} department:`;
       this.supervisorsView = new Array<SupervisorView>();
       for (let i = 0; i < this.departments.length; i++) {
         if (this.departments[i].Name === departmentOption) {
@@ -70,9 +72,7 @@ export class AdminSupervisorsComponent implements OnInit {
               this.departments[i].Supervisors[j].Active,
               this.departments[i].Supervisors[j].FullName,
               this.departments[i].Supervisors[j].Designation,
-              0, 
-              0, 
-              0
+              0, 0, 0
             );
             this.supervisorsView.push(supervisor);
           }
@@ -137,10 +137,9 @@ export class AdminSupervisorsComponent implements OnInit {
           }
           this.api.addSupervisorsBulk(body).subscribe(
             (res: any) => {
-              console.log('dadsa');
-            }, (error: any) => {
-              // this.addSupervisorResponse(error)
-          });
+              this.addSupervisorBulkMessage = 'Supervisors uploaded successfully.';
+            }, (error: any) => this.addSupervisorBulkMessage = error
+          );
         }, (error: NgxCSVParserError) => console.log(error));
     }
   }

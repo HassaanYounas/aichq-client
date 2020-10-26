@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Batch } from 'src/app/models/batch.model';
+import { Department } from 'src/app/models/department.model';
+import { Program } from 'src/app/models/program.model';
 import { ApiService } from 'src/app/services/api.service';
+import { InputValidationService } from 'src/app/services/input-validation.service';
 
 @Component({
   selector: 'app-admin-students',
@@ -9,69 +11,112 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AdminStudentsComponent implements OnInit {
 
-  @Input() batches: Batch[];
+  @Input() departments: Department[];
+
+  departmentFilterSelect: Department;
+  departmentAddSelect: Department;
+  programFilterSelect: Program;
+  programAddSelect: Program;
 
   addStudentForm: FormGroup;
-  deleteStudentForm: FormGroup;
+  studentFilterSelectForm: FormGroup;
 
-  validAddStudentBatch: Boolean = true;
-  validDeleteStudentBatch: Boolean = true;
+  departmentFilterSelectBoolean: Boolean = false;
+  departmentAddSelectBoolean: Boolean = false;
+  programFilterSelectBoolean: Boolean = false;
+  programAddSelectBoolean: Boolean = false;
+  validAddStudent: Boolean = true;
+  currentStudentsText: String = 'Select above options:';
 
-  addStudentError: String = '';
-  deleteStudentError: String = '';
-
-  constructor(private api: ApiService) { }
+  constructor(
+    private api: ApiService,
+    private validate: InputValidationService
+  ) { }
 
   ngOnInit(): void {
     this.addStudentForm = new FormGroup({
-      BatchID: new FormControl('Choose Batch'),
-      RollNumber: new FormControl('')
+      FullName: new FormControl(''),
+      RollNumber: new FormControl(''),
+      Department: new FormControl('Department'),
+      Program: new FormControl('Program'),
+      Batch: new FormControl('Batch')
     });
-    this.deleteStudentForm = new FormGroup({
-      BatchID: new FormControl('Choose Batch'),
-      RollNumber: new FormControl('')
+    this.studentFilterSelectForm = new FormGroup({
+      Department: new FormControl('Department'),
+      Program: new FormControl('Program'),
+      Batch: new FormControl('Batch')
     });
   }
 
   onAddStudentFormSubmit(formData: any): void {
-    if (formData.BatchID === 'Choose Batch') this.validAddStudentBatch = false;
-    else this.validAddStudentBatch = true;
-    if (this.validAddStudentBatch) {
-      const batchInfo = formData.BatchID.split('-');
-      const body = {
-        Program: batchInfo[0],
-        Year: batchInfo[1],
-        RollNumber: formData.RollNumber
-      };
-      this.api.addStudentToBatch(body).subscribe(
-        (res: any) => {
-          window.location.reload();
-        }, (error: any) => { 
-          this.addStudentError = error;
-          setTimeout(() => this.addStudentError = '', 3000); 
+    if (
+      this.validate.isAlphabetsOnly(formData.FullName) && 
+      formData.RollNumber !== 0 &&
+      formData.Department !== 'Department' &&  
+      formData.Program !== 'Program' &&  
+      formData.Batch !== 'Batch'  
+    ) {
+      this.validAddStudent = true;
+    } else this.validAddStudent = false;
+  }
+
+  onDepartmentAddStudent(departmentOption: String): void {
+    if (departmentOption === 'Department') this.departmentAddSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departments.length; i++) {
+        if (departmentOption === this.departments[i].Name) {
+          this.departmentAddSelect = this.departments[i];
+          this.departmentAddSelectBoolean = true;
         }
-      );
+      }
     }
   }
 
-  onDeleteStudentFormSubmit(formData: any): void {
-    if (formData.BatchID === 'Choose Batch') this.validDeleteStudentBatch = false;
-    else this.validDeleteStudentBatch = true;
-    if (this.validDeleteStudentBatch) {
-      const batchInfo = formData.BatchID.split('-');
-      const body = {
-        Program: batchInfo[0],
-        Year: batchInfo[1],
-        RollNumber: formData.RollNumber
-      };
-      this.api.deleteStudentFromBatch(body).subscribe(
-        (res: any) => {
-          window.location.reload();
-        }, (error: any) => { 
-          this.deleteStudentError = error;
-          setTimeout(() => this.deleteStudentError = '', 3000); 
+  
+  onProgramAddStudent(programOption: String): void {
+    if (programOption === 'Program') this.programAddSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departmentAddSelect.Programs.length; i++) {
+        if (programOption === this.departmentAddSelect.Programs[i].Title) {
+          this.programAddSelect = this.departmentAddSelect.Programs[i];
+          this.programAddSelectBoolean = true;
         }
-      );
+      }
+    }
+  }
+
+  
+  onBatchAddStudent(departmentOption: String): void {
+    
+  }
+
+  onDepartmentSelectFilter(departmentOption: String): void {
+    if (departmentOption === 'Department') this.departmentFilterSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departments.length; i++) {
+        if (departmentOption === this.departments[i].Name) {
+          this.departmentFilterSelect = this.departments[i];
+          this.departmentFilterSelectBoolean = true;
+        }
+      }
+    }
+  }
+
+  onProgramSelectFilter(programOption: String): void {
+    if (programOption === 'Program') this.programFilterSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departmentFilterSelect.Programs.length; i++) {
+        if (programOption === this.departmentFilterSelect.Programs[i].Title) {
+          this.programFilterSelect = this.departmentFilterSelect.Programs[i];
+          this.programFilterSelectBoolean = true;
+        }
+      }
+    }
+  }
+
+  onBatchSelectFilter(batchOption: String): void {
+    if (batchOption !== 'Batch') {
+      this.currentStudentsText = `Students of ${this.departmentFilterSelect.Name} department (${this.programFilterSelect.Title} ${batchOption}):`;
     }
   }
 }

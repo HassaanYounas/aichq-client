@@ -11,7 +11,6 @@
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">Upload</button>
             </div>
         </div>
-        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add</button> -->
         <div id="addStudentModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -22,34 +21,35 @@
                         <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
                             <div class="row">
                                 <div class="col pr-1">
-                                    <input type="text" class="form-control mb-2" placeholder="Full Name">
+                                    <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
                                 </div>
                                 <div class="col pl-1">
                                     <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-2">
                                 <div class="col pr-1">
-                                    <select class="form-control mb-2">
-                                        <option selected>Choose Department</option>
-                                        <option>Computer Science</option>
-                                        <option>Creative Technologies</option>
-                                        <option>Cybersecurity</option>
+                                    <select #departmentAddStudent formControlName="Department" class="form-control" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
+                                        <option selected>Department</option>
+                                        <option *ngFor="let department of departments">{{ department.Name }}</option>
                                     </select>
                                 </div>
                                 <div class="col pl-1">
-                                    <select class="form-control mb-2">
-                                        <option selected>Choose Program</option>
-                                        <option>BSCS</option>
-                                        <option>BSIT</option>
+                                    <select #programAddStudent formControlName="Program" class="form-control" (change)="onProgramAddStudent(programAddStudent.value)">
+                                        <option selected>Program</option>
+                                        <ng-container *ngIf="departmentAddSelectBoolean">
+                                            <option *ngFor="let program of departmentAddSelect.Programs">{{ program.Title }}</option>
+                                        </ng-container>
                                     </select>
                                 </div>
                             </div>
-                            <select class="form-control">
-                                <option selected>Choose FYP Batch</option>
-                                <option>Fall 2017</option>
+                            <select #batchAddStudent formControlName="Batch" class="form-control" (change)="onBatchAddStudent(batchAddStudent.value)">
+                                <option selected>Batch</option>
+                                <ng-container *ngIf="programAddSelectBoolean">
+                                    <option *ngFor="let batch of programAddSelect.Batches">{{ batch.BatchID }}</option>
+                                </ng-container>
                             </select>
-                            <!-- <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBatch}">Invalid Batch.</div> -->
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validAddStudent}">Invalid input.</div>
                         </form>
                         <!-- <div class="text-danger mt-2" [innerHTML]="addStudentError"></div> -->
                     </div>
@@ -60,31 +60,33 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <select class="form-control mb-3">
-                    <option selected>Choose Department</option>
-                    <option>Computer Science</option>
-                    <option>Creative Technologies</option>
-                    <option>Cybersecurity</option>
-                </select>
+        <form [formGroup]="studentFilterSelectForm">
+            <div class="row mb-3">
+                <div class="col">
+                    <select formControlName="Department" #departmentSelectFilter class="form-control" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
+                        <option selected>Department</option>
+                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <select formControlName="Program" #programSelectFilter class="form-control" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                        <option selected>Program</option>
+                        <ng-container *ngIf="departmentFilterSelectBoolean">
+                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col">
+                    <select formControlName="Batch" #batchSelectFilter class="form-control" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                        <option selected>Batch</option>
+                        <ng-container *ngIf="programFilterSelectBoolean">
+                            <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
+                        </ng-container>
+                    </select>
+                </div>
             </div>
-            <div class="col">
-                <select class="form-control mb-3">
-                    <option selected>Choose Program</option>
-                    <option>BSCS</option>
-                    <option>BSIT</option>
-                </select>
-            </div>
-            <div class="col">
-                <select class="form-control mb-3">
-                    <option selected>Choose FYP Batch</option>
-                    <option>Fall 2017</option>
-                    <option>Fall 2018</option>
-                </select>
-            </div>
-        </div>
-        <h5 class="mb-3">Students of Computer Science department (BSCS Fall 2017):</h5>
+        </form>
+        <h5 class="mb-3" [innerHTML]="currentStudentsText">Students of Computer Science department (BSCS Fall 2017):</h5>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -103,20 +105,6 @@
                         <td>Mr. Imran Ihsan</td>
                         <td>II</td>
                         <td>AichQ - FYP Project Management System</td>
-                    </tr>
-                    <tr>
-                        <td>170349</td>
-                        <td>Tehniat</td>
-                        <td>Mr. Imran Ihsan</td>
-                        <td>II</td>
-                        <td>AichQ - FYP Project Management System</td>
-                    </tr>
-                    <tr>
-                        <td>170385</td>
-                        <td>Jazab Murad</td>
-                        <td>Ms. Sidra Siddique</td>
-                        <td>II</td>
-                        <td>Steganographic Malware Detection Tool</td>
                     </tr>
                 </tbody>
             </table>
