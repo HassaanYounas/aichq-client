@@ -117,5 +117,6 @@ export class AdminDashboardComponent {
     this.departments = [];
     this.batches = [];
     this.getDepartments();
+    this.getSupervisors();
   }
 }
