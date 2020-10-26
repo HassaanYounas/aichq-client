@@ -32,21 +32,21 @@ export class InputValidationService {
     return str.match(regex) ? true : false;
   }
 
-  isProgram(str: String): Boolean {
-    if (str.length === 4) {
-      if (str[0] === 'B' && str[1] === 'S')
-        if (this.isAlphabetsOnly(str[2]) && this.isAlphabetsOnly(str[3])) return true;
-    } return false;
-  }
+  // isProgram(str: String): Boolean {
+  //   if (str.length === 4) {
+  //     if (str[0] === 'B' && str[1] === 'S')
+  //       if (this.isAlphabetsOnly(str[2]) && this.isAlphabetsOnly(str[3])) return true;
+  //   } return false;
+  // }
 
-  isSupervisorUsername(str: String): Boolean {
-    const regex = /^[A-Z0-9_]+$/;
-    if (str.match(regex)) {
-      if (this.isAlphabetsOnly(str[0]) && this.isAlphabetsOnly(str[1])) {
-        if (str[2] === '-') {
-          if (this.isAlphabetsOnly(str[3]) && this.isAlphabetsOnly(str[4])) return true;
-        }
-      }
-    } return false;
-  }
+  // isSupervisorUsername(str: String): Boolean {
+  //   const regex = /^[A-Z0-9_]+$/;
+  //   if (str.match(regex)) {
+  //     if (this.isAlphabetsOnly(str[0]) && this.isAlphabetsOnly(str[1])) {
+  //       if (str[2] === '-') {
+  //         if (this.isAlphabetsOnly(str[3]) && this.isAlphabetsOnly(str[4])) return true;
+  //       }
+  //     }
+  //   } return false;
+  // }
 }

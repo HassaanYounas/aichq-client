@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Batch } from 'src/app/models/batch.model';
-import { Supervisor } from 'src/app/models/supervisor.model';
-import { SupervisorBatch } from 'src/app/models/supervisorBatch.model';
+import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Department } from 'src/app/models/department.model';
+import { SupervisorView } from 'src/app/models/supervisor-view.model';
 import { ApiService } from 'src/app/services/api.service';
 import { InputValidationService } from 'src/app/services/input-validation.service';
+
+declare const $: any;
 
 @Component({
   selector: 'app-admin-supervisors',
@@ -12,108 +15,138 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 })
 export class AdminSupervisorsComponent implements OnInit {
 
-  @Input() supervisors: Supervisor[];
-  @Input() batches: Batch[];
+  @Input() departments: Department[];
 
-  supervisorBatches: SupervisorBatch[];
-  currentSupervisor: Supervisor;
-  currentBatch: Batch;
+  supervisorsView: SupervisorView[];
+
+  supervisorsCSV: File = null;
 
   addSupervisorForm: FormGroup;
-  deleteSupervisorForm: FormGroup;
+  addSupervisorBulkForm: FormGroup;
+  departmentSelectForm: FormGroup;
 
+  validEmail: Boolean = true;
   validFullName: Boolean = true;
-  validUsername: Boolean = true;
-  validDeleteUsername: Boolean = true;
-
-  addSupervisorError: String = '';
-  deleteSupervisorError: String = '';
-  addSupervisorToBatchError: String = '';
-  addSupervisorToBatchModalTitle: String = '';
+  validAddSupervisor: Boolean = true;
+  validAddSupervisorBulk: Boolean = true;
+  fileUploaded: Boolean = false;
+  addSupervisorMessage: String = '';
+  addSupervisorBulkMessage: String = '';
 
   constructor(
     private api: ApiService,
-    private validate: InputValidationService
+    private validate: InputValidationService,
+    private spinner: NgxSpinnerService,
+    private ngxCsvParser: NgxCsvParser
   ) { }
 
   ngOnInit(): void {
+    $('.custom-file-input').on('change', function() {
+      let fileName = $(this).val().split('\\').pop();
+      $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+    });
+    this.departmentSelectForm = new FormGroup({
+      Department: new FormControl('Department'),
+    });
     this.addSupervisorForm = new FormGroup({
-      // FullName: new FormControl(''),
-      // Username: new FormControl(''),
-      // Password: new FormControl('123456789')
+      Title: new FormControl('Title'),
+      FullName: new FormControl(''),
+      Email: new FormControl(''),
+      Designation: new FormControl('Designation'),
+      Department: new FormControl('Department'),
     });
-    this.deleteSupervisorForm = new FormGroup({
-      Username: new FormControl('')
+    this.addSupervisorBulkForm = new FormGroup({
+      Department: new FormControl('Department')
     });
-    this.setSupervisorBatches();
   }
 
-  setSupervisorBatches(): void {
-    this.supervisorBatches = new Array<SupervisorBatch>();
-    for (let i = 0; i < this.batches.length; i++) {
-      let sb: SupervisorBatch = new SupervisorBatch();
-      sb.Batch = this.batches[i].Year.toString() + '-' + this.batches[i].Program; 
-      for (let j = 0; j < this.batches[i].Supervisors.length; j++) {
-        for (let k = 0; k < this.supervisors.length; k++)
-          if (this.batches[i].Supervisors[j].Username === this.supervisors[k].Username)
-            sb.Supervisors.push(this.supervisors[k]);
-      } this.supervisorBatches.push(sb);
+  onDepartmentFilterSelect(departmentOption: String): void {
+    if (departmentOption !== 'Department') {
+      this.supervisorsView = new Array<SupervisorView>();
+      for (let i = 0; i < this.departments.length; i++) {
+        if (this.departments[i].Name === departmentOption) {
+          for (let j = 0; j < this.departments[i].Supervisors.length; j++) {
+            const supervisor = new SupervisorView(
+              this.departments[i].Supervisors[j].Active,
+              this.departments[i].Supervisors[j].FullName,
+              this.departments[i].Supervisors[j].Designation,
+              0, 
+              0, 
+              0
+            );
+            this.supervisorsView.push(supervisor);
+          }
+          this.supervisorsView.sort((a, b) => {
+            return (a.Designation > b.Designation) ? 1 : ((b.Designation > a.Designation) ? -1 : 0);
+          });
+        }
+      }
     }
   }
 
   onAddSupervisorFormSubmit(formData: any): void {
-    // if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
-    // else this.validFullName = true;
-    // if (!this.validate.isSupervisorUsername(formData.Username)) this.validUsername = false;
-    // else this.validUsername = true;
-    // if (this.validFullName && this.validUsername) {
-    //   this.api.addSupervisor(formData).subscribe(
-    //     (res: any) => {
-    //       window.location.reload();
-    //     }, (error: any) => { 
-    //       this.addSupervisorError = error;
-    //       setTimeout(() => this.addSupervisorError = '', 3000);
-    //     }
-    //   );
-    // }
+    if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
+    else this.validFullName = true;
+    if (!this.validate.isEmail(formData.Email)) this.validEmail = false;
+    else this.validEmail = true;
+    if (
+      formData.Title === 'Title' || 
+      formData.Department === 'Department' || 
+      formData.Designation === 'Designation'
+    ) {
+      this.validAddSupervisor = false;
+    } else {
+      this.validAddSupervisor = true;
+      this.spinner.show();
+      const body = {
+        FullName: formData.Title + ' ' + formData.FullName,
+        Email: formData.Email,
+        Department: formData.Department,
+        Designation: formData.Designation
+      }
+      this.api.addSupervisor(body).subscribe(
+        (res: any) => {
+          this.addSupervisorResponse('Supervisor added successfully.');
+        }, (error: any) => this.addSupervisorResponse(error)
+      );
+      setTimeout(() => this.addSupervisorMessage = '', 4000);
+    }
   }
 
-  onDeleteSupervisorFormSubmit(formData: any): void {
-    // if (formData.Username === '') this.validDeleteUsername = false;
-    // else this.validDeleteUsername = true;
-    // if (this.validDeleteUsername) {
-    //   this.api.deleteSupervisor(formData).subscribe(
-    //     (res: any) => {
-    //       window.location.reload();
-    //     }, (error: any) => { 
-    //       this.deleteSupervisorError = error;
-    //       setTimeout(() => this.deleteSupervisorError = '', 3000);
-    //     }
-    //   );
-    // }
+  addSupervisorResponse(message: String): void {
+    setTimeout(() => { 
+      this.spinner.hide();
+      this.addSupervisorMessage = message;
+    }, 1000);
   }
 
-  setCurrentSupervisor(i: number): void {
-    this.currentSupervisor = this.supervisors[i];
-    this.addSupervisorToBatchModalTitle = 'Add ' + this.currentSupervisor.FullName + ' to an FYP Batch';
+  onAddSupervisorBulkFormSubmit(formData: any): void {
+    if (formData.Department === 'Department' || !this.fileUploaded) this.validAddSupervisorBulk = false;
+    else {
+      this.validAddSupervisorBulk = true;
+      this.ngxCsvParser.parse(this.supervisorsCSV, { header: true, delimiter: ',' })
+        .pipe().subscribe((result: Array<any>) => {
+          const body = [];
+          for (let i = 0; i < result.length; i++) {
+            body.push({
+                FullName: result[i].FullName,
+                Email: result[i].Email,
+                Department: formData.Department,
+                Designation: result[i].Designation
+            });
+          }
+          this.api.addSupervisorsBulk(body).subscribe(
+            (res: any) => {
+              console.log('dadsa');
+            }, (error: any) => {
+              // this.addSupervisorResponse(error)
+          });
+        }, (error: NgxCSVParserError) => console.log(error));
+    }
   }
 
-  setCurrentBatch(i: number): void {
-    this.currentBatch = this.batches[i];
-  }
-
-  addSupervisorToBatch(): void {
-    // this.api.addSupervisorToBatch({
-    //   Year: this.currentBatch.Year,
-		//   Program: this.currentBatch.Program,
-		//   Username: this.currentSupervisor.Username
-    // }).subscribe(
-    //   (res: any) => {
-    //     window.location.reload();
-    //   }, (error: any) => { 
-    //     this.addSupervisorToBatchError = error;
-    //     setTimeout(() => this.addSupervisorToBatchError = '', 3000);
-    //   }
-    // );
+  handleFileInput(files: FileList): void { 
+    this.supervisorsCSV = files[0];
+    this.fileUploaded = true;
   }
 }

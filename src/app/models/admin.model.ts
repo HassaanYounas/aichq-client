@@ -3,9 +3,9 @@ export class Admin {
     Username: String;
     Password: String;
 
-    constructor() {
-        this.FullName = '';
-        this.Username = '';
+    constructor(res: any) {
+        this.FullName = res.FullName;
+        this.Username = res.Username;
         this.Password = '';
     }
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BatchView } from 'src/app/models/batch-view.model';
 import { Batch } from 'src/app/models/batch.model';
+import { Department } from 'src/app/models/department.model';
 import { ApiService } from 'src/app/services/api.service';
-import { InputValidationService } from 'src/app/services/input-validation.service';
 
 @Component({
   selector: 'app-admin-fyp-batches',
@@ -10,108 +12,131 @@ import { InputValidationService } from 'src/app/services/input-validation.servic
 })
 export class AdminFypBatchesComponent implements OnInit {
 
-  @Input() batches: Batch[];
+  @Input() departments: Department[];
+  @Output() updateBatches: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
+  batchView: BatchView[];
+  selectedDepartment: Department;
+  departmentFilterSelect: Department;
 
   years: Number[];
-  validYear: Boolean = true;
-  validProgram: Boolean = true;
-  validPhase: Boolean = true;
-  validPromoteBatch: Boolean = true;
-  validDeleteBatchYear: Boolean = true;
-  validDeleteBatchProgram: Boolean = true;
+  validAddBatch: Boolean = true;
+  selectedDepartmentBoolean: Boolean = false;
+  departmentFilterSelectBoolean: Boolean = false;
+  addBatchMessage: String = '';
+  currentBatchesText: String = 'Select above options:';
 
-  addBatchError: String = '';
-  promoteBatchError: String = '';
-  deleteBatchError: String = '';
-
-  newBatchForm: FormGroup;
-  promoteBatchForm: FormGroup;
-  deleteBatchForm: FormGroup;
+  addBatchForm: FormGroup;
+  batchFilterSelectForm: FormGroup;
 
   constructor(
     private api: ApiService,
-    private validate: InputValidationService
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     let year = new Date().getFullYear() - 5;
     this.years = new Array<Number>(8);
     for (let i = 0; i < 8; i++) this.years[i] = year++;
-    this.newBatchForm = new FormGroup({
-      Year: new FormControl('Batch Year'),
-      Program: new FormControl(''),
-      Phase: new FormControl('FYP Phase')
+    this.addBatchForm = new FormGroup({
+      Session: new FormControl('Session'),
+      Year: new FormControl('Year'),
+      Department: new FormControl('Department'),
+      Program: new FormControl('Program')
     });
-    this.promoteBatchForm = new FormGroup({
-      BatchID: new FormControl('')
-    });
-    this.deleteBatchForm = new FormGroup({
-      Year: new FormControl(''),
-      Program: new FormControl('')
+    this.batchFilterSelectForm = new FormGroup({
+      Department: new FormControl('Department'),
+      Program: new FormControl('Program')
     });
   }
 
-  onNewBatchFormSubmit(formData: any): void {
-    // if (formData.Year === 'Batch Year') this.validYear = false;
-    // else this.validYear = true;
-    // if (!this.validate.isProgram(formData.Program) || formData.Program === '') 
-    //   this.validProgram = false;
-    // else this.validProgram = true;
-    // if (formData.Phase === 'FYP Phase') this.validPhase = false;
-    // else this.validPhase = true;
-    // if (this.validYear && this.validProgram && this.validPhase) {
-    //   this.api.createBatch(formData).subscribe(
-    //     (res: any) => {
-    //       window.location.reload();
-    //     }, (error: any) => {
-    //       this.addBatchError = error;
-    //       setTimeout(() => this.addBatchError = '', 3000); 
-    //     }
-    //   );
-    // }
+  onAddBatchFormSubmit(formData: any): void {
+    if (
+      formData.Session !== 'Session' &&
+      formData.Year !== 'Year' &&
+      formData.Department !== 'Department' &&
+      formData.Program !== 'Program'
+    ) {
+      this.spinner.show();
+      this.api.addBatch(formData).subscribe(
+        (res: any) => {
+          this.addBatchResponse('Batch added successfully.');
+          this.addBatchForm.controls['Session'].setValue('Session');
+          this.addBatchForm.controls['Year'].setValue('Year');
+          this.addBatchForm.controls['Department'].setValue('Department');
+          this.addBatchForm.controls['Program'].setValue('Program');
+          this.batchView = [];
+          this.updateBatches.emit(true);
+          setTimeout(() => {
+            this.batchFilterSelectForm.controls['Department'].setValue(formData.Department);
+            this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);
+            this.onBatchFilterSelect(formData.Department);
+            this.onBatchFilterCompleteSelect(formData.Program);
+          }, 1000);
+        }, (error: any) => this.addBatchResponse(error)
+      );
+      this.validAddBatch = true;
+      setTimeout(() => this.addBatchMessage = '', 4000);
+    } else this.validAddBatch = false;
+    setTimeout(() => this.validAddBatch = true, 3000);
   }
 
-  onPromoteBatchFormSubmit(formData: any): void {
-    // const batchInfo = formData.BatchID.split('-');
-    // if (batchInfo.length === 1) this.validPromoteBatch = false;
-    // else {
-    //   this.validPromoteBatch = true;
-    //   let phase: number = 1;
-    //   this.batches.forEach(batch => {
-    //     if (batch.Program === batchInfo[0] && batch.Year === Number(batchInfo[1])) {
-    //       phase = batch.Phase.valueOf();
-    //       if (phase !== 3) {
-    //         const body = {
-    //           Program: batchInfo[0],
-    //           Year: batchInfo[1],
-    //           Phase: ++phase
-    //         };
-    //         this.api.promoteBatch(body).subscribe(
-    //           (res: any) => {
-    //             window.location.reload();
-    //           }, (error: any) => { console.log(error); }
-    //         );
-    //       } else this.promoteBatchError = 'Batch is Already in Last Phase.';
-    //       return;
-    //     }
-    //   });
-    // }
+  addBatchResponse(message: String): void {
+    setTimeout(() => { 
+      this.spinner.hide();
+      this.addBatchMessage = message;
+    }, 1000);
   }
 
-  onDeleteBatchFormSubmit(formData: any): void {
-    // if (formData.Year === '') this.validDeleteBatchYear = false;
-    // else this.validDeleteBatchYear = true;
-    // if (formData.Program === '') this.validDeleteBatchProgram = false;
-    // else this.validDeleteBatchProgram = true;
-    // if (this.validDeleteBatchYear && this.validDeleteBatchProgram) {
-    //   this.api.deleteBatch(formData).subscribe(
-    //     (res: any) => {
-    //       window.location.reload();
-    //     }, (error: any) => {
-    //       this.deleteBatchError = error;
-    //       setTimeout(() => this.deleteBatchError = '', 3000); 
-    //     }
-    //   );
-    // }
+  onBatchFilterSelect(departmentOption: String): void {
+    if (departmentOption === 'Department') this.departmentFilterSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departments.length; i++) {
+        if (departmentOption === this.departments[i].Name) {
+          this.departmentFilterSelect = this.departments[i];
+          this.departmentFilterSelectBoolean = true;
+        }
+      }
+    } this.currentBatchesText = 'Select above options:';
+  }
+
+  onBatchFilterCompleteSelect(programOption: String): void {
+    if (programOption === 'Program') this.selectedDepartmentBoolean = false;
+    else {
+      this.currentBatchesText = 
+        `Batches of ${this.departmentFilterSelect.Name} department (${programOption}):`;
+      for (let i = 0; i < this.departments.length; i++) {
+        if (this.departments[i].Name === this.departmentFilterSelect.Name) {
+          for (let j = 0; j < this.departments[i].Programs.length; j++) {
+            if (this.departments[i].Programs[j].Title === programOption) {
+              this.batchView = new Array<BatchView>();
+              for (let k = 0; k < this.departments[i].Programs[j].Batches.length; k++) {
+                if (this.departments[i].Programs[j].Batches[k].Archived === false) {
+                  this.batchView.push(new BatchView(
+                    this.departments[i].Programs[j].Title,
+                    this.departments[i].Programs[j].Batches[k].BatchID
+                  ));
+                }
+              }
+              this.batchView.sort((a, b) => {
+                return (a.BatchID > b.BatchID) ? 1 : ((b.BatchID > a.BatchID) ? -1 : 0);
+              });
+            }
+          }
+        }
+      }
+    }
+  }
+
+  onDepartmentSelected(departmentOption: String): void {
+    if (departmentOption === 'Department') this.selectedDepartmentBoolean = false;
+    else {
+      for (let i = 0; i < this.departments.length; i++) {
+        if (departmentOption === this.departments[i].Name) {
+          this.selectedDepartment = this.departments[i];
+          this.selectedDepartmentBoolean = true;
+        }
+      }
+    }
   }
 }

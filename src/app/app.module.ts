@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 import { AppComponent } from './app.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
@@ -44,7 +46,9 @@ import { AdminNotificationsComponent } from './components/admin/admin-dashboard/
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxCsvParserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

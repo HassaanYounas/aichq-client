@@ -10,5 +10,4 @@ export class AdminGroupsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

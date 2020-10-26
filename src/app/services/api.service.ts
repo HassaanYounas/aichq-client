@@ -28,18 +28,18 @@ export class ApiService {
     return this.requestWithToken({}, API.getAdmin);
   }
 
-  createBatch(body: any) {
-    return this.requestWithToken(body, API.createBatch);
+  addDepartment(body: any) {
+    return this.requestWithToken(body, API.addDepartment);
   }
 
-  promoteBatch(body: any) {
-    return this.requestWithToken(body, API.promoteBatch);
+  getDepartment() {
+    return this.requestWithToken({}, API.getDepartment);
   }
 
-  deleteBatch(body: any) {
-    return this.requestWithToken(body, API.deleteBatch);
+  addBatch(body: any) {
+    return this.requestWithToken(body, API.addBatch);
   }
-
+  
   getBatches() {
     return this.requestWithToken({}, API.getBatches);
   }
@@ -50,7 +50,7 @@ export class ApiService {
 
   loginSupervisor(supervisor: Supervisor) {
     const url = API.loginSupervisor;
-    const body = { Username: supervisor.Username, Password: supervisor.Password };
+    const body = { Email: supervisor.Email, Password: supervisor.Password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
   }
@@ -69,6 +69,10 @@ export class ApiService {
 
   addSupervisor(body: any) {
     return this.requestWithToken(body, API.addSupervisor);
+  }
+  
+  addSupervisorsBulk(body: any) {
+    return this.requestWithToken(body, API.addSupervisorsBulk);
   }
 
   deleteSupervisor(body: any) {
