@@ -13,12 +13,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  loginAdmin(admin: Admin) {
-    const url = API.loginAdmin;
-    const body = { Username: admin.Username, Password: admin.Password };
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
-  }
+  
 
   updateAdmin(body: any) {
     return this.requestWithToken(body, API.updateAdmin);
@@ -44,39 +39,12 @@ export class ApiService {
     return this.requestWithToken({}, API.getBatches);
   }
 
-  getSlimBatches() {
-    return this.requestWithToken({}, API.getSlimBatches);
-  }
-
-  loginSupervisor(supervisor: Supervisor) {
-    const url = API.loginSupervisor;
-    const body = { Email: supervisor.Email, Password: supervisor.Password };
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
-  }
-
-  addSupervisorToBatch(body: any) {
-    return this.requestWithToken(body, API.addSupervisorToBatch);
-  }
-
-  addStudentToBatch(body: any) {
-    return this.requestWithToken(body, API.addStudentToBatch);
-  }
-
-  deleteStudentFromBatch(body: any) {
-    return this.requestWithToken(body, API.deleteStudentFromBatch);
-  }
-
   addSupervisor(body: any) {
     return this.requestWithToken(body, API.addSupervisor);
   }
   
   addSupervisorsBulk(body: any) {
     return this.requestWithToken(body, API.addSupervisorsBulk);
-  }
-
-  deleteSupervisor(body: any) {
-    return this.requestWithToken(body, API.deleteSupervisor);
   }
 
   getSupervisors() {
@@ -90,12 +58,34 @@ export class ApiService {
   resendTokenGroup(body: any) {
     return this.requestWithToken(body, API.resendTokenGroup);
   }
+
+  addStudent(body: any) {
+    return this.requestWithToken(body, API.addStudent);
+  }
   
+  getStudents() {
+    return this.requestWithToken({}, API.getStudents);
+  }
+
   requestWithToken(body: any, url: any) {
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
+    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+  }
+
+  loginAdmin(admin: Admin) {
+    const url = API.loginAdmin;
+    const body = { Username: admin.Username, Password: admin.Password };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+  }
+  
+  loginSupervisor(supervisor: Supervisor) {
+    const url = API.loginSupervisor;
+    const body = { Email: supervisor.Email, Password: supervisor.Password };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
   }
 

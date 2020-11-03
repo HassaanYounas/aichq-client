@@ -1,0 +1,38 @@
+<div class="text-dark">
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>FYP Groups</h3>
+                </div>
+            </div>
+        </div>
+        <form [formGroup]="groupFilterSelectForm">
+            <div class="row mb-3">
+                <div class="col">
+                    <select formControlName="Department" #departmentSelectFilter class="form-control" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
+                        <option selected>Department</option>
+                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <select formControlName="Program" #programSelectFilter class="form-control" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                        <option selected>Program</option>
+                        <ng-container *ngIf="departmentFilterSelectBoolean">
+                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col">
+                    <select formControlName="Batch" #batchSelectFilter class="form-control" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                        <option selected>Batch</option>
+                        <ng-container *ngIf="programFilterSelectBoolean">
+                            <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <h5 class="mb-3" [innerHTML]="currentGroupsText"></h5>
+    </div>
+</div>

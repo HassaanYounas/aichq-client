@@ -37,10 +37,10 @@
             </div>
         </nav>
         <div class="page-content" (click)="closeMenu()">
-            <app-admin-fyp-batches (updateBatches)='updateBatches($event)' *ngIf="currentComponent === 0" [departments]="departments"></app-admin-fyp-batches>
-            <app-admin-supervisors *ngIf="currentComponent === 1" [departments]="departments"></app-admin-supervisors>
+            <app-admin-fyp-batches (updateData)='updateData($event)' *ngIf="currentComponent === 0" [departments]="departments"></app-admin-fyp-batches>
+            <app-admin-supervisors (updateData)='updateData($event)' *ngIf="currentComponent === 1" [departments]="departments"></app-admin-supervisors>
             <app-admin-students *ngIf="currentComponent === 2" [departments]="departments"></app-admin-students>
-            <app-admin-groups *ngIf="currentComponent === 3"></app-admin-groups>
+            <app-admin-groups *ngIf="currentComponent === 3" [departments]="departments"></app-admin-groups>
             <app-admin-notifications *ngIf="currentComponent === 4"></app-admin-notifications>
             <app-admin-settings *ngIf="currentComponent === 5" [admin]="admin"></app-admin-settings>
         </div>

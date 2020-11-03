@@ -51,12 +51,6 @@ export class StudentRegComponent implements OnInit {
       Password: new FormControl(''),
       PasswordConfirm: new FormControl('')
     });
-    this.api.getSlimBatches().subscribe(
-      (res: any) => {
-        this.batches = new Array<Batch>();
-        this.setBatches(res);
-      }, (error: any) => { console.log(error); }
-    );
   }
 
   submit(registerStudentOneFormData, registerStudentTwoFormData, registerTeamFormData) {
@@ -138,11 +132,11 @@ export class StudentRegComponent implements OnInit {
     }
   }
 
-  setBatches(res: any) {
-    res.forEach(e => {
-      let batch = new Batch();
-      batch.assignValues(e);
-      this.batches.push(batch);
-    });
-  }
+  // setBatches(res: any) {
+  //   res.forEach(e => {
+  //     let batch = new Batch();
+  //     batch.assignValues(e);
+  //     this.batches.push(batch);
+  //   });
+  // }
 }

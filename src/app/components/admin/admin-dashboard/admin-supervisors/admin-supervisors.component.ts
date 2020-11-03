@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,6 +16,7 @@ declare const $: any;
 export class AdminSupervisorsComponent implements OnInit {
 
   @Input() departments: Department[];
+  @Output() updateData: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   supervisorsView: SupervisorView[];
 
@@ -107,6 +108,13 @@ export class AdminSupervisorsComponent implements OnInit {
       this.api.addSupervisor(body).subscribe(
         (res: any) => {
           this.addSupervisorResponse('Supervisor added successfully.');
+          this.addSupervisorForm.controls['Title'].setValue('Title');
+          this.addSupervisorForm.controls['FullName'].setValue('');
+          this.addSupervisorForm.controls['Email'].setValue('');
+          this.addSupervisorForm.controls['Designation'].setValue('Designation');
+          this.addSupervisorForm.controls['Department'].setValue('Department');
+          this.supervisorsView = [];
+          this.updateData.emit(true);
         }, (error: any) => this.addSupervisorResponse(error)
       );
       setTimeout(() => this.addSupervisorMessage = '', 4000);
@@ -135,13 +143,24 @@ export class AdminSupervisorsComponent implements OnInit {
                 Designation: result[i].Designation
             });
           }
+          this.spinner.show();
           this.api.addSupervisorsBulk(body).subscribe(
             (res: any) => {
-              this.addSupervisorBulkMessage = 'Supervisors uploaded successfully.';
-            }, (error: any) => this.addSupervisorBulkMessage = error
+              this.addSupervisorsBulkResponse('Supervisors uploaded successfully.');
+              this.supervisorsView = [];
+              this.updateData.emit(true);
+            }, (error: any) => this.addSupervisorsBulkResponse(error)
           );
+          setTimeout(() => this.addSupervisorBulkMessage = '', 4000);
         }, (error: NgxCSVParserError) => console.log(error));
     }
+  }
+
+  addSupervisorsBulkResponse(message: String): void {
+    setTimeout(() => { 
+      this.spinner.hide();
+      this.addSupervisorBulkMessage = message;
+    }, 1000);
   }
 
   handleFileInput(files: FileList): void { 

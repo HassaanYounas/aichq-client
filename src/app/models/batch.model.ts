@@ -5,15 +5,7 @@ export class Batch {
     Department: String;
 	Program: String;
 
-    constructor() {
-        this.Archived = false;
-        this.Session = '';
-        this.Year = '';
-        this.Department= '';
-        this.Program = '';
-    }
-
-    assignValues(res: any): void {
+    constructor(res: any) {
         this.Archived = res.Archived;
         this.Session = res.Session;
         this.Year = res.Year;

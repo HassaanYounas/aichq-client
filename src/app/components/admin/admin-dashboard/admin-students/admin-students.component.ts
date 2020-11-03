@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Department } from 'src/app/models/department.model';
 import { Program } from 'src/app/models/program.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -27,8 +28,10 @@ export class AdminStudentsComponent implements OnInit {
   programAddSelectBoolean: Boolean = false;
   validAddStudent: Boolean = true;
   currentStudentsText: String = 'Select above options:';
+  addStudentMessage: String = '';
 
   constructor(
+    private spinner: NgxSpinnerService,
     private api: ApiService,
     private validate: InputValidationService
   ) { }
@@ -56,8 +59,35 @@ export class AdminStudentsComponent implements OnInit {
       formData.Program !== 'Program' &&  
       formData.Batch !== 'Batch'  
     ) {
+      this.spinner.show();
+      this.api.addStudent({
+        Department: formData.Department,
+        Program: formData.Program,
+        Session: formData.Batch.split('-')[0],
+        Year: formData.Batch.split('-')[1],
+        FullName: formData.FullName,
+        RollNumber: formData.RollNumber.toString()
+      }).subscribe(
+        (res: any) => {
+          this.addStudentResponse('Student added successfully.');
+          this.addStudentForm.controls['Batch'].setValue('Batch');
+          this.addStudentForm.controls['Department'].setValue('Department');
+          this.addStudentForm.controls['Program'].setValue('Program');
+          this.addStudentForm.controls['FullName'].setValue('');
+          this.addStudentForm.controls['RollNumber'].setValue('');
+          // this.updateBatches.emit(true);
+        }, (error: any) => this.addStudentResponse(error)
+      );
       this.validAddStudent = true;
+      setTimeout(() => this.addStudentMessage = '', 4000);
     } else this.validAddStudent = false;
+  }
+
+  addStudentResponse(message: String): void {
+    setTimeout(() => { 
+      this.spinner.hide();
+      this.addStudentMessage = message;
+    }, 1000);
   }
 
   onDepartmentAddStudent(departmentOption: String): void {

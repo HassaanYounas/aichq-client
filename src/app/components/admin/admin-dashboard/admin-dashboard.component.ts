@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Admin } from 'src/app/models/admin.model';
 import { Batch } from 'src/app/models/batch.model';
 import { Department } from 'src/app/models/department.model';
+import { Student } from 'src/app/models/student.model';
 import { Supervisor } from 'src/app/models/supervisor.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -16,6 +17,7 @@ export class AdminDashboardComponent {
   batches: Batch[];
   departments: Department[];
   supervisors: Supervisor[];
+  students: Student[];
   
   greetingMessage: String = '';
   toggle: Boolean = false;
@@ -25,8 +27,10 @@ export class AdminDashboardComponent {
     private api: ApiService,
     private router: Router
   ) {
-    if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
-    else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
+    if (localStorage.getItem('type') === 'Student') 
+      this.router.navigate(['/student/dashboard']);
+    else if (localStorage.getItem('type') === 'Supervisor') 
+      this.router.navigate(['/supervisor/dashboard']);
     this.api.getAdmin().subscribe(
       (res: any) => {
         this.admin = new Admin(res);
@@ -36,8 +40,10 @@ export class AdminDashboardComponent {
     this.batches = new Array<Batch>();
     this.departments = new Array<Department>();
     this.supervisors = new Array<Supervisor>();
+    this.students = new Array<Student>();
     this.getDepartments();
     this.getSupervisors();
+    this.getStudents();
   }
   
   changeComponent(currentComponent: number): void {
@@ -89,6 +95,13 @@ export class AdminDashboardComponent {
     );
   }
 
+  getStudents(): void {
+    this.api.getStudents().subscribe(
+      (res: any) => this.setStudents(res),
+      (error: any) => { console.log(error); }
+    );
+  }
+
   setDepartments(res: any) {
     res.forEach(e => {
       let department = new Department();
@@ -106,14 +119,14 @@ export class AdminDashboardComponent {
   }
 
   setBatches(res: any) {
-    res.forEach(e => {
-      let batch = new Batch();
-      batch.assignValues(e);
-      this.batches.push(batch);
-    });
+    res.forEach(e => this.batches.push(new Batch(e)));
   }
 
-  updateBatches(update: any): void {
+  setStudents(res: any) {
+    res.forEach(e => this.students.push(new Student(e)));
+  }
+
+  updateData(update: any): void {
     this.departments = [];
     this.batches = [];
     this.getDepartments();

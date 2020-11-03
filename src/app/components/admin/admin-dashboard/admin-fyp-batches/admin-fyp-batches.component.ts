@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BatchView } from 'src/app/models/batch-view.model';
-import { Batch } from 'src/app/models/batch.model';
 import { Department } from 'src/app/models/department.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -13,7 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class AdminFypBatchesComponent implements OnInit {
 
   @Input() departments: Department[];
-  @Output() updateBatches: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Output() updateData: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   batchView: BatchView[];
   selectedDepartment: Department;
@@ -66,7 +65,7 @@ export class AdminFypBatchesComponent implements OnInit {
           this.addBatchForm.controls['Department'].setValue('Department');
           this.addBatchForm.controls['Program'].setValue('Program');
           this.batchView = [];
-          this.updateBatches.emit(true);
+          this.updateData.emit(true);
           setTimeout(() => {
             this.batchFilterSelectForm.controls['Department'].setValue(formData.Department);
             this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);

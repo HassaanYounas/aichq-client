@@ -17,7 +17,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Add Student</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body pb-2">
                         <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
                             <div class="row">
                                 <div class="col pr-1">
@@ -51,7 +51,7 @@
                             </select>
                             <div class="text-danger mt-2" [ngClass]="{'d-none': validAddStudent}">Invalid input.</div>
                         </form>
-                        <!-- <div class="text-danger mt-2" [innerHTML]="addStudentError"></div> -->
+                        <div class="mt-2" [ngClass]="(addStudentMessage === 'Student added successfully.')?'text-success':'text-danger'" [innerHTML]="addStudentMessage"></div>
                     </div>
                     <div class="modal-footer">
                         <button form="addStudentForm" type="submit" class="btn btn-primary">Add</button>
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </form>
-        <h5 class="mb-3" [innerHTML]="currentStudentsText">Students of Computer Science department (BSCS Fall 2017):</h5>
+        <h5 class="mb-3" [innerHTML]="currentStudentsText"></h5>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -109,5 +109,8 @@
                 </tbody>
             </table>
         </div>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
+            <p style="color: white">Loading...</p>
+        </ngx-spinner>
     </div>
 </div>
