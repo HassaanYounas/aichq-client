@@ -5,6 +5,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as API from '../../assets/api.json';
 import { Supervisor } from '../models/supervisor.model';
+import { Group } from '../models/group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,6 @@ import { Supervisor } from '../models/supervisor.model';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-
-  
 
   updateAdmin(body: any) {
     return this.requestWithToken(body, API.updateAdmin);
@@ -55,10 +54,6 @@ export class ApiService {
     return this.requestWithToken(body, API.registerGroup);
   }
 
-  resendTokenGroup(body: any) {
-    return this.requestWithToken(body, API.resendTokenGroup);
-  }
-
   addStudent(body: any) {
     return this.requestWithToken(body, API.addStudent);
   }
@@ -85,6 +80,13 @@ export class ApiService {
   loginSupervisor(supervisor: Supervisor) {
     const url = API.loginSupervisor;
     const body = { Email: supervisor.Email, Password: supervisor.Password };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+  }
+
+  loginGroup(group: Group) {
+    const url = API.loginGroup;
+    const body = { Username: group.Username, Password: group.Password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
   }

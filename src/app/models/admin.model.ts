@@ -6,6 +6,5 @@ export class Admin {
     constructor(res: any) {
         this.FullName = res.FullName;
         this.Username = res.Username;
-        this.Password = '';
     }
 }

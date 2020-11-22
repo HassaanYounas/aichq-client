@@ -7,7 +7,6 @@ export class Department {
     Supervisors: Supervisor[];
 
     constructor() {
-        this.Name = '';
         this.Programs = new Array<Program>();
         this.Supervisors = new Array<Supervisor>();
     }

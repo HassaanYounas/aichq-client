@@ -114,7 +114,6 @@ export class AdminStudentsComponent implements OnInit {
       }
     }
   }
-
   
   onBatchAddStudent(departmentOption: String): void {
     

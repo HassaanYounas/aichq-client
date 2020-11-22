@@ -9,11 +9,6 @@ export class Supervisor {
 
     constructor() {
         this.Active = true;
-        this.FullName = '';
-        this.Email = '';
-        this.Password = '';
-        this.Department = '';
-        this.Designation = '';
     }
 
     assignValues(res: any): void {
@@ -25,7 +20,7 @@ export class Supervisor {
     }
 }
 
-export class Proposal {
+class Proposal {
     Domain: String;
     Title: String;
     Abstract: String;

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class SupervisorDashboardComponent {
 
   toggle: Boolean = false;
-  currentComponent: Number = 2;
+  currentComponent: Number = 0;
   greetingMessage: String = '';
 
   constructor(
@@ -18,6 +18,11 @@ export class SupervisorDashboardComponent {
     else if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
   }
   
+  changeComponent(currentComponent: number): void {
+    this.currentComponent = currentComponent;
+    this.closeMenu();
+  }
+
   openMenu(): void {
     this.toggle = true;
   }

@@ -5,6 +5,7 @@ import { AdminLoginComponent } from './components/admin/admin-login/admin-login.
 import { HomeComponent } from './components/home/home.component';
 import { StudentDashboardComponent } from './components/student/student-dashboard/student-dashboard.component';
 import { StudentLoginComponent } from './components/student/student-login/student-login.component';
+import { StudentRegPendingComponent } from './components/student/student-reg/student-reg-pending/student-reg-pending.component';
 import { StudentRegComponent } from './components/student/student-reg/student-reg.component';
 import { SupervisorDashboardComponent } from './components/supervisor/supervisor-dashboard/supervisor-dashboard.component';
 import { SupervisorLoginComponent } from './components/supervisor/supervisor-login/supervisor-login.component';
@@ -14,6 +15,7 @@ import { DashboardGuardService } from './services/dashboard-guard.service';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [DashboardGuardService] },
   { path: 'student/reg', component: StudentRegComponent, canActivate: [DashboardGuardService] },
+  { path: 'student/reg/pending', component: StudentRegPendingComponent, canActivate: [DashboardGuardService] },
   { path: 'admin/login', component: AdminLoginComponent, canActivate: [DashboardGuardService] },
   { path: 'student/login', component: StudentLoginComponent, canActivate: [DashboardGuardService] },
   { path: 'supervisor/login', component: SupervisorLoginComponent, canActivate: [DashboardGuardService] },

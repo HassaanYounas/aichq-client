@@ -13,5 +13,5 @@
     "addStudent": "http://localhost:8080/api/student/add",
     "getStudents": "http://localhost:8080/api/student/get/all",
     "registerGroup": "http://localhost:8080/api/group/reg",
-    "resendTokenGroup": "http://localhost:8080/api/verify/resend"
+    "loginGroup": "http://localhost:8080/api/group/login"
 }

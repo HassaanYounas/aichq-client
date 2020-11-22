@@ -27,10 +27,8 @@ export class AdminDashboardComponent {
     private api: ApiService,
     private router: Router
   ) {
-    if (localStorage.getItem('type') === 'Student') 
-      this.router.navigate(['/student/dashboard']);
-    else if (localStorage.getItem('type') === 'Supervisor') 
-      this.router.navigate(['/supervisor/dashboard']);
+    if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
+    else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
     this.api.getAdmin().subscribe(
       (res: any) => {
         this.admin = new Admin(res);

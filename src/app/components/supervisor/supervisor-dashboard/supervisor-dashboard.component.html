@@ -1,8 +1,12 @@
 <div class="wrapper d-flex text-white" [ngClass]="{toggled: toggle}">
     <div class="bg-dark d-flex flex-column sidebar-wrapper">
         <div class="sidebar-heading">Dashboard</div>
-        <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action bg-dark text-white">Settings</a>
+        <div class="list-group list-group-flush pointer mt-1">
+            <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-dark': currentComponent !== 0, 'text-white': currentComponent !== 0 }" class="list-group-item list-group-item-action" (click)="changeComponent(0)">Groups</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-dark': currentComponent !== 1, 'text-white': currentComponent !== 1 }" class="list-group-item list-group-item-action" (click)="changeComponent(1)">Proposals</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-dark': currentComponent !== 2, 'text-white': currentComponent !== 2 }" class="list-group-item list-group-item-action" (click)="changeComponent(2)">Requests</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-dark': currentComponent !== 3, 'text-white': currentComponent !== 3 }" class="list-group-item list-group-item-action" (click)="changeComponent(3)">Evaluation</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-dark': currentComponent !== 4, 'text-white': currentComponent !== 4 }" class="list-group-item list-group-item-action" (click)="changeComponent(4)">Settings</a>
         </div>
         <button type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#supervisorSignOutModal">Sign Out</button>
     </div>

@@ -1,29 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Batch } from 'src/app/models/batch.model';
+import { Department } from 'src/app/models/department.model';
+import { Program } from 'src/app/models/program.model';
 import { ApiService } from 'src/app/services/api.service';
 import { InputValidationService } from 'src/app/services/input-validation.service';
 
 @Component({
   selector: 'app-student-reg',
-  templateUrl: './student-reg.component.html',
-  styleUrls: ['./student-reg.component.scss']
+  templateUrl: './student-reg.component.html'
 })
 export class StudentRegComponent implements OnInit {
 
+  departments: Department[];
   batches: Batch[];
 
-  registerStudentOneForm: FormGroup;
-  registerStudentTwoForm: FormGroup;
-  registerTeamForm: FormGroup;
+  departmentAddSelect: Department;
+  programAddSelect: Program;
+
+  departmentFilterSelectBoolean: Boolean = false;
+  departmentAddSelectBoolean: Boolean = false;
+  programFilterSelectBoolean: Boolean = false;
+  programAddSelectBoolean: Boolean = false;
+  validAddStudent: Boolean = true;
+  currentStudentsText: String = 'Select above options:';
+
+  registrationForm: FormGroup;
 
   validStudentOneName: Boolean = true;
   validStudentOneRollNumber: Boolean = true;
   validStudentTwoName: Boolean = true;
   validStudentTwoRollNumber: Boolean = true;
   validBatch: Boolean = true;
-  validGroupUsername: Boolean = true;
+  validUsername: Boolean = true;
   validPassword: Boolean = true;
   validPasswordConfirm: Boolean = true;
   invalidRegistration: Boolean = false;
@@ -33,110 +44,146 @@ export class StudentRegComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private validate: InputValidationService
+    private validate: InputValidationService,
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.registerStudentOneForm = new FormGroup({
-      Name: new FormControl(''),
-      RollNumber: new FormControl('')
+    this.registrationForm = new FormGroup({
+      StudentOneName: new FormControl(''),
+      StudentOneRollNumber: new FormControl(''),
+      StudentTwoName: new FormControl(''),
+      StudentTwoRollNumber: new FormControl(''),
+      Department: new FormControl('Department'),
+      Program: new FormControl('Program'),
+      Batch: new FormControl('Batch'),
+      Username: new FormControl(''),
+      Password: new FormControl('')
     });
-    this.registerStudentTwoForm = new FormGroup({
-      Name: new FormControl(''),
-      RollNumber: new FormControl('')
-    });
-    this.registerTeamForm = new FormGroup({
-      BatchID: new FormControl('Choose Batch'),
-      GroupUsername: new FormControl(''),
-      Password: new FormControl(''),
-      PasswordConfirm: new FormControl('')
-    });
+    this.batches = new Array<Batch>();
+    this.departments = new Array<Department>();
+    this.getDepartments();
   }
 
-  submit(registerStudentOneFormData, registerStudentTwoFormData, registerTeamFormData) {
-    if (!this.validate.isAlphabetsOnly(registerStudentOneFormData.Name))
-      this.validStudentOneName = false;
+  onSubmit(formData: any): void {
+    if (!this.validate.isAlphabetsOnly(formData.StudentOneName)) this.validStudentOneName = false;
     else this.validStudentOneName = true;
-    if (!this.validate.isNumbersOnly(registerStudentOneFormData.RollNumber) || registerStudentOneFormData.RollNumber === '')
-      this.validStudentOneRollNumber = false;
+    if (formData.StudentOneRollNumber === 0 || formData.StudentOneRollNumber === '') this.validStudentOneRollNumber = false;
     else this.validStudentOneRollNumber = true;
-    if (!this.validate.isAlphabetsOnly(registerStudentTwoFormData.Name))
-      this.validStudentTwoName = false;
+    if (!this.validate.isAlphabetsOnly(formData.StudentTwoName)) this.validStudentTwoName = false;
     else this.validStudentTwoName = true;
-    if (!this.validate.isNumbersOnly(registerStudentTwoFormData.RollNumber) || registerStudentTwoFormData.RollNumber === '')
-      this.validStudentTwoRollNumber = false;
+    if (formData.StudentTwoRollNumber === 0 || formData.StudentTwoRollNumber === '') this.validStudentTwoRollNumber = false;
     else this.validStudentTwoRollNumber = true;
-    if (registerTeamFormData.BatchID === 'Choose Batch')
-      this.validBatch = false;
+    if (formData.Batch === 'Batch') this.validBatch = false;
     else this.validBatch = true;
-    if (!this.validate.isAlphabetsAndNumbersOnly(registerTeamFormData.GroupUsername) || registerTeamFormData.GroupUsername === '')
-      this.validGroupUsername = false;
-    else this.validGroupUsername = true;
-    if (registerTeamFormData.Password.length < 8)
-      this.validPassword = false;
+    if (!this.validate.isAlphabetsAndNumbersOnly(formData.Username) || formData.Username === '') this.validUsername = false;
+    else this.validUsername = true;
+    if (formData.Password.length < 8) this.validPassword = false;
     else this.validPassword = true;
-    if (registerTeamFormData.Password !== registerTeamFormData.PasswordConfirm)
-      this.validPasswordConfirm = false;
-    else this.validPasswordConfirm = true;
     if (
-      this.validStudentOneName &&
-      this.validStudentOneRollNumber &&
-      this.validStudentTwoName &&
-      this.validStudentTwoRollNumber &&
-      this.validBatch &&
-      this.validGroupUsername &&
-      this.validPassword &&
-      this.validPasswordConfirm
+      this.validStudentOneName && this.validStudentOneRollNumber &&
+      this.validStudentTwoName && this.validStudentTwoRollNumber &&
+      this.validBatch && this.validUsername && this.validPassword
     ) {
-      if (registerStudentOneFormData.RollNumber === registerStudentTwoFormData.RollNumber) {
+      if (formData.StudentOneRollNumber === formData.StudentTwoRollNumber) {
         this.invalidRegistration = true;
         this.errorMessage = 'Roll numbers cannot be same.';
       } else {
-        this.invalidRegistration = false;
-        this.errorMessage = '';
-        let batch = registerTeamFormData.BatchID.split('-');
+        const batch = formData.Batch.split('-');
         const body = {
+          Department: formData.Department,
+          Program: formData.Program,
+          Session: batch[0],
           Year: batch[1],
-          Program: batch[0],
-          GroupUsername: registerTeamFormData.GroupUsername,
-          Password: registerTeamFormData.Password,
+          Username: formData.Username,
+          Password: formData.Password,
           StudentOne: {
-            Name: registerStudentOneFormData.Name,
-            RollNumber: registerStudentOneFormData.RollNumber,
-            Email: registerStudentOneFormData.RollNumber + '@students.au.edu.pk'
+            FullName: formData.StudentOneName,
+            RollNumber: formData.StudentOneRollNumber.toString(),
+            Email: formData.StudentOneRollNumber + '@students.au.edu.pk'
           },
           StudentTwo: {
-            Name: registerStudentTwoFormData.Name,
-            RollNumber: registerStudentTwoFormData.RollNumber,
-            Email: registerStudentTwoFormData.RollNumber + '@students.au.edu.pk'
+            FullName: formData.StudentTwoName,
+            RollNumber: formData.StudentTwoRollNumber.toString(),
+            Email: formData.StudentTwoRollNumber + '@students.au.edu.pk'
           }
         }
+        this.spinner.show();
         this.api.registerGroup(body).subscribe(
           (res: any) => {
-            this.invalidRegistration = false;
-            this.validRegistration = true;
-            this.successMessage = 'An email has been sent to both students for verification. ' +
-            'Only after verification from both students will you be able to login to your dashboard.';
-          }, (error: any) => { 
-            this.errorMessage = error;
-            this.invalidRegistration = true;
-            this.validRegistration = false;
-            setTimeout(() => {
-              this.errorMessage = '';
+            if (res.token !== '') {
+              this.errorMessage = ''; 
               this.invalidRegistration = false;
-              this.validRegistration = false;
-            }, 3000); 
-          }
+              setTimeout(() => { 
+                this.spinner.hide();
+                this.router.navigate(['/student/reg/pending']);
+              }, 1000);
+            }
+          }, (error: any) => { 
+            setTimeout(() => { 
+              this.spinner.hide();
+              this.invalidRegistration = true;
+              this.errorMessage = error; 
+            }, 1000); }
         );
       }
     }
   }
 
-  // setBatches(res: any) {
-  //   res.forEach(e => {
-  //     let batch = new Batch();
-  //     batch.assignValues(e);
-  //     this.batches.push(batch);
-  //   });
-  // }
+  onDepartmentAddStudent(departmentOption: String): void {
+    if (departmentOption === 'Department') this.departmentAddSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departments.length; i++) {
+        if (departmentOption === this.departments[i].Name) {
+          this.departmentAddSelect = this.departments[i];
+          this.departmentAddSelectBoolean = true;
+        }
+      }
+    }
+  }
+
+  onProgramAddStudent(programOption: String): void {
+    if (programOption === 'Program') this.programAddSelectBoolean = false;
+    else {
+      for (let i = 0; i < this.departmentAddSelect.Programs.length; i++) {
+        if (programOption === this.departmentAddSelect.Programs[i].Title) {
+          this.programAddSelect = this.departmentAddSelect.Programs[i];
+          this.programAddSelectBoolean = true;
+        }
+      }
+    }
+  }
+
+  getDepartments(): void {
+    this.api.getDepartment().subscribe(
+      (res: any) => {
+        this.setDepartments(res);
+        this.getBatches();
+      }, (error: any) => { console.log(error); }
+    );
+  }
+
+  getBatches(): void {
+    this.api.getBatches().subscribe(
+      (res: any) => {
+        this.setBatches(res);
+        this.departments.forEach(e => {
+          e.setBatches(res);
+        });
+      }, (error: any) => { console.log(error); }
+    );
+  }
+
+  setDepartments(res: any) {
+    res.forEach(e => {
+      let department = new Department();
+      department.assignValues(e);
+      this.departments.push(department);
+    });
+  }
+
+  setBatches(res: any) {
+    res.forEach(e => this.batches.push(new Batch(e)));
+  }
 }

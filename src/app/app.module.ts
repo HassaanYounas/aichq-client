@@ -22,6 +22,7 @@ import { SupervisorDashboardComponent } from './components/supervisor/supervisor
 import { SupervisorLoginComponent } from './components/supervisor/supervisor-login/supervisor-login.component';
 import { AdminGroupsComponent } from './components/admin/admin-dashboard/admin-groups/admin-groups.component';
 import { AdminNotificationsComponent } from './components/admin/admin-dashboard/admin-notifications/admin-notifications.component';
+import { StudentRegPendingComponent } from './components/student/student-reg/student-reg-pending/student-reg-pending.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdminNotificationsComponent } from './components/admin/admin-dashboard/
     SupervisorDashboardComponent,
     SupervisorLoginComponent,
     AdminGroupsComponent,
-    AdminNotificationsComponent
+    AdminNotificationsComponent,
+    StudentRegPendingComponent
   ],
   imports: [
     BrowserModule,

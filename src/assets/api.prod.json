@@ -13,5 +13,5 @@
     "addStudent": "https://aichq-fyp.herokuapp.com/api/student/add",
     "getStudents": "https://aichq-fyp.herokuapp.com/api/student/get/all",
     "registerGroup": "https://aichq-fyp.herokuapp.com/api/group/reg",
-    "resendTokenGroup": "https://aichq-fyp.herokuapp.com/api/verify/resend"
+    "loginGroup": "https://aichq-fyp.herokuapp.com/api/group/login"
 }

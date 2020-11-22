@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-dashboard',
-  templateUrl: './student-dashboard.component.html',
-  styleUrls: ['./student-dashboard.component.scss']
+  templateUrl: './student-dashboard.component.html'
 })
 export class StudentDashboardComponent {
 
   toggle: boolean = false;
-  currentComponent: number = 2;
+  currentComponent: number = 0;
+  greetingMessage: String = '';
 
   constructor(
     private router: Router
@@ -20,6 +20,7 @@ export class StudentDashboardComponent {
   
   changeComponent(currentComponent: number): void {
     this.currentComponent = currentComponent;
+    this.closeMenu();
   }
 
   openMenu(): void {
@@ -30,4 +31,8 @@ export class StudentDashboardComponent {
     this.toggle = false;
   }
 
+  signOut(): void {
+    localStorage.clear();
+    this.router.navigate(['/student/login']);
+  }
 }
