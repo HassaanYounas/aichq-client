@@ -35,8 +35,7 @@ export class Department {
     setSupervisors(res: any): void {
         for (let i = 0; i < res.length; i++) {
             if (this.Name === res[i].Department) {
-                const supervisor = new Supervisor();
-                supervisor.assignValues(res[i]);
+                const supervisor = new Supervisor(res[i]);
                 this.Supervisors.push(supervisor);
             }
         }

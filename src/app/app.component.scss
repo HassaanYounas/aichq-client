@@ -1,15 +1,16 @@
 html, body {
-  max-height: 100vh;
-  overflow: hidden;
+    max-height: 100vh;
+    overflow: hidden;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .active-dashboard {
-  background: #242424;
-  color: white;
-
-  &:hover {
     background: #242424;
-  }
+    color: white;
+
+    &:hover {
+        background: #242424;
+    }
 }
 
 .pointer {

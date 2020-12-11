@@ -13,5 +13,8 @@
     "addStudent": "http://localhost:8080/api/student/add",
     "getStudents": "http://localhost:8080/api/student/get/all",
     "registerGroup": "http://localhost:8080/api/group/reg",
-    "loginGroup": "http://localhost:8080/api/group/login"
+    "getGroups": "http://localhost:8080/api/group/get/all",
+    "loginGroup": "http://localhost:8080/api/group/login",
+    "getSupervisor": "http://localhost:8080/api/supervisor/get",
+    "submitSupervisorProposal": "http://localhost:8080/api/supervisor/proposal"
 }

@@ -62,6 +62,18 @@ export class ApiService {
     return this.requestWithToken({}, API.getStudents);
   }
 
+  getGroups() {
+    return this.requestWithToken({}, API.getGroups);
+  }
+
+  getSupervisor(body: any) {
+    return this.requestWithToken(body, API.getSupervisor);
+  }
+
+  submitSupervisorProposal(body: any) {
+    return this.requestWithToken(body, API.submitSupervisorProposal);
+  }
+
   requestWithToken(body: any, url: any) {
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',

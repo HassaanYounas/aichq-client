@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Admin } from 'src/app/models/admin.model';
 import { Batch } from 'src/app/models/batch.model';
 import { Department } from 'src/app/models/department.model';
+import { Group } from 'src/app/models/group.model';
 import { Student } from 'src/app/models/student.model';
 import { Supervisor } from 'src/app/models/supervisor.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -18,6 +19,7 @@ export class AdminDashboardComponent {
   departments: Department[];
   supervisors: Supervisor[];
   students: Student[];
+  groups: Group[];
   
   greetingMessage: String = '';
   toggle: Boolean = false;
@@ -39,9 +41,12 @@ export class AdminDashboardComponent {
     this.departments = new Array<Department>();
     this.supervisors = new Array<Supervisor>();
     this.students = new Array<Student>();
+    this.groups = new Array<Group>();
     this.getDepartments();
     this.getSupervisors();
     this.getStudents();
+    this.getGroups();
+    console.log(this.groups)
   }
   
   changeComponent(currentComponent: number): void {
@@ -100,6 +105,13 @@ export class AdminDashboardComponent {
     );
   }
 
+  getGroups(): void {
+    this.api.getGroups().subscribe(
+      (res: any) => this.setGroups(res),
+      (error: any) => { console.log(error); }
+    );
+  }
+
   setDepartments(res: any) {
     res.forEach(e => {
       let department = new Department();
@@ -110,8 +122,7 @@ export class AdminDashboardComponent {
 
   setSupervisors(res: any) {
     res.forEach(e => {
-      let supervisor = new Supervisor();
-      supervisor.assignValues(e);
+      let supervisor = new Supervisor(e);
       this.supervisors.push(supervisor);
     });
   }
@@ -122,6 +133,10 @@ export class AdminDashboardComponent {
 
   setStudents(res: any) {
     res.forEach(e => this.students.push(new Student(e)));
+  }
+
+  setGroups(res: any) {
+    res.forEach(e => this.groups.push(new Group(e)));
   }
 
   updateData(update: any): void {

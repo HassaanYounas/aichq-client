@@ -101,7 +101,6 @@ export class AdminStudentsComponent implements OnInit {
       }
     }
   }
-
   
   onProgramAddStudent(programOption: String): void {
     if (programOption === 'Program') this.programAddSelectBoolean = false;
@@ -113,10 +112,6 @@ export class AdminStudentsComponent implements OnInit {
         }
       }
     }
-  }
-  
-  onBatchAddStudent(departmentOption: String): void {
-    
   }
 
   onDepartmentSelectFilter(departmentOption: String): void {

@@ -1,45 +1,40 @@
 <div id="home" class="text-center">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand mb-3">AichQ</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="/">Home</a>
-            <a class="nav-link" routerLink="/supervisor/login">Supervisor</a>
-            <a class="nav-link" routerLink="/student/login">Student</a>
-          </nav>
-        </div>
-      </header>
-      <main role="main" class="inner cover">
-        <h1 class="display-3 cover-heading font-weight-normal">AichQ</h1>
-        <p class="lead my-4">Project Management System for BS FYPs.</p>
-        <p class="lead">
-          <a routerLink="/supervisor/login" class="btn btn-lg btn-secondary">Supervisor</a>
-        </p>
-        <p class="lead">or</p>
-        <p class="lead">
-            <a routerLink="/student/login" class="btn btn-lg btn-secondary">Student</a>
-        </p>
-      </main>
-      <footer class="mastfoot mt-auto">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-          <div class="collapse navbar-collapse justify-content-md-center" >
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/admin/login">Admin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="/policy">Privacy Policy</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <div class="inner">
-          <p>Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</p>
-        </div>
-      </footer>
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand mb-3 pointer" routerLink="/">AichQ</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" routerLink="/">Home</a>
+                    <a class="nav-link" routerLink="/supervisor/login">Supervisor</a>
+                    <a class="nav-link" routerLink="/student/login">Student</a>
+                </nav>
+            </div>
+        </header>
+        <main class="inner mb-5">
+            <h1 id="main-branding" class="display-3 cover-heading font-weight-normal">AichQ</h1>
+            <p class="lead my-4">Project Management System for BS FYPs.</p>
+            <button routerLink="/supervisor/login" class="btn-home mr-4 mt-4">👩‍🏫 Supervisor</button>
+            <button routerLink="/student/login" class="btn-home ml-4 mt-4">👨‍🎓 Student</button>
+        </main>
+        <footer class="mastfoot mt-auto">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="collapse navbar-collapse justify-content-md-center" >
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/admin/login">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/policy">Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="inner">
+                <p>Made by Tehniat and Hassaan. Copyright &copy; 2021.</p>
+            </div>
+        </footer>
     </div>
 </div>

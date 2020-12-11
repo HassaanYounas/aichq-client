@@ -13,5 +13,8 @@
     "addStudent": "https://aichq-fyp.herokuapp.com/api/student/add",
     "getStudents": "https://aichq-fyp.herokuapp.com/api/student/get/all",
     "registerGroup": "https://aichq-fyp.herokuapp.com/api/group/reg",
-    "loginGroup": "https://aichq-fyp.herokuapp.com/api/group/login"
+    "getGroups": "https://aichq-fyp.herokuapp.com/api/group/get/all",
+    "loginGroup": "https://aichq-fyp.herokuapp.com/api/group/login",
+    "getSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/get",
+    "submitSupervisorProposal": "https://aichq-fyp.herokuapp.com/api/supervisor/proposal"
 }

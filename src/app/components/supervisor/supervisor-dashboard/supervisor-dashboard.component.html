@@ -36,7 +36,7 @@
             </div>
         </nav>
         <div class="page-content" (click)="closeMenu()">
-           
+           <app-supervisor-proposals *ngIf="currentComponent === 1" [departments]="departments" [supervisor]="supervisor"></app-supervisor-proposals>
         </div>
         <footer class="sticky-footer" class="py-3 bg-dark">
             <div class="container text-center">

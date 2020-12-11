@@ -9,9 +9,8 @@ export class Group {
     ProjectID: Number;
     StudentOne: Student;
     StudentTwo: Student;
-    Proposals: Proposal[];
 
-    assignValues(res: any): void {
+    constructor(res: any) {
         this.Department = res.Department;
         this.Program = res.Program;
         this.Session = res.Session;
@@ -29,15 +28,6 @@ export class Group {
             res.StudentTwo.Contact,
             res.StudentTwo.CGPA
         );
-        this.Proposals = new Array<Proposal>();
-        for (let i = 0; i < res.Proposals.length; i++) {
-            this.Proposals[i] = new Proposal(
-                res.Proposals[i].Domain,
-                res.Proposals[i].Title,
-                res.Proposals[i].Abstract,
-                res.Proposals[i].SupervisorUsername
-            );
-        }
     }
 }
 
@@ -50,19 +40,5 @@ class Student {
         this.RollNumber = rollNumber;
         this.Contact = contact;
         this.CGPA = cgpa;
-    }
-}
-
-class Proposal {
-    Domain: String;
-    Title: String;
-    Abstract: String;
-    SupervisorUsername: String;
-
-    constructor(domain: String, title: String, abstract: String, supervisorUsername: String) {
-        this.Domain = domain;
-        this.Title = title;
-        this.Abstract = abstract;
-        this.SupervisorUsername = supervisorUsername;
     }
 }

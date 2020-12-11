@@ -3,64 +3,58 @@
         <div class="row my-3">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>Students</h3>
+                    <h3>Proposals</h3>
                 </div>
             </div>
             <div class="col d-flex justify-content-end align-items-center">
-                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#addStudentModal">Add</button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">Upload</button>
+                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#submitProposalModal">Add</button>
             </div>
         </div>
-        <div id="addStudentModal" class="modal fade" role="dialog">
+        <div id="submitProposalModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Student</h4>
+                        <h4 class="modal-title">Submit Proposal</h4>
                     </div>
                     <div class="modal-body pb-2">
-                        <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
-                            <div class="row">
-                                <div class="col pr-1">
-                                    <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
-                                </div>
-                                <div class="col pl-1">
-                                    <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
-                                </div>
-                            </div>
+                        <form id="submitProposalForm" [formGroup]="submitProposalForm" (ngSubmit)="onSubmitProposalFormSubmit(submitProposalForm.value)">
+                            <input formControlName="Title" type="text" class="form-control mb-2" placeholder="Title">
+                            <input formControlName="Domain" type="text" class="form-control mb-2" placeholder="Domain">
+                            <textarea formControlName="Abstract" class="form-control mb-2" placeholder="Abstract" rows="4" maxlength="300"></textarea>
                             <div class="row mb-2">
                                 <div class="col pr-1">
-                                    <select #departmentAddStudent formControlName="Department" class="form-control" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
+                                    <select #departmentSubmitSupervisorProposal formControlName="Department" class="form-control" (change)="onDepartmentSubmitSupervisorProposal(departmentSubmitSupervisorProposal.value)">
                                         <option selected>Department</option>
                                         <option *ngFor="let department of departments">{{ department.Name }}</option>
                                     </select>
                                 </div>
                                 <div class="col pl-1">
-                                    <select #programAddStudent formControlName="Program" class="form-control" (change)="onProgramAddStudent(programAddStudent.value)">
+                                    <select #programSubmitSupervisorProposal formControlName="Program" class="form-control" (change)="onProgramSubmitSupervisorProposal(programSubmitSupervisorProposal.value)">
                                         <option selected>Program</option>
-                                        <ng-container *ngIf="departmentAddSelectBoolean">
-                                            <option *ngFor="let program of departmentAddSelect.Programs">{{ program.Title }}</option>
+                                        <ng-container *ngIf="departmentSubmitProposalBoolean">
+                                            <option *ngFor="let program of departmentSubmitProposal.Programs">{{ program.Title }}</option>
                                         </ng-container>
                                     </select>
                                 </div>
                             </div>
-                            <select #batchAddStudent formControlName="Batch" class="form-control">
+                            <select #batchSubmitProposal formControlName="Batch" class="form-control">
                                 <option selected>Batch</option>
-                                <ng-container *ngIf="programAddSelectBoolean">
-                                    <option *ngFor="let batch of programAddSelect.Batches">{{ batch.BatchID }}</option>
+                                <ng-container *ngIf="programSubmitProposalBoolean">
+                                    <option *ngFor="let batch of programSubmitProposal.Batches">{{ batch.BatchID }}</option>
                                 </ng-container>
                             </select>
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validAddStudent}">Invalid input.</div>
+                            <div class="text-danger mt-2" [ngClass]="{'d-none': validSubmitProposal}">Invalid input.</div>
                         </form>
-                        <div class="mt-2" [ngClass]="(addStudentMessage === 'Student added successfully.')?'text-success':'text-danger'" [innerHTML]="addStudentMessage"></div>
+                        <div class="mt-2" [ngClass]="(submitProposalMessage === 'Proposal submitted successfully.')?'text-success':'text-danger'" [innerHTML]="submitProposalMessage"></div>
                     </div>
                     <div class="modal-footer">
-                        <button form="addStudentForm" type="submit" class="btn btn-primary">Add</button>
+                        <button form="submitProposalForm" type="submit" class="btn btn-primary">Add</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-        <form [formGroup]="studentFilterSelectForm">
+        <form [formGroup]="proposalFilterSelectForm">
             <div class="row mb-3">
                 <div class="col">
                     <select formControlName="Department" #departmentSelectFilter class="form-control" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
@@ -86,21 +80,21 @@
                 </div>
             </div>
         </form>
-        <h5 class="mb-3" [innerHTML]="currentStudentsText"></h5>
+        <h5 class="mb-3" [innerHTML]="currentProposalsText"></h5>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Roll Number</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">FYP Phase</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Abstract</th>
+                        <th scope="col">Domain</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>170273</td>
-                        <td>Muhammad Hassaan Younas</td>
-                        <td>II</td>
+                        <td>Disease Prediction</td>
+                        <td>A software tool for prediction of disease based on symptoms given by patient.</td>
+                        <td>AI/ML/Bioinformatics</td>
                     </tr>
                 </tbody>
             </table>
