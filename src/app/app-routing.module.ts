@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './components/about/about.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 import { HomeComponent } from './components/home/home.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { StudentDashboardComponent } from './components/student/student-dashboard/student-dashboard.component';
 import { StudentLoginComponent } from './components/student/student-login/student-login.component';
 import { StudentRegPendingComponent } from './components/student/student-reg/student-reg-pending/student-reg-pending.component';
 import { StudentRegComponent } from './components/student/student-reg/student-reg.component';
 import { SupervisorDashboardComponent } from './components/supervisor/supervisor-dashboard/supervisor-dashboard.component';
 import { SupervisorLoginComponent } from './components/supervisor/supervisor-login/supervisor-login.component';
+import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { DashboardGuardService } from './services/dashboard-guard.service';
 
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuardService] },
   { path: 'student/dashboard', component: StudentDashboardComponent, canActivate: [AuthGuardService] },
   { path: 'supervisor/dashboard', component: SupervisorDashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'type', component: TypeOfUserComponent, canActivate: [DashboardGuardService] },
+  { path: 'about', component: AboutComponent, canActivate: [DashboardGuardService] },
+  { path: 'policy', component: PrivacyPolicyComponent, canActivate: [DashboardGuardService] },
   { path: '**', component: HomeComponent, canActivate: [DashboardGuardService] }
 ];
 

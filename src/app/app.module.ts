@@ -24,6 +24,9 @@ import { AdminGroupsComponent } from './components/admin/admin-dashboard/admin-g
 import { AdminNotificationsComponent } from './components/admin/admin-dashboard/admin-notifications/admin-notifications.component';
 import { StudentRegPendingComponent } from './components/student/student-reg/student-reg-pending/student-reg-pending.component';
 import { SupervisorProposalsComponent } from './components/supervisor/supervisor-dashboard/supervisor-proposals/supervisor-proposals.component';
+import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
+import { AboutComponent } from './components/about/about.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { SupervisorProposalsComponent } from './components/supervisor/supervisor
     AdminGroupsComponent,
     AdminNotificationsComponent,
     StudentRegPendingComponent,
-    SupervisorProposalsComponent
+    SupervisorProposalsComponent,
+    TypeOfUserComponent,
+    AboutComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

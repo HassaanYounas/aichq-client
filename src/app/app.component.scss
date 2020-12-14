@@ -1,8 +1,117 @@
-html, body {
-    max-height: 100vh;
-    overflow: hidden;
-    font-family: 'Ubuntu', sans-serif;
+.color-red {
+    color: #f01313;
+    font-size: 1.2em;
 }
+
+.navbar-brand-custom {
+    color: #000000;
+    font-weight: 700;
+    font-size: 2.5em;
+}
+
+.navbar-brand-custom:hover, 
+.navbar-brand-custom:focus {
+    color: #000000;
+}
+
+.nav-link-custom {
+    font-weight: 700;
+    color: #000000;
+    font-size: 1.1em;
+    border-bottom: 0.25rem solid transparent;
+    transition: 0.1s ease;
+}
+
+.nav-link-custom:hover {
+    color: #000000;
+    border-bottom-color: #f01313;
+}
+
+.main-title {
+    font-size: 6em;
+    font-weight: 800;
+}
+
+.btn-main {
+    background: #f01313;
+    color: #ffffff;
+    border-radius: 0.6em;
+    padding: 0.5em 1.7em;
+    font-size: 1.3em;
+}
+
+.btn-main:hover {
+    background-color: darken($color:  #f01313, $amount: 20);
+    color: #ffffff;
+}
+
+.btn-card {
+    background: #6776ed;
+    color: #ffffff;
+    border-radius: 0.6em;
+    padding: 0.5em 2.5em;
+    font-size: 1.1em;
+}
+
+.btn-card:hover {
+    background: darken($color: #6776ed, $amount: 20);
+    color: #FFFFFF;
+}
+
+.grey-container {
+    background-color: #dddddd;
+    border-radius: 1em;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.login-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-page-left {
+    background-color: #363636;
+    border-bottom-left-radius: 1em;
+    border-top-left-radius: 1em;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.login-page-right {
+    background-color: #dddddd;
+    border-bottom-right-radius: 1em;
+    border-top-right-radius: 1em;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.form-control-custom {
+    border: 0.15em solid #000000;
+    border-radius: 0.3em;
+    padding: 1.3em 1em;
+}
+
+.btn-link-custom {
+    background-color: transparent;
+    padding: 0;
+    font-size: 1.2em;
+    border: none;
+    transition: 0.1s ease;
+    border-bottom: 0.25rem solid transparent;
+}
+
+.btn-link-custom:hover {
+    border-bottom-color: #f01313;
+}
+
+
+
+
+
+
+
+
+
+
 
 .active-dashboard {
     background: #242424;
@@ -13,9 +122,6 @@ html, body {
     }
 }
 
-.pointer {
-  cursor: pointer;
-}
 
 .wrapper {
   overflow-x: hidden;
@@ -53,52 +159,52 @@ html, body {
   flex: 1 1 auto;
 }
 
-#login {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
-  height: 100vh;
-}
+// #login {
+//   display: -ms-flexbox;
+//   display: -webkit-box;
+//   display: flex;
+//   -ms-flex-align: center;
+//   -ms-flex-pack: center;
+//   -webkit-box-align: center;
+//   align-items: center;
+//   -webkit-box-pack: center;
+//   justify-content: center;
+//   padding-top: 40px;
+//   padding-bottom: 40px;
+//   background-color: #f5f5f5;
+//   height: 100vh;
+// }
   
-.form-signin {
-  width: 100%;
-  max-width: 380px;
-  padding: 15px;
-  margin: 0 auto;
-}
+// .form-signin {
+//   width: 100%;
+//   max-width: 380px;
+//   padding: 15px;
+//   margin: 0 auto;
+// }
 
-.form-signin .checkbox {
-  font-weight: 400;
-}
+// .form-signin .checkbox {
+//   font-weight: 400;
+// }
 
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
+// .form-signin .form-control {
+//   position: relative;
+//   box-sizing: border-box;
+//   height: auto;
+//   padding: 10px;
+//   font-size: 16px;
+// }
 
-.form-signin .form-control:focus {
-  z-index: 2;
-}
+// .form-signin .form-control:focus {
+//   z-index: 2;
+// }
 
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-}
+// .form-signin input[type="email"] {
+//   margin-bottom: -1px;
+// }
 
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-}
+// .form-signin input[type="password"] {
+//   margin-bottom: 10px;
+// }
 
 .sticky-footer {
   flex-shrink: none;

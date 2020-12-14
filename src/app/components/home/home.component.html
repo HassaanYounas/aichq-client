@@ -1,40 +1,39 @@
-<div id="home" class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand mb-3 pointer" routerLink="/">AichQ</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" routerLink="/">Home</a>
-                    <a class="nav-link" routerLink="/supervisor/login">Supervisor</a>
-                    <a class="nav-link" routerLink="/student/login">Student</a>
-                </nav>
+<div class="container">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand navbar-brand-custom" routerLink="/">Aich<span class="color-red">Q</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mr-4">
+                    <a id="active" class="nav-link nav-link-custom px-0 " routerLink="/">Home</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link nav-link-custom px-0" routerLink="/type">Type of User</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link nav-link-custom px-0" routerLink="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom px-0" routerLink="/policy">Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="row mx-5">
+            <div class="col-lg pt-4">
+                <h1 class="main-title mt-5 mb-4">Aich<span class="color-red">Q</span></h1>
+                <h4 class="mb-5">Project Management System for BS FYPs.</h4>
+                <button class="btn btn-main" routerLink="/type">Get to Work!</button>
             </div>
-        </header>
-        <main class="inner mb-5">
-            <h1 id="main-branding" class="display-3 cover-heading font-weight-normal">AichQ</h1>
-            <p class="lead my-4">Project Management System for BS FYPs.</p>
-            <button routerLink="/supervisor/login" class="btn-home mr-4 mt-4">👩‍🏫 Supervisor</button>
-            <button routerLink="/student/login" class="btn-home ml-4 mt-4">👨‍🎓 Student</button>
-        </main>
-        <footer class="mastfoot mt-auto">
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="collapse navbar-collapse justify-content-md-center" >
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/admin/login">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/policy">Privacy Policy</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="inner">
-                <p>Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2021.</p>
+            <div class="col-lg p-0">
+                <img src="../../../assets//img/bg-main.png" style="transform:scaleX(-1);" class="img-fluid" alt="Main Background Image">
             </div>
-        </footer>
-    </div>
+        </div>
+    </main>
+    <footer class="text-center mt-5 pt-4 mb-4">
+        <p class="font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright © 2021.</p>
+    </footer>
 </div>

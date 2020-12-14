@@ -1,14 +1,24 @@
-<div id="login" class="text-center">
-    <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onSubmit(loginForm.value)">
-        <h1 class="h3 mb-3 font-weight-normal">Administrator Login</h1>
-        <input formControlName="Username" type="text" class="form-control" placeholder="Username" required>
-        <input formControlName="Password" type="password" class="form-control" placeholder="Password" required>
-        <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <button class="btn btn-lg btn-warning mt-5" routerLink="/">Back to Home</button>
-        <p class="mt-5 mb-3 text-muted">Copyright &copy; 2020</p>
-    </form>
+<div class="login-page">
+    <div class="container">
+        <div class="row login-container">
+            <div class="col login-page-left">
+                <img src="../../../../assets/img/bg-sec.png" class="img-fluid" alt="Admin Login Image">
+            </div>
+            <div class="col login-page-right text-center d-flex align-items-center">
+                <form class="w-100 px-5 mx-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+                    <h3 class="mb-4 font-weight-normal">Administrator Login</h3>
+                    <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>
+                    <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
+                    <div class="text-danger mb-4" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
+                    <button class="btn btn-main mb-4" type="submit">Sign in</button>
+                    <div>
+                        <button class="btn-link-custom" routerLink="/type">Oops! Go Back</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
-        <p style="color: white">Loading...</p>
+        <p class="mt-5" style="color:white;">Working on it!</p>
     </ngx-spinner>
 </div>

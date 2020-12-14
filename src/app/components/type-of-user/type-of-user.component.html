@@ -1,0 +1,61 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand navbar-brand-custom" routerLink="/">Aich<span class="color-red">Q</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mr-4">
+                    <a class="nav-link nav-link-custom px-0 " routerLink="/">Home</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a id="active" class="nav-link nav-link-custom px-0" routerLink="/type">Type of User</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link nav-link-custom px-0" routerLink="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom px-0" routerLink="/policy">Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="text-center p-3">
+            <h3>Choose Your Role!</h3>
+        </div>
+        <div class="row mx-5 mt-4">
+            <div class="col-lg">
+                <div class="card grey-container p-4" style="width:18rem;">
+                    <img class="card-img-top" src="../../../assets/img/admin-card.png" alt="Admin Placeholder">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Administrator</h4>
+                        <button class="btn btn-card mt-3" routerLink="/admin/login">Let's do this!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="card grey-container p-4" style="width:18rem;">
+                    <img class="card-img-top" src="../../../assets/img/supervisor-card.png" alt="Admin Placeholder">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Supervisor</h4>
+                        <button class="btn btn-card mt-3" routerLink="/supervisor/login">Bring it!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="card grey-container p-4" style="width:18rem;">
+                    <img class="card-img-top" src="../../../assets/img/student-card.png" alt="Admin Placeholder">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Student</h4>
+                        <button class="btn btn-card mt-3" routerLink="/student/login">Giddy-Up!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="text-center mt-5 pt-5 mb-4">
+        <p class="font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright © 2021.</p>
+    </footer>
+</div>
