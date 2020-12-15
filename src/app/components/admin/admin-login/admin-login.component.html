@@ -1,10 +1,10 @@
-<div class="login-page">
+<div class="page page-admin">
     <div class="container">
-        <div class="row login-container">
-            <div class="col login-page-left">
-                <img src="../../../../assets/img/bg-sec.png" class="img-fluid" alt="Admin Login Image">
+        <div class="row">
+            <div class="col page-left page-admin-left">
+                <img src="../../../../assets/img/admin-login.jpg" class="img-fluid" alt="Admin Login Image">
             </div>
-            <div class="col login-page-right text-center d-flex align-items-center">
+            <div class="col page-right page-admin-right text-center d-flex align-items-center">
                 <form class="w-100 px-5 mx-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                     <h3 class="mb-4 font-weight-normal">Administrator Login</h3>
                     <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>

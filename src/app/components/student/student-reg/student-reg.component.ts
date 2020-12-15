@@ -29,10 +29,7 @@ export class StudentRegComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  validStudentOneName: Boolean = true;
-  validStudentOneRollNumber: Boolean = true;
-  validStudentTwoName: Boolean = true;
-  validStudentTwoRollNumber: Boolean = true;
+  validStudentInfo: Boolean = true;
   validBatch: Boolean = true;
   validUsername: Boolean = true;
   validPassword: Boolean = true;
@@ -67,25 +64,20 @@ export class StudentRegComponent implements OnInit {
   }
 
   onSubmit(formData: any): void {
-    if (!this.validate.isAlphabetsOnly(formData.StudentOneName)) this.validStudentOneName = false;
-    else this.validStudentOneName = true;
-    if (formData.StudentOneRollNumber === 0 || formData.StudentOneRollNumber === '') this.validStudentOneRollNumber = false;
-    else this.validStudentOneRollNumber = true;
-    if (!this.validate.isAlphabetsOnly(formData.StudentTwoName)) this.validStudentTwoName = false;
-    else this.validStudentTwoName = true;
-    if (formData.StudentTwoRollNumber === 0 || formData.StudentTwoRollNumber === '') this.validStudentTwoRollNumber = false;
-    else this.validStudentTwoRollNumber = true;
+    if (
+        (this.validate.isAlphabetsOnly(formData.StudentOneName)) &&
+        (formData.StudentOneRollNumber !== 0 || formData.StudentOneRollNumber !== '') &&
+        (this.validate.isAlphabetsOnly(formData.StudentTwoName)) &&
+        (formData.StudentTwoRollNumber !== 0 || formData.StudentTwoRollNumber !== '')
+    ) this.validStudentInfo = true;
+    else this.validStudentInfo = false;
     if (formData.Batch === 'Batch') this.validBatch = false;
     else this.validBatch = true;
     if (!this.validate.isAlphabetsAndNumbersOnly(formData.Username) || formData.Username === '') this.validUsername = false;
     else this.validUsername = true;
     if (formData.Password.length < 8) this.validPassword = false;
     else this.validPassword = true;
-    if (
-      this.validStudentOneName && this.validStudentOneRollNumber &&
-      this.validStudentTwoName && this.validStudentTwoRollNumber &&
-      this.validBatch && this.validUsername && this.validPassword
-    ) {
+    if (this.validStudentInfo && this.validBatch && this.validUsername && this.validPassword) {
       if (formData.StudentOneRollNumber === formData.StudentTwoRollNumber) {
         this.invalidRegistration = true;
         this.errorMessage = 'Roll numbers cannot be same.';
