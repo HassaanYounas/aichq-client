@@ -1,19 +1,21 @@
-<div class="wrapper d-flex text-white" [ngClass]="{toggled: toggle}">
-    <div class="bg-dark d-flex flex-column sidebar-wrapper">
-        <div class="sidebar-heading">Dashboard</div>
-        <div class="list-group list-group-flush pointer mt-1">
-            <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-dark': currentComponent !== 0, 'text-white': currentComponent !== 0 }" class="list-group-item list-group-item-action" (click)="changeComponent(0)">FYP Batches</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-dark': currentComponent !== 1, 'text-white': currentComponent !== 1 }" class="list-group-item list-group-item-action" (click)="changeComponent(1)">Supervisors</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-dark': currentComponent !== 2, 'text-white': currentComponent !== 2 }" class="list-group-item list-group-item-action" (click)="changeComponent(2)">Students</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-dark': currentComponent !== 3, 'text-white': currentComponent !== 3 }" class="list-group-item list-group-item-action" (click)="changeComponent(3)">FYP Groups</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-dark': currentComponent !== 4, 'text-white': currentComponent !== 4 }" class="list-group-item list-group-item-action" (click)="changeComponent(4)">Notifications</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 5, 'bg-dark': currentComponent !== 5, 'text-white': currentComponent !== 5 }" class="list-group-item list-group-item-action" (click)="changeComponent(5)">Settings</a>
+<div class="wrapper d-flex text-black" [ngClass]="{toggled: toggle}">
+    <div class="d-flex flex-column sidebar-wrapper">
+        <div class="d-flex align-items-center my-3">
+            <h3 class="m-auto">Dashboard</h3>
+        </div>
+        <div class="list-group list-group-flush pointer">
+            <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-yellow': currentComponent !== 0 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(0)">FYP Batches</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-yellow': currentComponent !== 1 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(1)">Supervisors</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-yellow': currentComponent !== 2 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(2)">Students</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-yellow': currentComponent !== 3 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(3)">FYP Groups</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-yellow': currentComponent !== 4 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(4)">Notifications</a>
+            <a [ngClass]="{'active-dashboard': currentComponent === 5, 'bg-yellow': currentComponent !== 5 }" class="list-group-item list-group-item-action sidebar-hover" (click)="changeComponent(5)">Settings</a>
         </div>
         <button type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#adminSignOutModal">Sign Out</button>
     </div>
     <div class="d-flex flex-column page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
-            <h4 class="font-weight-normal my-auto">AichQ | Administrator</h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-yellow p-3">
+            <h4 class="font-weight-normal my-auto">Aich<span class="color-red">Q</span> | Administrator</h4>
             <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,7 +46,7 @@
             <app-admin-notifications *ngIf="currentComponent === 4"></app-admin-notifications>
             <app-admin-settings *ngIf="currentComponent === 5" [admin]="admin"></app-admin-settings>
         </div>
-        <footer class="sticky-footer" class="py-3 bg-dark">
+        <footer class="sticky-footer" class="py-3 bg-yellow">
             <div class="container text-center">
                 <small>Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</small>
             </div>

@@ -177,11 +177,15 @@
     }
 }
 
+.bg-yellow {
+    background-color: #faae40;
+    color: #000000;
+}
 
-
-
-
-
+.sidebar-hover:hover {
+    background-color: #D89637;
+    color: #000000;
+}
 
 
 
@@ -191,32 +195,29 @@
 
 
 .active-dashboard {
-    background: #242424;
-    color: white;
-
-    &:hover {
-        background: #242424;
-    }
+    background-color: #D89637;
+    color: #000000;
 }
-
 
 .wrapper {
   overflow-x: hidden;
 }
 
 .sidebar-wrapper {
-  max-height: 100vh;
-  margin-left: -15rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
-  z-index: 1;
+    background-color: #faae40;
+    max-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+    z-index: 1;
 }
 
-.sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
+.sidebar {
+    &-heading {
+       
+    }
 }
 
 .sidebar-wrapper .list-group {
