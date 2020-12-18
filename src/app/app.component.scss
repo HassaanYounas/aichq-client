@@ -1,6 +1,6 @@
 .color {
     &-red {
-        color: #f01313;
+        color: #ee2d42;
         font-size: 1.2em;
     }
 
@@ -30,7 +30,7 @@
 
     &:hover {
         color: #000000;
-        border-bottom-color: #f01313;
+        border-bottom-color: #ee2d42;
     }
 }
 
@@ -41,14 +41,14 @@
 
 .btn {
     &-main {
-        background: #f01313;
+        background: #ee2d42;
         color: #ffffff;
         border-radius: 0.6em;
         padding: 0.5em 1.7em;
         font-size: 1.3em;
 
         &:hover {
-            background-color: darken($color:  #f01313, $amount: 20);
+            background-color: darken($color:  #ee2d42, $amount: 20);
             color: #ffffff;
         }
     }
@@ -75,7 +75,7 @@
         border-bottom: 0.25rem solid transparent;
         
         &:hover {
-            border-bottom-color: #f01313;
+            border-bottom-color: #ee2d42;
         }
     }
 
@@ -148,10 +148,12 @@
     }
 
     &-admin {
-        background-color: #ec1a23;
+        background-color: #ee2d42;
+        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
+        background-size: 30px 30px;
 
         &-left {
-            background-color: #faae40;
+            background-color: #292929;
         }
 
         &-right {
@@ -160,10 +162,12 @@
     }
 
     &-supervisor {
-        background-color: #ff7383;
+        background-color: #ee2d42;
+        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
+        background-size: 30px 30px;
 
         &-left {
-            background-color: #363636;
+            background-color: #292929;
         }
 
         &-right {
@@ -172,10 +176,12 @@
     }
 
     &-student {
-        background-color: #328c45;
+        background-color: #ee2d42;
+        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
+        background-size: 30px 30px;
 
         &-left {
-            background-color: #6776ed;
+            background-color: #292929;
         }
 
         &-right {
@@ -184,14 +190,16 @@
     }
 
     &-reg {
-        background-color: #6776ed;
+        background-color: #ee2d42;
+        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
+        background-size: 30px 30px;
 
         &-left {
-            background-color: #ffffff;
+            background-color: #fefefe;
         }
 
         &-right {
-            background-color: #ffcc00;
+            background-color: #d1d1d1;
         }
     }
 }
@@ -240,7 +248,7 @@
     }
 
     &-hover:hover {
-        background-color: darken($color: #f01313, $amount: 20);
+        background-color: darken($color: #ee2d42, $amount: 20);
         color: #ffffff;
         border-left: 0.4em solid #ffffff;
     }    
@@ -255,8 +263,8 @@
         width: 16rem;
         transition: margin .25s ease-out;
         z-index: 1;
-        background-color: darken($color: #f01313, $amount: 20);
-        background-image: radial-gradient(#f01313 2px, darken($color: #f01313, $amount: 20) 2px);
+        background-color: darken($color: #ee2d42, $amount: 20);
+        background-image: radial-gradient(#ee2d42 2px, darken($color: #ee2d42, $amount: 20) 2px);
         background-size: 30px 30px;
     }
 }
