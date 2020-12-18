@@ -3,25 +3,25 @@
         <div class="row my-3">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>Supervisors</h3>
+                    <h3 class="font-weight-bold">Supervisors</h3>
                 </div>
             </div>
             <div class="col d-flex justify-content-end align-items-center">
-                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#addSupervisorModal">Add</button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSupervisorBulkModal">Upload</button>
+                <button type="button" class="btn btn-dashboard mr-3" data-toggle="modal" data-target="#addSupervisorModal">Add</button>
+                <button type="button" class="btn btn-dashboard" data-toggle="modal" data-target="#addSupervisorBulkModal">Upload</button>
             </div>
         </div>
         <div id="addSupervisorModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+            <div class="modal-dialog modal-dialog-custom">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
                         <h4 class="modal-title">Add Supervisor</h4>
                     </div>
                     <div class="modal-body pb-2">
                         <form id="addSupervisorForm" [formGroup]="addSupervisorForm" (ngSubmit)="onAddSupervisorFormSubmit(addSupervisorForm.value)">
                             <div class="form-row align-items-center mb-2">
                                 <div class="col-auto">
-                                    <select formControlName="Title" class="form-control">
+                                    <select formControlName="Title" class="form-control-dropdown-sm">
                                         <option selected>Title</option>
                                         <option>Mr.</option>
                                         <option>Dr.</option>
@@ -29,19 +29,19 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <input formControlName="FullName" type="text" class="form-control" placeholder="Full Name">
+                                    <input formControlName="FullName" type="text" class="form-control form-control-custom-sm" placeholder="Full Name">
                                 </div>
                             </div>
                             <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid full name.</div>
                             <div class="form-row align-items-center mb-2">
                                 <div class="col">
-                                    <input formControlName="Email" type="email" class="form-control" placeholder="Email">
+                                    <input formControlName="Email" type="email" class="form-control form-control-custom-sm" placeholder="Email">
                                 </div>
                             </div>
                             <div class="text-danger mb-2" [ngClass]="{'d-none': validEmail}">Invalid email.</div>
                             <div class="form-row align-items-center">
                                 <div class="col">
-                                    <select formControlName="Designation" class="form-control">
+                                    <select formControlName="Designation" class="form-control-dropdown-sm">
                                         <option selected>Designation</option>
                                         <option>Lecturer</option>
                                         <option>Assistant Professor</option>
@@ -50,7 +50,7 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <select formControlName="Department" class="form-control">
+                                    <select formControlName="Department" class="form-control-dropdown-sm">
                                         <option selected>Department</option>
                                         <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
                                     </select>
@@ -60,54 +60,54 @@
                         </form>
                         <div [ngClass]="(addSupervisorMessage === 'Supervisor added successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addSupervisorMessage"></div>
                     </div>
-                    <div class="modal-footer">
-                        <button form="addSupervisorForm" type="submit" class="btn btn-primary">Add</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-footer modal-footer-custom">
+                        <button form="addSupervisorForm" type="submit" class="btn btn-dashboard-modal">Add</button>
+                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <div id="addSupervisorBulkModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+            <div class="modal-dialog modal-dialog-custom">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
                         <h4 class="modal-title">Upload Supervisors</h4>
                     </div>
                     <div class="modal-body pb-2">
                         <form id="addSupervisorBulkForm" [formGroup]="addSupervisorBulkForm" (ngSubmit)="onAddSupervisorBulkFormSubmit(addSupervisorBulkForm.value)">
                             <div class="form-row align-items-center mb-2">
                                 <div class="col">
-                                    <select formControlName="Department" class="form-control">
+                                    <select formControlName="Department" class="form-control-dropdown">
                                         <option selected>Department</option>
                                         <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="custom-file">
-                                <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input pointer" id="customFile">
+                                <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input pointer file-input" id="customFile">
                                 <label class="custom-file-label pointer" for="customFile">Choose file</label>
                               </div>
                             <div class="text-danger mt-2" [ngClass]="{'d-none': validAddSupervisorBulk}">Please select department and upload file.</div>
                         </form>
                         <div [ngClass]="(addSupervisorBulkMessage === 'Supervisors uploaded successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addSupervisorBulkMessage"></div>
                     </div>
-                    <div class="modal-footer">
-                        <button form="addSupervisorBulkForm" type="submit" class="btn btn-primary">Upload</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-footer modal-footer">
+                        <button form="addSupervisorBulkForm" type="submit" class="btn btn-dashboard-modal">Upload</button>
+                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <form class="mb-3" [formGroup]="departmentSelectForm">
-            <select formControlName="Department" #departmentSelect class="form-control" (change)="onDepartmentFilterSelect(departmentSelect.value)">
+            <select formControlName="Department" #departmentSelect class="form-control-dropdown" (change)="onDepartmentFilterSelect(departmentSelect.value)">
                 <option selected>Department</option>
                 <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
             </select>
         </form>
         <h5 class="mb-3" [innerHTML]="currentSupervisorsText"></h5>
-        <div style="height: 350px; overflow-x: hidden; overflow-y: scroll;">
+        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table>
                     <thead>
                         <tr>
                             <th scope="col">Name</th>

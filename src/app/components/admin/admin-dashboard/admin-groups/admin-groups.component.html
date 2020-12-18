@@ -3,20 +3,20 @@
         <div class="row my-3">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>FYP Groups</h3>
+                    <h3 class="font-weight-bold">FYP Groups</h3>
                 </div>
             </div>
         </div>
         <form [formGroup]="groupFilterSelectForm">
             <div class="row mb-3">
                 <div class="col">
-                    <select formControlName="Department" #departmentSelectFilter class="form-control" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
+                    <select formControlName="Department" #departmentSelectFilter class="form-control-dropdown" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
                         <option selected>Department</option>
                         <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
                     </select>
                 </div>
                 <div class="col">
-                    <select formControlName="Program" #programSelectFilter class="form-control" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                    <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
                         <option selected>Program</option>
                         <ng-container *ngIf="departmentFilterSelectBoolean">
                             <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
@@ -24,7 +24,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <select formControlName="Batch" #batchSelectFilter class="form-control" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                    <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
                         <option selected>Batch</option>
                         <ng-container *ngIf="programFilterSelectBoolean">
                             <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
@@ -34,25 +34,27 @@
             </div>
         </form>
         <h5 class="mb-3" [innerHTML]="currentGroupsText"></h5>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Student One</th>
-                        <th scope="col">Student Two</th>
-                        <th scope="col">Supervisor</th>
-                        <th scope="col">Project</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tehniat</td>
-                        <td>Muhammad Hassaan Younas</td>
-                        <td>Mr. Imran Ihsan</td>
-                        <td>AichQ - FYP Project Management System</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Student One</th>
+                            <th scope="col">Student Two</th>
+                            <th scope="col">Supervisor</th>
+                            <th scope="col">Project</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tehniat</td>
+                            <td>Muhammad Hassaan Younas</td>
+                            <td>Mr. Imran Ihsan</td>
+                            <td>AichQ - FYP Project Management System</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

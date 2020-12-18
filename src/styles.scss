@@ -5,6 +5,73 @@ html, body {
     background-color: #ffffff;
 }
 
+table {
+    width: 100%;
+    padding: 1em;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+table,
+th,
+td {
+    border: 0.15em solid #000000;
+    padding: 0.5em;
+}
+
+th {
+    background-color: #dddddd;
+}
+
+#active {
+    border-bottom: 0.25rem solid #f01313;
+}
+
+.no-border {
+    border: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.grey-container {
+    background-color: #f7f7f7;
+    border-radius: 1em;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.bg-red {
+    background-color: #f01313;
+    color: #ffffff;
+}
+
+.border-top-right-round {
+    border-top-right-radius: 1.3em;
+}
+
+.active-dashboard {
+    background-color: darken($color: #f01313, $amount: 20);
+    border-left: 0.4em solid #ffffff;
+    color: #ffffff;
+}
+
+.black-bar {
+    background-color: #000000;
+    height: 0.4em;
+    border-radius: 1em;
+    margin-top: 3px;
+}
+
+.footer-dashboard {
+    border-bottom: 0.4em solid #f01313;
+}
+
+option:hover {
+    color: white;
+    background: black;
+}
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -21,21 +88,7 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: #f01313;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px darken($color: #f01313, $amount: 20);
-  outline: 0 none;
-}
-
-#active {
-    border-bottom: .25rem solid #f01313;
-}
-
-.pointer {
-    cursor: pointer;
-}
-
-.grey-container {
-    background-color: #f7f7f7;
-    border-radius: 1em;
-    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+    border-color: #f01313;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px darken($color: #f01313, $amount: 20);
+    outline: 0 none;
 }

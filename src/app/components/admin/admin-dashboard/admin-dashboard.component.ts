@@ -46,7 +46,6 @@ export class AdminDashboardComponent {
     this.getSupervisors();
     this.getStudents();
     this.getGroups();
-    console.log(this.groups)
   }
   
   changeComponent(currentComponent: number): void {

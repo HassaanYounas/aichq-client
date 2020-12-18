@@ -3,12 +3,12 @@
         <div class="row my-3">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>Students</h3>
+                    <h3 class="font-weight-bold">Students</h3>
                 </div>
             </div>
             <div class="col d-flex justify-content-end align-items-center">
-                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#addStudentModal">Add</button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">Upload</button>
+                <button type="button" class="btn btn-dashboard mr-3" data-toggle="modal" data-target="#addStudentModal">Add</button>
+                <button type="button" class="btn btn-dashboard" data-toggle="modal" data-target="#addStudentModal">Upload</button>
             </div>
         </div>
         <div id="addStudentModal" class="modal fade" role="dialog">
@@ -63,13 +63,13 @@
         <form [formGroup]="studentFilterSelectForm">
             <div class="row mb-3">
                 <div class="col">
-                    <select formControlName="Department" #departmentSelectFilter class="form-control" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
+                    <select formControlName="Department" #departmentSelectFilter class="form-control-dropdown" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
                         <option selected>Department</option>
                         <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
                     </select>
                 </div>
                 <div class="col">
-                    <select formControlName="Program" #programSelectFilter class="form-control" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                    <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
                         <option selected>Program</option>
                         <ng-container *ngIf="departmentFilterSelectBoolean">
                             <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
@@ -77,7 +77,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <select formControlName="Batch" #batchSelectFilter class="form-control" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                    <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
                         <option selected>Batch</option>
                         <ng-container *ngIf="programFilterSelectBoolean">
                             <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
@@ -87,23 +87,25 @@
             </div>
         </form>
         <h5 class="mb-3" [innerHTML]="currentStudentsText"></h5>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Roll Number</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">FYP Phase</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>170273</td>
-                        <td>Muhammad Hassaan Younas</td>
-                        <td>II</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Roll Number</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">FYP Phase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>170273</td>
+                            <td>Muhammad Hassaan Younas</td>
+                            <td>II</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
             <p style="color: white">Loading...</p>
