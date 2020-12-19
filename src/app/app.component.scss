@@ -199,7 +199,7 @@
         }
 
         &-right {
-            background-color: #d1d1d1;
+            background-color: #dddddd;
         }
     }
 }
@@ -234,11 +234,11 @@
 
 .img-hover {
     border-radius: 40%;
-    transition: transform 1s ease;
-
-    &:hover {
-        transform: rotate(720deg);
-    }
+    animation-name: spin;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    filter: drop-shadow(5px 5px 5px #000000);
 }
 
 .sidebar {
@@ -297,5 +297,14 @@
 
     &-footer-custom {
         border-top: 0.15em solid #000000;
+    }
+}
+
+@keyframes spin {
+    40% {
+        transform:rotate(0deg);
+    }
+    60% {
+        transform:rotate(720deg);
     }
 }

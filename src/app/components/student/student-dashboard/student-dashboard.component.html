@@ -1,46 +1,46 @@
-<div class="wrapper d-flex text-white" [ngClass]="{toggled: toggle}">
-    <div class="bg-dark d-flex flex-column sidebar-wrapper">
-        <div class="sidebar-heading">Dashboard</div>
-        <div class="list-group list-group-flush pointer mt-1">
-            <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-dark': currentComponent !== 0, 'text-white': currentComponent !== 0 }" class="list-group-item list-group-item-action" (click)="changeComponent(0)">Groups</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-dark': currentComponent !== 1, 'text-white': currentComponent !== 1 }" class="list-group-item list-group-item-action" (click)="changeComponent(1)">Proposals</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-dark': currentComponent !== 2, 'text-white': currentComponent !== 2 }" class="list-group-item list-group-item-action" (click)="changeComponent(2)">Requests</a>
-            <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-dark': currentComponent !== 3, 'text-white': currentComponent !== 3 }" class="list-group-item list-group-item-action" (click)="changeComponent(3)">Settings</a>
+<div class="wrapper d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-light p-3">
+        <img src="../../../../assets/img/admin-avatar.png" class="img-fluid pointer mr-3" width="50px" alt="Admin Avatar">
+        <h3 class="font-weight-bold my-auto pointer">| Aich<span class="color-red">Q</span> | Student Dashboard</h3>
+        <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item font-weight-bold" [innerHTML]="greetingMessage"></li>
+            </ul>
         </div>
-        <button type="button" class="btn btn-danger mt-auto mb-2 mx-2" data-toggle="modal" data-target="#studentSignOutModal">Sign Out</button>
-    </div>
-    <div class="d-flex flex-column page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
-            <h4 class="font-weight-normal my-auto">AichQ | Student</h4>
-            <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item" [innerHTML]="greetingMessage"></li>
-                </ul>
-            </div>
-            <div class="modal fade" id="studentSignOutModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-dark" id="studentSignOutModalLabel">Do you want to Sign Out?</h5>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="signOut()">Yes</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        </div>
+        <div class="modal fade" id="studentSignOutModal" role="dialog">
+            <div class="modal-dialog modal-dialog-custom" role="document">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title text-dark">Do you want to Sign Out?</h5>
+                    </div>
+                    <div class="modal-footer modal-footer-custom no-border">
+                        <button type="submit" class="btn btn-dashboard-modal" data-dismiss="modal" (click)="signOut()">Yes</button>
+                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
-        </nav>
-        <div class="page-content" (click)="closeMenu()">
-           
         </div>
-        <footer class="sticky-footer" class="py-3 bg-dark">
-            <div class="container text-center">
-                <small>Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</small>
+    </nav>
+    <div class="d-flex page-content">
+        <div class="d-flex flex-column wrapper-sidebar border-top-right-round">
+            <div class="pointer border-top-right-round">
+                <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-red': currentComponent !== 0 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(0)">Groups</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-red': currentComponent !== 1 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(1)">Proposals</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-red': currentComponent !== 2 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(2)">Requests</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-red': currentComponent !== 4 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(4)">Settings</a>
             </div>
-        </footer>
+            <button type="button" class="btn btn-dashboard-sign-out mt-auto mb-2 mx-2" data-toggle="modal" data-target="#studentSignOutModal">Sign Out</button>
+        </div>
+        <div class="d-flex flex-column page-content-wrapper">
+            <div class="black-bar mx-3 mb-3"></div>
+            <div class="mx-3" (click)="closeMenu()">
+            </div>
+            <div class="d-flex flex-column text-center flex-fill footer-dashboard">
+                <p class="mt-auto font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</p>       
+            </div>
+        </div>
     </div>
 </div>
