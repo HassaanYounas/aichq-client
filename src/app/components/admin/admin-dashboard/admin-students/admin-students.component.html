@@ -12,30 +12,30 @@
             </div>
         </div>
         <div id="addStudentModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+            <div class="modal-dialog modal-dialog-custom">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
                         <h4 class="modal-title">Add Student</h4>
                     </div>
-                    <div class="modal-body pb-2">
+                    <div class="modal-body pb-0">
                         <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
                             <div class="row">
                                 <div class="col pr-1">
-                                    <input formControlName="FullName" type="text" class="form-control mb-2" placeholder="Full Name">
+                                    <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Full Name">
                                 </div>
                                 <div class="col pl-1">
-                                    <input formControlName="RollNumber" type="number" class="form-control mb-2" placeholder="Roll Number">
+                                    <input formControlName="RollNumber" type="number" class="form-control form-control-custom-sm mb-2" placeholder="Roll Number">
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col pr-1">
-                                    <select #departmentAddStudent formControlName="Department" class="form-control" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
+                                    <select #departmentAddStudent formControlName="Department" class="form-control-dropdown" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
                                         <option selected>Department</option>
                                         <option *ngFor="let department of departments">{{ department.Name }}</option>
                                     </select>
                                 </div>
                                 <div class="col pl-1">
-                                    <select #programAddStudent formControlName="Program" class="form-control" (change)="onProgramAddStudent(programAddStudent.value)">
+                                    <select #programAddStudent formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudent(programAddStudent.value)">
                                         <option selected>Program</option>
                                         <ng-container *ngIf="departmentAddSelectBoolean">
                                             <option *ngFor="let program of departmentAddSelect.Programs">{{ program.Title }}</option>
@@ -43,19 +43,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <select #batchAddStudent formControlName="Batch" class="form-control">
+                            <select #batchAddStudent formControlName="Batch" class="form-control-dropdown mb-2">
                                 <option selected>Batch</option>
                                 <ng-container *ngIf="programAddSelectBoolean">
                                     <option *ngFor="let batch of programAddSelect.Batches">{{ batch.BatchID }}</option>
                                 </ng-container>
                             </select>
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validAddStudent}">Invalid input.</div>
+                            <div class="text-danger" [ngClass]="{'d-none': validAddStudent}">Invalid input.</div>
                         </form>
-                        <div class="mt-2" [ngClass]="(addStudentMessage === 'Student added successfully.')?'text-success':'text-danger'" [innerHTML]="addStudentMessage"></div>
+                        <div class="mb-2" [ngClass]="(addStudentMessage === 'Student added successfully.')?'text-success':'text-danger'" [innerHTML]="addStudentMessage"></div>
                     </div>
-                    <div class="modal-footer">
-                        <button form="addStudentForm" type="submit" class="btn btn-primary">Add</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-footer modal-footer-custom">
+                        <button form="addStudentForm" type="submit" class="btn btn-dashboard-modal">Add</button>
+                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,12 @@
                         <tr>
                             <td>170273</td>
                             <td>Muhammad Hassaan Younas</td>
-                            <td>II</td>
+                            <td>I</td>
+                        </tr>
+                        <tr>
+                            <td>170349</td>
+                            <td>Tehniat</td>
+                            <td>I</td>
                         </tr>
                     </tbody>
                 </table>

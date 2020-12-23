@@ -24,7 +24,7 @@ th {
 }
 
 #active {
-    border-bottom: 0.25rem solid #f01313;
+    border-bottom: 0.25rem solid #ee2d42;
 }
 
 .no-border {
@@ -42,7 +42,7 @@ th {
 }
 
 .bg-red {
-    background-color: #f01313;
+    background-color: #ee2d42;
     color: #ffffff;
 }
 
@@ -51,7 +51,7 @@ th {
 }
 
 .active-dashboard {
-    background-color: darken($color: #f01313, $amount: 20);
+    background-color: darken($color: #ee2d42, $amount: 20);
     border-left: 0.4em solid #ffffff;
     color: #ffffff;
 }
@@ -64,7 +64,7 @@ th {
 }
 
 .footer-dashboard {
-    border-bottom: 0.4em solid #f01313;
+    border-bottom: 0.4em solid #ee2d42;
 }
 
 option:hover {
@@ -88,7 +88,7 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-    border-color: #f01313;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px darken($color: #f01313, $amount: 20);
+    border-color: #ee2d42;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px darken($color: #ee2d42, $amount: 20);
     outline: 0 none;
 }
