@@ -3,6 +3,7 @@
     "updateAdmin": "http://localhost:8080/api/admin/update",
     "getAdmin": "http://localhost:8080/api/admin/get",
     "addDepartment": "http://localhost:8080/api/department/add",
+    "addProgram": "http://localhost:8080/api/department/add/program",
     "getDepartment": "http://localhost:8080/api/department/get/all",
     "addBatch": "http://localhost:8080/api/batch/add",
     "getBatches": "http://localhost:8080/api/batch/get/all",

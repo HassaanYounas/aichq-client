@@ -2,150 +2,110 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center my-3">
             <h3 class="font-weight-bold">FYP Batches</h3>
-            <button type="button" class="btn btn-dashboard" data-toggle="modal" data-target="#addBatchModal">Add</button>
         </div>
-        <div class="modal fade" id="addBatchModal" role="dialog">
-            <div class="modal-dialog modal-dialog-custom" role="document">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title font-weight-bold">Add a New FYP Batch</h5>
-                    </div>
-                    <div class="modal-body pb-2">
-                        <form id="addBatchForm" [formGroup]="addBatchForm" (ngSubmit)="onAddBatchFormSubmit(addBatchForm.value)">
-                            <div class="row mb-2">
-                                <div class="col pr-1">
-                                    <select formControlName="Session" class="form-control-dropdown">
-                                        <option selected>Session</option>
-                                        <option>Fall</option>
-                                        <option>Spring</option>
-                                    </select>
-                                </div>
-                                <div class="col pl-1">
-                                    <select formControlName="Year" class="form-control-dropdown">
-                                        <option selected>Year</option>
-                                        <option *ngFor="let year of years">{{ year }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col pr-1">
-                                    <select formControlName="Department" #departmentSelect class="form-control-dropdown" (change)='onDepartmentSelected(departmentSelect.value)'>
-                                        <option selected>Department</option>
-                                        <option *ngFor="let department of departments">{{ department.Name }}</option>
-                                    </select>
-                                </div>
-                                <div class="col pl-1">
-                                    <select formControlName="Program" class="form-control-dropdown">
-                                        <option selected>Program</option>
-                                        <ng-container *ngIf="selectedDepartmentBoolean">
-                                            <option *ngFor="let program of selectedDepartment.Programs">{{ program.Title }}</option>
-                                        </ng-container>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="text-danger" [ngClass]="{'d-none': validAddBatch}">Please select all options.</div>
-                        </form>
-                        <div [ngClass]="(addBatchMessage === 'Batch added successfully.')?'text-success':'text-danger'" [innerHTML]="addBatchMessage"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button form="addBatchForm" type="submit" class="btn btn-dashboard-modal">Add</button>
-                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <form [formGroup]="batchFilterSelectForm">
-            <div class="row mb-3">
-                <div class="col">
-                    <select formControlName="Department" #batchFilterSelect class="form-control-dropdown" (change)="onBatchFilterSelect(batchFilterSelect.value)">
-                        <option selected>Department</option>
-                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <select formControlName="Program" #batchFilterCompleteSelect class="form-control-dropdown" (change)="onBatchFilterCompleteSelect(batchFilterCompleteSelect.value)">
-                        <option selected>Program</option>
-                        <ng-container *ngIf="departmentFilterSelectBoolean">
-                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <h5 class="mb-3" [innerHTML]="currentBatchesText"></h5>
-        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Program</th>
-                            <th scope="col">Batch ID</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Archive</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let batch of batchView">
-                            <td>{{ batch.Program }}</td>
-                            <td>{{ batch.BatchID }}</td>
-                            <td>
-                                <button type="button" class="btn-link-custom p-0" data-toggle="modal" data-target="#editBatchModal">Edit</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn-link-custom p-0" data-toggle="modal" data-target="#archiveBatchModal">Archive</button>
-                            </td>                
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="editBatchModal" role="dialog">
-        <div class="modal-dialog modal-dialog-custom" role="document">
-            <div class="modal-content modal-content-custom">
-                <div class="modal-header modal-header-custom">
-                    <h5 class="modal-title">Edit FYP Batch</h5>
-                </div>
-                <div class="modal-body">
-                    <!-- <form id="editBatchForm" [formGroup]="newBatchForm" (ngSubmit)="onNewBatchFormSubmit(newBatchForm.value)">
-                        <div class="row">
-                            <div class="col pr-1">
-                                <select class="form-control mb-2">
-                                    <option selected>Session</option>
-                                    <option>Fall</option>
-                                    <option>Spring</option>
-                                </select>
-                            </div>
-                            <div class="col pl-1">
-                                <select formControlName="Year" class="form-control mb-2">
-                                    <option selected>Batch Year</option>
-                                    <option *ngFor="let year of years">{{ year }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <select class="form-control mb-2">
-                            <option selected>Choose Program</option>
-                            <option>BSCS</option>
-                            <option>BSIT</option>
+        <div class="grey-container p-4 mb-4">
+            <h5 class="font-weight-bold mb-3">Add New FYP Batch</h5>
+            <form id="addBatchForm" [formGroup]="addBatchForm" (ngSubmit)="onAddBatchFormSubmit(addBatchForm.value)">
+                <div class="row mb-2">
+                    <div class="col pr-1">
+                        <select formControlName="Session" class="form-control-dropdown">
+                            <option selected>Session</option>
+                            <option>Fall</option>
+                            <option>Spring</option>
                         </select>
-                    </form> -->
+                    </div>
+                    <div class="col pr-1">
+                        <select formControlName="Year" class="form-control-dropdown">
+                            <option selected>Year</option>
+                            <option *ngFor="let year of years">{{ year }}</option>
+                        </select>
+                    </div>
+                    <div class="col pr-1">
+                      <select formControlName="Department" #departmentSelect class="form-control-dropdown" (change)='onDepartmentSelected(departmentSelect.value)'>
+                          <option selected>Department</option>
+                          <option *ngFor="let department of departments">{{ department.Name }}</option>
+                      </select>
+                  </div>
+                  <div class="col">
+                      <select formControlName="Program" class="form-control-dropdown">
+                          <option selected>Program</option>
+                          <ng-container *ngIf="selectedDepartmentBoolean">
+                              <option *ngFor="let program of selectedDepartment.Programs">{{ program.Title }}</option>
+                          </ng-container>
+                      </select>
+                  </div>
                 </div>
-                <div class="modal-footer modal-footer-custom">
-                    <button form="deleteBatchForm" type="submit" class="btn btn-dashboard-modal" data-dismiss="modal">Edit</button>
-                    <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+                <div class="text-danger" [ngClass]="{'d-none': validAddBatch}">Please select all options.</div>
+            </form>
+            <button form="addBatchForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
+            <div class="mt-2" [ngClass]="(addBatchMessage === 'Batch added successfully.')?'text-success':'text-danger'" [innerHTML]="addBatchMessage"></div>
         </div>
-    </div>
-    <div class="modal fade" id="archiveBatchModal" role="dialog">
-        <div class="modal-dialog modal-dialog-custom" role="document">
-            <div class="modal-content modal-content-custom">
-                <div class="modal-header modal-header-custom">
-                    <h5 class="modal-title">Are you sure you want to archive this batch?</h5>
+        <div class="grey-container p-4 mb-5">
+            <h5 class="font-weight-bold mb-4">List of FYP Batches</h5>
+            <h6 class="font-weight-bold mb-3">Filter Options</h6>
+            <form [formGroup]="batchFilterSelectForm">
+                <div class="row mb-3">
+                    <div class="col">
+                        <select formControlName="Department" #batchFilterSelect class="form-control-dropdown" (change)="onBatchFilterSelect(batchFilterSelect.value)">
+                            <option selected>All Departments</option>
+                            <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select formControlName="Program" #batchFilterCompleteSelect class="form-control-dropdown" (change)="onBatchFilterCompleteSelect(batchFilterCompleteSelect.value)">
+                            <option selected>All Programs</option>
+                            <ng-container *ngIf="departmentFilterSelectBoolean">
+                                <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
                 </div>
-                <div class="modal-footer modal-footer-custom no-border">
-                    <button type="submit" class="btn btn-dashboard-modal" data-dismiss="modal">Yes</button>
-                    <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">No</button>
+            </form>
+            <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Department
+                                    <i class="pointer" (click)="sortByDepartment()">&nbsp;&#8597;</i>
+                                </th>
+                                <th scope="col">
+                                    Program
+                                    <i class="pointer" (click)="sortByProgram()">&nbsp;&#8597;</i>
+                                </th>
+                                <th scope="col">
+                                    Session
+                                    <i class="pointer" (click)="sortBySession()">&nbsp;&#8597;</i>
+                                </th>
+                                <th scope="col">
+                                    Year<i class="pointer" (click)="sortByYear()">&nbsp;&#8597;</i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let batch of batches">
+                                <ng-container *ngIf="noFilterBoolean">
+                                    <td>{{ batch.Department }}</td>
+                                    <td>{{ batch.Program }}</td>
+                                    <td>{{ batch.Session }}</td>
+                                    <td>{{ batch.Year }}</td>
+                                </ng-container>
+                                <ng-container *ngIf="departmentFilterBoolean && batch.Department === selectedFilterDepartment">
+                                    <td>{{ batch.Department }}</td>
+                                    <td>{{ batch.Program }}</td>
+                                    <td>{{ batch.Session }}</td>
+                                    <td>{{ batch.Year }}</td>
+                                </ng-container>
+                                <ng-container *ngIf="programFilterBoolean && batch.Department === selectedFilterDepartment && batch.Program === selectedFilterDepartmentProgram">
+                                    <td>{{ batch.Department }}</td>
+                                    <td>{{ batch.Program }}</td>
+                                    <td>{{ batch.Session }}</td>
+                                    <td>{{ batch.Year }}</td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -114,7 +114,7 @@ export class SupervisorProposalsComponent implements OnInit {
     else {
       for (let i = 0; i < this.departmentSubmitProposal.Programs.length; i++) {
         if (programOption === this.departmentSubmitProposal.Programs[i].Title) {
-          this.programSubmitProposal = this.departmentSubmitProposal.Programs[i];
+        //   this.programSubmitProposal = this.departmentSubmitProposal.Programs[i];
           this.programSubmitProposalBoolean = true;
         }
       }
@@ -138,7 +138,7 @@ export class SupervisorProposalsComponent implements OnInit {
     else {
       for (let i = 0; i < this.departmentFilterSelect.Programs.length; i++) {
         if (programOption === this.departmentFilterSelect.Programs[i].Title) {
-          this.programFilterSelect = this.departmentFilterSelect.Programs[i];
+        //   this.programFilterSelect = this.departmentFilterSelect.Programs[i];
           this.programFilterSelectBoolean = true;
         }
       }

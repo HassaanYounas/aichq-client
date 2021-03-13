@@ -6,11 +6,16 @@ import { catchError } from 'rxjs/operators';
 import * as API from '../../assets/api.json';
 import { Supervisor } from '../models/supervisor.model';
 import { Group } from '../models/group.model';
+import { Batch } from '../models/batch.model';
+import { Department } from '../models/department.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+
+  private batches: Batch[];
+  private departments: Department[];
 
   constructor(private http: HttpClient) { }
 
@@ -18,12 +23,12 @@ export class ApiService {
     return this.requestWithToken(body, API.updateAdmin);
   }
 
-  getAdmin() {
-    return this.requestWithToken({}, API.getAdmin);
-  }
-
   addDepartment(body: any) {
     return this.requestWithToken(body, API.addDepartment);
+  }
+
+  addProgram(body: any) {
+    return this.requestWithToken(body, API.addProgram);
   }
 
   getDepartment() {
@@ -33,11 +38,24 @@ export class ApiService {
   addBatch(body: any) {
     return this.requestWithToken(body, API.addBatch);
   }
-  
-  getBatches() {
-    return this.requestWithToken({}, API.getBatches);
+
+
+
+  // Getter functions
+
+  getAdmin() {
+    return this.requestWithToken({}, API.getAdmin);
   }
 
+  getDepartments() {
+    return this.departments;
+  }
+
+  getBatches() {
+    return this.batches;
+  }
+
+ 
   addSupervisor(body: any) {
     return this.requestWithToken(body, API.addSupervisor);
   }
@@ -101,6 +119,24 @@ export class ApiService {
     const body = { Username: group.Username, Password: group.Password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+  }
+
+  loadDepartments() {
+    this.departments = new Array<Department>();
+    this.requestWithToken({}, API.getDepartment).subscribe(
+      (res: any) => {
+        res.forEach(e => this.departments.push(new Department(e)));
+      }, (error: any) => { console.log(error); }
+    );
+  }
+
+  loadBatches() {
+    this.batches = new Array<Batch>();
+    this.requestWithToken({}, API.getBatches).subscribe(
+      (res: any) => {
+        res.forEach(e => this.batches.push(new Batch(e)));
+      }, (error: any) => { console.log(error); }
+    );
   }
 
   private errorHandler(error: HttpErrorResponse) {

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { BatchView } from 'src/app/models/batch-view.model';
+import { Batch } from 'src/app/models/batch.model';
 import { Department } from 'src/app/models/department.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -11,131 +11,184 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AdminFypBatchesComponent implements OnInit {
 
-  @Input() departments: Department[];
-  @Output() updateData: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    batches: Batch[];
+    departments: Department[];
 
-  batchView: BatchView[];
-  selectedDepartment: Department;
-  departmentFilterSelect: Department;
+    selectedDepartment: Department;
+    departmentFilterSelect: Department;
 
-  years: Number[];
-  validAddBatch: Boolean = true;
-  selectedDepartmentBoolean: Boolean = false;
-  departmentFilterSelectBoolean: Boolean = false;
-  addBatchMessage: String = '';
-  currentBatchesText: String = 'Select above options:';
+    years: Number[];
+    departmentSortAlternate: Number = 0;
+    sessionSortAlternate: Number = 0;
+    programSortAlternate: Number = 0;
+    yearSortAlternate: Number = 0;
+    
+    validAddBatch: Boolean = true;
+    noFilterBoolean: Boolean = true;
+    departmentFilterBoolean: Boolean = false;
+    programFilterBoolean: Boolean = false;
+    selectedDepartmentBoolean: Boolean = false;
+    departmentFilterSelectBoolean: Boolean = false;
 
-  addBatchForm: FormGroup;
-  batchFilterSelectForm: FormGroup;
+    addBatchMessage: String = '';
+    selectedFilterDepartment: String = '';
+    selectedFilterDepartmentProgram: String = '';
 
-  constructor(
-    private api: ApiService,
-    private spinner: NgxSpinnerService
-  ) { }
+    addBatchForm: FormGroup;
+    batchFilterSelectForm: FormGroup;
 
-  ngOnInit(): void {
-    let year = new Date().getFullYear() - 5;
-    this.years = new Array<Number>(8);
-    for (let i = 0; i < 8; i++) this.years[i] = year++;
-    this.addBatchForm = new FormGroup({
-      Session: new FormControl('Session'),
-      Year: new FormControl('Year'),
-      Department: new FormControl('Department'),
-      Program: new FormControl('Program')
-    });
-    this.batchFilterSelectForm = new FormGroup({
-      Department: new FormControl('Department'),
-      Program: new FormControl('Program')
-    });
-  }
+    constructor(
+        private api: ApiService,
+        private spinner: NgxSpinnerService
+    ) { }
 
-  onAddBatchFormSubmit(formData: any): void {
-    if (
-      formData.Session !== 'Session' &&
-      formData.Year !== 'Year' &&
-      formData.Department !== 'Department' &&
-      formData.Program !== 'Program'
-    ) {
-      this.spinner.show();
-      this.api.addBatch(formData).subscribe(
-        (res: any) => {
-          this.addBatchResponse('Batch added successfully.');
-          this.addBatchForm.controls['Session'].setValue('Session');
-          this.addBatchForm.controls['Year'].setValue('Year');
-          this.addBatchForm.controls['Department'].setValue('Department');
-          this.addBatchForm.controls['Program'].setValue('Program');
-          this.batchView = [];
-          this.updateData.emit(true);
-          setTimeout(() => {
-            this.batchFilterSelectForm.controls['Department'].setValue(formData.Department);
-            this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);
-            this.onBatchFilterSelect(formData.Department);
-            this.onBatchFilterCompleteSelect(formData.Program);
-          }, 1000);
-        }, (error: any) => this.addBatchResponse(error)
-      );
-      this.validAddBatch = true;
-      setTimeout(() => this.addBatchMessage = '', 4000);
-    } else this.validAddBatch = false;
-    setTimeout(() => this.validAddBatch = true, 3000);
-  }
+    ngOnInit(): void {
+        let year = new Date().getFullYear() - 5;
+        this.years = new Array<Number>(8);
+        for (let i = 0; i < 8; i++) this.years[i] = year++;
+        this.addBatchForm = new FormGroup({
+            Session: new FormControl('Session'),
+            Year: new FormControl('Year'),
+            Department: new FormControl('Department'),
+            Program: new FormControl('Program')
+        });
+        this.batchFilterSelectForm = new FormGroup({
+            Department: new FormControl('All Departments'),
+            Program: new FormControl('All Programs')
+        });
+        this.fetchDepartments();
+        this.fetchBatches();
+    }
 
-  addBatchResponse(message: String): void {
-    setTimeout(() => { 
-      this.spinner.hide();
-      this.addBatchMessage = message;
-    }, 1000);
-  }
+    fetchDepartments() {
+        this.api.loadDepartments();
+        this.departments = this.api.getDepartments();
+    }
 
-  onBatchFilterSelect(departmentOption: String): void {
-    if (departmentOption === 'Department') this.departmentFilterSelectBoolean = false;
-    else {
-      for (let i = 0; i < this.departments.length; i++) {
-        if (departmentOption === this.departments[i].Name) {
-          this.departmentFilterSelect = this.departments[i];
-          this.departmentFilterSelectBoolean = true;
-        }
-      }
-    } this.currentBatchesText = 'Select above options:';
-  }
+    fetchBatches() {
+        this.api.loadBatches();
+        this.batches = this.api.getBatches();
+    }
 
-  onBatchFilterCompleteSelect(programOption: String): void {
-    if (programOption === 'Program') this.selectedDepartmentBoolean = false;
-    else {
-      this.currentBatchesText = 
-        `Batches of ${this.departmentFilterSelect.Name} department (${programOption}):`;
-      for (let i = 0; i < this.departments.length; i++) {
-        if (this.departments[i].Name === this.departmentFilterSelect.Name) {
-          for (let j = 0; j < this.departments[i].Programs.length; j++) {
-            if (this.departments[i].Programs[j].Title === programOption) {
-              this.batchView = new Array<BatchView>();
-              for (let k = 0; k < this.departments[i].Programs[j].Batches.length; k++) {
-                if (this.departments[i].Programs[j].Batches[k].Archived === false) {
-                  this.batchView.push(new BatchView(
-                    this.departments[i].Programs[j].Title,
-                    this.departments[i].Programs[j].Batches[k].BatchID
-                  ));
+    onAddBatchFormSubmit(formData: any): void {
+        if (
+            formData.Session !== 'Session' &&
+            formData.Year !== 'Year' &&
+            formData.Department !== 'Department' &&
+            formData.Program !== 'Program'
+        ) {
+        this.spinner.show();
+        this.api.addBatch(formData).subscribe(
+            (res: any) => {
+                this.addBatchResponse('Batch added successfully.');
+                this.addBatchForm.controls['Session'].setValue('Session');
+                this.addBatchForm.controls['Year'].setValue('Year');
+                this.addBatchForm.controls['Department'].setValue('Department');
+                this.addBatchForm.controls['Program'].setValue('Program');
+                this.fetchBatches();
+                setTimeout(() => {
+                    this.batchFilterSelectForm.controls['All Departments'].setValue(formData.Department);
+                    this.batchFilterSelectForm.controls['All Programs'].setValue(formData.Program);
+                    this.onBatchFilterSelect(formData.Department);
+                    this.onBatchFilterCompleteSelect(formData.Program);
+                }, 1000);
+            }, (error: any) => this.addBatchResponse(error));
+            this.validAddBatch = true;
+            setTimeout(() => this.addBatchMessage = '', 4000);
+        } else this.validAddBatch = false;
+        setTimeout(() => this.validAddBatch = true, 3000);
+    }
+
+    addBatchResponse(message: String): void {
+        setTimeout(() => { 
+            this.spinner.hide();
+            this.addBatchMessage = message;
+        }, 1000);
+    }
+
+    onBatchFilterSelect(departmentOption: String): void {
+        if (departmentOption === 'All Departments')
+            this.setBatchFilters(true, false, false, '', '');
+        else {
+            for (let i = 0; i < this.departments.length; i++) {
+                if (departmentOption === this.departments[i].Name) {
+                    this.departmentFilterSelect = this.departments[i];
+                    this.departmentFilterSelectBoolean = true;
                 }
-              }
-              this.batchView.sort((a, b) => {
-                return (a.BatchID > b.BatchID) ? 1 : ((b.BatchID > a.BatchID) ? -1 : 0);
-              });
             }
-          }
+            this.setBatchFilters(false, true, false, departmentOption, '');
         }
-      }
     }
-  }
 
-  onDepartmentSelected(departmentOption: String): void {
-    if (departmentOption === 'Department') this.selectedDepartmentBoolean = false;
-    else {
-      for (let i = 0; i < this.departments.length; i++) {
-        if (departmentOption === this.departments[i].Name) {
-          this.selectedDepartment = this.departments[i];
-          this.selectedDepartmentBoolean = true;
-        }
-      }
+    onBatchFilterCompleteSelect(programOption: String): void {
+        if (programOption === 'All Programs')
+            this.setBatchFilters(false, true, false, this.selectedFilterDepartment, '');
+        else this.setBatchFilters(false, false, true, this.selectedFilterDepartment, programOption);
     }
-  }
+
+    onDepartmentSelected(departmentOption: String): void {
+        if (departmentOption === 'Department') this.selectedDepartmentBoolean = false;
+        else {
+            for (let i = 0; i < this.departments.length; i++) {
+                if (departmentOption === this.departments[i].Name) {
+                    this.selectedDepartment = this.departments[i];
+                    this.selectedDepartmentBoolean = true;
+                }
+            }
+        }
+    }
+
+    setBatchFilters(
+        noFilterBoolean: Boolean, 
+        departmentFilterBoolean: Boolean,
+        programFilterBoolean: Boolean,
+        selectedFilterDepartment: String,
+        selectedFilterDepartmentProgram: String
+    ) {
+        this.noFilterBoolean = noFilterBoolean;
+        this.departmentFilterBoolean = departmentFilterBoolean;
+        this.programFilterBoolean = programFilterBoolean;
+        this.selectedFilterDepartment = selectedFilterDepartment;
+        this.selectedFilterDepartmentProgram = selectedFilterDepartmentProgram;
+    }
+
+    sortByDepartment() {
+        if (this.departmentSortAlternate === 1) {
+            this.batches.sort((a, b) => (a.Department > b.Department) ? 1 : ((b.Department > a.Department) ? -1 : 0));
+            this.departmentSortAlternate = 0;
+        } else {
+            this.batches.sort((a, b) => (a.Department < b.Department) ? 1 : ((b.Department < a.Department) ? -1 : 0));
+            this.departmentSortAlternate = 1;
+        }
+    }
+
+    sortBySession() {
+        if (this.sessionSortAlternate === 1) {
+            this.batches.sort((a, b) => (a.Session > b.Session) ? 1 : ((b.Session > a.Session) ? -1 : 0));
+            this.sessionSortAlternate = 0;
+        } else {
+            this.batches.sort((a, b) => (a.Session < b.Session) ? 1 : ((b.Session < a.Session) ? -1 : 0));
+            this.sessionSortAlternate = 1;
+        }
+    }
+
+    sortByProgram() {
+        if (this.programSortAlternate === 1) {
+            this.batches.sort((a, b) => (a.Program > b.Program) ? 1 : ((b.Program > a.Program) ? -1 : 0));
+            this.programSortAlternate = 0;
+        } else {
+            this.batches.sort((a, b) => (a.Program < b.Program) ? 1 : ((b.Program < a.Program) ? -1 : 0));
+            this.programSortAlternate = 1;
+        }
+    }
+
+    sortByYear() {
+        if (this.yearSortAlternate === 1) {
+            this.batches.sort((a, b) => (a.Year > b.Year) ? 1 : ((b.Year > a.Year) ? -1 : 0));
+            this.yearSortAlternate = 0;
+        } else {
+            this.batches.sort((a, b) => (a.Year < b.Year) ? 1 : ((b.Year < a.Year) ? -1 : 0));
+            this.yearSortAlternate = 1;
+        }
+    }
 }

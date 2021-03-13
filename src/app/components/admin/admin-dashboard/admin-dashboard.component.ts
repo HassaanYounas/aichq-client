@@ -15,15 +15,10 @@ import { ApiService } from 'src/app/services/api.service';
 export class AdminDashboardComponent {
 
   admin: Admin;
-  batches: Batch[];
-  departments: Department[];
-  supervisors: Supervisor[];
-  students: Student[];
-  groups: Group[];
   
   greetingMessage: String = '';
   toggle: Boolean = false;
-  currentComponent: Number = 0;
+  currentComponent: Number = 1;
 
   constructor(
     private api: ApiService,
@@ -37,15 +32,15 @@ export class AdminDashboardComponent {
         this.greetingMessage = 'Welcome, ' + this.admin.FullName;
       }, (error: any) => { console.log(error); }
     );
-    this.batches = new Array<Batch>();
-    this.departments = new Array<Department>();
-    this.supervisors = new Array<Supervisor>();
-    this.students = new Array<Student>();
-    this.groups = new Array<Group>();
-    this.getDepartments();
-    this.getSupervisors();
-    this.getStudents();
-    this.getGroups();
+    // this.batches = new Array<Batch>();
+    // this.departments = new Array<Department>();
+    // this.supervisors = new Array<Supervisor>();
+    // this.students = new Array<Student>();
+    // this.groups = new Array<Group>();
+
+    // this.getSupervisors();
+    // this.getStudents();
+    // this.getGroups();
   }
   
   changeComponent(currentComponent: number): void {
@@ -66,82 +61,82 @@ export class AdminDashboardComponent {
     this.router.navigate(['/admin/login']);
   }
 
-  getDepartments(): void {
-    this.api.getDepartment().subscribe(
-      (res: any) => {
-        this.setDepartments(res);
-        this.getBatches();
-      }, (error: any) => { console.log(error); }
-    );
-  }
+  // getDepartments(): void {
+  //   this.api.getDepartment().subscribe(
+  //     (res: any) => {
+  //       this.setDepartments(res);
+  //       this.getBatches();
+  //     }, (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  getSupervisors(): void {
-    this.api.getSupervisors().subscribe(
-      (res: any) => {
-        this.setSupervisors(res);
-        this.departments.forEach(e => {
-          e.setSupervisors(res);
-        });
-      }, (error: any) => { console.log(error); }
-    );
-  }
+  // getSupervisors(): void {
+  //   this.api.getSupervisors().subscribe(
+  //     (res: any) => {
+  //       this.setSupervisors(res);
+  //       this.departments.forEach(e => {
+  //         e.setSupervisors(res);
+  //       });
+  //     }, (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  getBatches(): void {
-    this.api.getBatches().subscribe(
-      (res: any) => {
-        this.setBatches(res);
-        this.departments.forEach(e => {
-          e.setBatches(res);
-        });
-      }, (error: any) => { console.log(error); }
-    );
-  }
+  // getBatches(): void {
+  //   this.api.getBatches().subscribe(
+  //     (res: any) => {
+  //       this.setBatches(res);
+  //       this.departments.forEach(e => {
+  //         e.setBatches(res);
+  //       });
+  //     }, (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  getStudents(): void {
-    this.api.getStudents().subscribe(
-      (res: any) => this.setStudents(res),
-      (error: any) => { console.log(error); }
-    );
-  }
+  // getStudents(): void {
+  //   this.api.getStudents().subscribe(
+  //     (res: any) => this.setStudents(res),
+  //     (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  getGroups(): void {
-    this.api.getGroups().subscribe(
-      (res: any) => this.setGroups(res),
-      (error: any) => { console.log(error); }
-    );
-  }
+  // getGroups(): void {
+  //   this.api.getGroups().subscribe(
+  //     (res: any) => this.setGroups(res),
+  //     (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  setDepartments(res: any) {
-    res.forEach(e => {
-      let department = new Department();
-      department.assignValues(e);
-      this.departments.push(department);
-    });
-  }
+  // setDepartments(res: any) {
+  //   res.forEach(e => {
+  //     let department = new Department();
+  //     department.assignValues(e);
+  //     this.departments.push(department);
+  //   });
+  // }
 
-  setSupervisors(res: any) {
-    res.forEach(e => {
-      let supervisor = new Supervisor(e);
-      this.supervisors.push(supervisor);
-    });
-  }
+  // setSupervisors(res: any) {
+  //   res.forEach(e => {
+  //     let supervisor = new Supervisor(e);
+  //     this.supervisors.push(supervisor);
+  //   });
+  // }
 
-  setBatches(res: any) {
-    res.forEach(e => this.batches.push(new Batch(e)));
-  }
+  // setBatches(res: any) {
+  //   res.forEach(e => this.batches.push(new Batch(e)));
+  // }
 
-  setStudents(res: any) {
-    res.forEach(e => this.students.push(new Student(e)));
-  }
+  // setStudents(res: any) {
+  //   res.forEach(e => this.students.push(new Student(e)));
+  // }
 
-  setGroups(res: any) {
-    res.forEach(e => this.groups.push(new Group(e)));
-  }
+  // setGroups(res: any) {
+  //   res.forEach(e => this.groups.push(new Group(e)));
+  // }
 
-  updateData(update: any): void {
-    this.departments = [];
-    this.batches = [];
-    this.getDepartments();
-    this.getSupervisors();
-  }
+  // updateData(update: any): void {
+  //   this.departments = [];
+  //   this.batches = [];
+  //   this.getDepartments();
+  //   this.getSupervisors();
+  // }
 }

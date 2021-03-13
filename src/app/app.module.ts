@@ -27,6 +27,7 @@ import { SupervisorProposalsComponent } from './components/supervisor/supervisor
 import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 import { AboutComponent } from './components/about/about.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { AdminDepartmentsComponent } from './components/admin/admin-dashboard/admin-departments/admin-departments.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
     SupervisorProposalsComponent,
     TypeOfUserComponent,
     AboutComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    AdminDepartmentsComponent
   ],
   imports: [
     BrowserModule,

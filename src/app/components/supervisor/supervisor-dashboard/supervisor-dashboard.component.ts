@@ -31,9 +31,9 @@ export class SupervisorDashboardComponent {
         this.greetingMessage = 'Welcome, ' + this.supervisor.FullName;
       }, (error: any) => { console.log(error); }
     );
-    this.batches = new Array<Batch>();
-    this.departments = new Array<Department>();
-    this.getDepartments();
+    // this.batches = new Array<Batch>();
+    // this.departments = new Array<Department>();
+    // this.getDepartments();
   }
   
   changeComponent(currentComponent: number): void {
@@ -54,35 +54,35 @@ export class SupervisorDashboardComponent {
     this.router.navigate(['/supervisor/login']);
   }
 
-  getDepartments(): void {
-    this.api.getDepartment().subscribe(
-      (res: any) => {
-        this.setDepartments(res);
-        this.getBatches();
-      }, (error: any) => { console.log(error); }
-    );
-  }
+  // getDepartments(): void {
+  //   this.api.getDepartment().subscribe(
+  //     (res: any) => {
+  //       this.setDepartments(res);
+  //       this.getBatches();
+  //     }, (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  getBatches(): void {
-    this.api.getBatches().subscribe(
-      (res: any) => {
-        this.setBatches(res);
-        this.departments.forEach(e => {
-          e.setBatches(res);
-        });
-      }, (error: any) => { console.log(error); }
-    );
-  }
+  // getBatches(): void {
+  //   this.api.getBatches().subscribe(
+  //     (res: any) => {
+  //       this.setBatches(res);
+  //       this.departments.forEach(e => {
+  //         e.setBatches(res);
+  //       });
+  //     }, (error: any) => { console.log(error); }
+  //   );
+  // }
 
-  setDepartments(res: any) {
-    res.forEach(e => {
-      let department = new Department();
-      department.assignValues(e);
-      this.departments.push(department);
-    });
-  }
+  // setDepartments(res: any) {
+  //   res.forEach(e => {
+  //     let department = new Department();
+  //     department.assignValues(e);
+  //     this.departments.push(department);
+  //   });
+  // }
 
-  setBatches(res: any) {
-    res.forEach(e => this.batches.push(new Batch(e)));
-  }
+  // setBatches(res: any) {
+  //   res.forEach(e => this.batches.push(new Batch(e)));
+  // }
 }

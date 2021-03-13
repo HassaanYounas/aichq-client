@@ -1,0 +1,55 @@
+<div class="text-dark">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h3 class="font-weight-bold">Departments</h3>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="grey-container p-4 mb-4">
+                    <h5 class="font-weight-bold mb-3">Add a Department</h5>
+                    <form id="addDepartmentForm" class="w-100" [formGroup]="addDepartmentForm" (ngSubmit)="onAddDepartmentSubmit(addDepartmentForm.value)">
+                        <input formControlName="Name" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. Computer Science" required>
+                        <div class="mt-2" [ngClass]="(addDepartmentMessage === 'Department added successfully.')?'text-success':'text-danger'" [innerHTML]="addDepartmentMessage"></div>
+                        <button form="addDepartmentForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                <div class="grey-container p-4 mb-4">
+                    <h5 class="font-weight-bold mb-3">Add Programs to Department</h5>
+                    <form id="addProgramForm" class="w-100" [formGroup]="addProgramForm" (ngSubmit)="onAddProgramSubmit(addProgramForm.value)">
+                        <select formControlName="Department" class="form-control-dropdown-sm mb-3   ">
+                            <option selected>Department</option>
+                            <option *ngFor="let department of departments">{{ department.Name }}</option>
+                        </select>
+                        <input formControlName="Title" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. BSCS" required>
+                        <div class="mt-2" [ngClass]="(addProgramMessage === 'Program added successfully.')?'text-success':'text-danger'" [innerHTML]="addProgramMessage"></div>
+                        <button form="addProgramForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="grey-container p-4 mb-5">
+            <h5 class="font-weight-bold mb-3">List of Departments and Programs</h5>
+            <div id="accordionDepartments">
+                <div class="card" *ngFor="let department of departments; let i = index;">
+                  <div class="card-header" [attr.id]="'heading' + i">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse' + i">{{ department.Name }} &darr;</button>
+                    </h5>
+                  </div>
+                  <div [attr.id]="'collapse' +i" class="collapse" data-parent="#accordionDepartments">
+                    <div class="card-body">
+                        <ul *ngFor="let program of department.Programs">
+                            <li>{{ program.Title }}</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
+        <p class="mt-5" style="color:white;">Working on it!</p>
+    </ngx-spinner>
+</div>

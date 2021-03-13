@@ -63,26 +63,26 @@ export class AdminSupervisorsComponent implements OnInit {
   }
 
   onDepartmentFilterSelect(departmentOption: String): void {
-    if (departmentOption !== 'Department') {
-      this.currentSupervisorsText = `Supervisors of ${departmentOption} department:`;
-      this.supervisorsView = new Array<SupervisorView>();
-      for (let i = 0; i < this.departments.length; i++) {
-        if (this.departments[i].Name === departmentOption) {
-          for (let j = 0; j < this.departments[i].Supervisors.length; j++) {
-            const supervisor = new SupervisorView(
-              this.departments[i].Supervisors[j].Active,
-              this.departments[i].Supervisors[j].FullName,
-              this.departments[i].Supervisors[j].Designation,
-              0, 0, 0
-            );
-            this.supervisorsView.push(supervisor);
-          }
-          this.supervisorsView.sort((a, b) => {
-            return (a.Designation > b.Designation) ? 1 : ((b.Designation > a.Designation) ? -1 : 0);
-          });
-        }
-      }
-    }
+    // if (departmentOption !== 'Department') {
+    //   this.currentSupervisorsText = `Supervisors of ${departmentOption} department:`;
+    //   this.supervisorsView = new Array<SupervisorView>();
+    //   for (let i = 0; i < this.departments.length; i++) {
+    //     if (this.departments[i].Name === departmentOption) {
+    //       for (let j = 0; j < this.departments[i].Supervisors.length; j++) {
+    //         const supervisor = new SupervisorView(
+    //           this.departments[i].Supervisors[j].Active,
+    //           this.departments[i].Supervisors[j].FullName,
+    //           this.departments[i].Supervisors[j].Designation,
+    //           0, 0, 0
+    //         );
+    //         this.supervisorsView.push(supervisor);
+    //       }
+    //       this.supervisorsView.sort((a, b) => {
+    //         return (a.Designation > b.Designation) ? 1 : ((b.Designation > a.Designation) ? -1 : 0);
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   onAddSupervisorFormSubmit(formData: any): void {
