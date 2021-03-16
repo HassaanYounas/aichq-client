@@ -82,6 +82,10 @@
         &:hover {
             border-bottom-color: #ee2d42;
         }
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &-dashboard {
@@ -122,10 +126,10 @@
         }
 
         &-sign-out {
-        background-color: #ffffff;
-        color: #000000;
-        border-radius: 0.6em;
-        font-weight: 600;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 0.6em;
+            font-weight: 600;
 
             &:hover {
                 background-color: darken($color: #ffffff, $amount: 20);
@@ -207,6 +211,13 @@
             background-color: #dddddd;
         }
     }
+}
+
+.accordian-card {
+    background-color: #FFFFFF;
+    border: 0.15em solid #000000;
+    border-radius: 0.3em;
+    padding: 0.5em 1em;
 }
 
 .form-control {

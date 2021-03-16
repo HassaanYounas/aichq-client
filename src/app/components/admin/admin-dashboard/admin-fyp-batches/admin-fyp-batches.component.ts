@@ -13,26 +13,25 @@ export class AdminFypBatchesComponent implements OnInit {
 
     batches: Batch[];
     departments: Department[];
-
     selectedDepartment: Department;
     departmentFilterSelect: Department;
 
     years: Number[];
-    departmentSortAlternate: Number = 0;
+    yearSortAlternate: Number = 0;
     sessionSortAlternate: Number = 0;
     programSortAlternate: Number = 0;
-    yearSortAlternate: Number = 0;
+    departmentSortAlternate: Number = 0;
     
     validAddBatch: Boolean = true;
     noFilterBoolean: Boolean = true;
-    departmentFilterBoolean: Boolean = false;
     programFilterBoolean: Boolean = false;
+    departmentFilterBoolean: Boolean = false;
     selectedDepartmentBoolean: Boolean = false;
     departmentFilterSelectBoolean: Boolean = false;
 
     addBatchMessage: String = '';
-    selectedFilterDepartment: String = '';
-    selectedFilterDepartmentProgram: String = '';
+    selectedFilterDepartment: String = 'All Departments';
+    selectedFilterDepartmentProgram: String = 'All Programs';
 
     addBatchForm: FormGroup;
     batchFilterSelectForm: FormGroup;
@@ -56,8 +55,7 @@ export class AdminFypBatchesComponent implements OnInit {
             Department: new FormControl('All Departments'),
             Program: new FormControl('All Programs')
         });
-        this.fetchDepartments();
-        this.fetchBatches();
+        this.fetchDepartments(); this.fetchBatches();
     }
 
     fetchDepartments() {
@@ -107,23 +105,25 @@ export class AdminFypBatchesComponent implements OnInit {
     }
 
     onBatchFilterSelect(departmentOption: String): void {
-        if (departmentOption === 'All Departments')
+        if (departmentOption === 'All Departments') {
             this.setBatchFilters(true, false, false, '', '');
-        else {
+            this.departmentFilterSelectBoolean = false;
+        } else {
             for (let i = 0; i < this.departments.length; i++) {
                 if (departmentOption === this.departments[i].Name) {
                     this.departmentFilterSelect = this.departments[i];
                     this.departmentFilterSelectBoolean = true;
                 }
-            }
-            this.setBatchFilters(false, true, false, departmentOption, '');
+            } this.setBatchFilters(false, true, false, departmentOption, '');
         }
     }
 
     onBatchFilterCompleteSelect(programOption: String): void {
-        if (programOption === 'All Programs')
-            this.setBatchFilters(false, true, false, this.selectedFilterDepartment, '');
-        else this.setBatchFilters(false, false, true, this.selectedFilterDepartment, programOption);
+        if (programOption === 'All Programs') {
+            if (this.selectedFilterDepartment === 'All Departments')
+                this.setBatchFilters(true, false, false, '', '');
+            else this.setBatchFilters(false, true, false, this.selectedFilterDepartment, '');
+        } else this.setBatchFilters(false, false, true, this.selectedFilterDepartment, programOption);
     }
 
     onDepartmentSelected(departmentOption: String): void {

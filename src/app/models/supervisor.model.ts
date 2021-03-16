@@ -7,7 +7,6 @@ export class Supervisor {
     Designation: String;
 
     constructor(res: any) {
-        this.Active = true;
         this.Active = res.Active;
         this.FullName = res.FullName;
         this.Email = res.Email;

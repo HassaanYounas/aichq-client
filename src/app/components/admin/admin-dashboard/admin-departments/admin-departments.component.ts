@@ -32,7 +32,6 @@ export class AdminDepartmentsComponent implements OnInit {
             Title: new FormControl('')
         });
         this.fetchDepartments();
-        console.log(this.departments);
     }
 
     fetchDepartments() {

@@ -46,9 +46,9 @@
             <div class="mx-3" (click)="closeMenu()">
                 <app-admin-departments *ngIf="currentComponent === 0"></app-admin-departments>
                 <app-admin-fyp-batches *ngIf="currentComponent === 1"></app-admin-fyp-batches>
-                <app-admin-supervisors (updateData)='updateData($event)' *ngIf="currentComponent === 2" [departments]="departments"></app-admin-supervisors>
-                <app-admin-students *ngIf="currentComponent === 3" [departments]="departments"></app-admin-students>
-                <app-admin-groups *ngIf="currentComponent === 4" [departments]="departments"></app-admin-groups>
+                <app-admin-supervisors *ngIf="currentComponent === 2"></app-admin-supervisors>
+                <app-admin-students *ngIf="currentComponent === 3"></app-admin-students>
+                <app-admin-groups *ngIf="currentComponent === 4"></app-admin-groups>
                 <app-admin-notifications *ngIf="currentComponent === 5"></app-admin-notifications>
                 <app-admin-settings *ngIf="currentComponent === 6" [admin]="admin"></app-admin-settings>
             </div>
