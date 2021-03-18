@@ -6,99 +6,84 @@
                     <h3 class="font-weight-bold">Proposals</h3>
                 </div>
             </div>
-            <div class="col d-flex justify-content-end align-items-center">
-                <button type="button" class="btn btn-dashboard" data-toggle="modal" data-target="#submitProposalModal">Add</button>
-            </div>
         </div>
-        <div id="submitProposalModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-custom">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h4 class="modal-title">Submit Proposal</h4>
+        <div class="grey-container p-4 mb-4">
+            <h5 class="font-weight-bold mb-3">Submit Proposal</h5>
+            <form id="submitProposalForm" [formGroup]="submitProposalForm" (ngSubmit)="onSubmitProposalFormSubmit(submitProposalForm.value)">
+                <div class="row mb-1">
+                    <div class="col pr-1">
+                        <input formControlName="Title" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Title">
+                        <input formControlName="Domain" type="text" class="form-control form-control-custom-sm" placeholder="Domain">        
                     </div>
-                    <div class="modal-body pb-2">
-                        <form id="submitProposalForm" [formGroup]="submitProposalForm" (ngSubmit)="onSubmitProposalFormSubmit(submitProposalForm.value)">
-                            <input formControlName="Title" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Title">
-                            <input formControlName="Domain" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Domain">
-                            <textarea formControlName="Abstract" class="form-control form-control-custom-sm mb-2" placeholder="Abstract" rows="4" maxlength="300"></textarea>
-                            <div class="row mb-2">
-                                <div class="col pr-1">
-                                    <select #departmentSubmitSupervisorProposal formControlName="Department" class="form-control-dropdown" (change)="onDepartmentSubmitSupervisorProposal(departmentSubmitSupervisorProposal.value)">
-                                        <option selected>Department</option>
-                                        <option *ngFor="let department of departments">{{ department.Name }}</option>
-                                    </select>
-                                </div>
-                                <div class="col pl-1">
-                                    <select #programSubmitSupervisorProposal formControlName="Program" class="form-control-dropdown" (change)="onProgramSubmitSupervisorProposal(programSubmitSupervisorProposal.value)">
-                                        <option selected>Program</option>
-                                        <ng-container *ngIf="departmentSubmitProposalBoolean">
-                                            <option *ngFor="let program of departmentSubmitProposal.Programs">{{ program.Title }}</option>
-                                        </ng-container>
-                                    </select>
-                                </div>
-                            </div>
-                            <select #batchSubmitProposal formControlName="Batch" class="form-control-dropdown">
-                                <option selected>Batch</option>
-                                <ng-container *ngIf="programSubmitProposalBoolean">
-                                    <option *ngFor="let batch of programSubmitProposal.Batches">{{ batch.BatchID }}</option>
-                                </ng-container>
-                            </select>
-                            <div class="text-danger mt-2" [ngClass]="{'d-none': validSubmitProposal}">Invalid input.</div>
-                        </form>
-                        <div class="mt-2" [ngClass]="(submitProposalMessage === 'Proposal submitted successfully.')?'text-success':'text-danger'" [innerHTML]="submitProposalMessage"></div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom">
-                        <button form="submitProposalForm" type="submit" class="btn btn-dashboard-modal">Add</button>
-                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Close</button>
+                    <div class="col">
+                       <textarea formControlName="Abstract" class="form-control form-control-custom-sm mb-2" placeholder="Abstract" rows="2" maxlength="500"></textarea>
                     </div>
                 </div>
-            </div>
+                <div class="row mb-2">
+                    <div class="col pr-1">
+                        <select #programSubmitSupervisorProposal formControlName="Program" class="form-control-dropdown" (change)="onProgramSubmitSupervisorProposal(programSubmitSupervisorProposal.value)">
+                            <option selected>Program</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select #batchSubmitProposal formControlName="Batch" class="form-control-dropdown">
+                            <option selected>Batch</option>
+                            <ng-container *ngIf="programSubmitProposalBoolean">
+                                <option *ngFor="let batch of batchesToDisplaySubmit">{{ batch.Session }}-{{ batch.Year }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-danger mt-2" [ngClass]="{'d-none': validSubmitProposal}">Invalid input.</div>
+            </form>
+            <div class="mt-2" [ngClass]="(submitProposalMessage === 'Proposal submitted successfully.')?'text-success':'text-danger'" [innerHTML]="submitProposalMessage"></div>
+            <button form="submitProposalForm" type="submit" class="btn btn-dashboard">Add</button>
         </div>
-        <form [formGroup]="proposalFilterSelectForm">
-            <div class="row mb-3">
-                <div class="col">
-                    <select formControlName="Department" #departmentSelectFilter class="form-control-dropdown" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
-                        <option selected>Department</option>
-                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                    </select>
+        <div class="grey-container p-4 mb-4">
+            <h5 class="font-weight-bold mb-3">List of Proposals</h5>
+            <h6 class="font-weight-bold mb-3">Filter Options</h6>
+            <form [formGroup]="proposalFilterSelectForm">
+                <div class="row mb-3">
+                    <div class="col">
+                        <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                            <option selected>Program</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                            <option selected>Batch</option>
+                            <ng-container *ngIf="programFilterSelectBoolean">
+                                <option *ngFor="let batch of batchesToDisplayFilter">{{ batch.Session }}-{{ batch.Year }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
-                        <option selected>Program</option>
-                        <ng-container *ngIf="departmentFilterSelectBoolean">
-                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                        </ng-container>
-                    </select>
+            </form>
+            <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Title></th>
+                                <th scope="col">Domain</th>
+                                <th scope="col">Abstract</th>
+                                <th scope="col">Program</th>
+                                <th scope="col">Batch</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proposal of proposals; let i = index;">
+                                <td>{{ proposal.Title }}</td>
+                                <td>{{ proposal.Domain }}</td>
+                                <td>{{ proposal.Abstract }}</td>
+                                <td>{{ proposal.Program }}</td>
+                                <td>{{ proposal.Session }}-{{ proposal.Year }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col">
-                    <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
-                        <option selected>Batch</option>
-                        <ng-container *ngIf="programFilterSelectBoolean">
-                            <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <h5 class="mb-3" [innerHTML]="currentProposalsText"></h5>
-        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Abstract</th>
-                            <th scope="col">Domain</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Disease Prediction</td>
-                            <td>A software tool for prediction of disease based on symptoms given by patient.</td>
-                            <td>AI/ML/Bioinformatics</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
         <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">

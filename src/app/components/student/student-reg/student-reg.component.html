@@ -42,7 +42,7 @@
                                 <select #batchAddStudent formControlName="Batch" class="form-control-dropdown">
                                     <option selected>Batch</option>
                                     <ng-container *ngIf="programAddSelectBoolean">
-                                        <option *ngFor="let batch of programAddSelect.Batches">{{ batch.BatchID }}</option>
+                                        <option *ngFor="let batch of batchesToDisplayFilter">{{ batch.Session }}-{{ batch.Year }}</option>
                                     </ng-container>
                                 </select>
                             </div>

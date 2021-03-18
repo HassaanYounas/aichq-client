@@ -1,7 +1,6 @@
 <div class="wrapper d-flex flex-column">
     <nav class="navbar navbar-expand-lg navbar-light p-3">
-        <img src="../../../../assets/img/admin-avatar.png" class="img-fluid pointer mr-3" width="50px" alt="Admin Avatar">
-        <h3 class="font-weight-bold my-auto pointer">| Aich<span class="color-red">Q</span> | Supervisor Dashboard</h3>
+        <h3 class="font-weight-bold my-auto pointer">Aich<span class="color-red">Q</span> | Supervisor Dashboard</h3>
         <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,6 +8,12 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item font-weight-bold" [innerHTML]="greetingMessage"></li>
             </ul>
+            <div class="btn-group">
+                <img src="../../../../assets/img/admin-avatar.png" data-toggle="dropdown" class="img-fluid pointer mx-3 avatar-border" width="50px" alt="Admin Avatar">
+                <div class="dropdown-menu dropdown-menu-right mr-3 mt-2">
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#supervisorSignOutModal">Sign Out</button>
+                </div>
+            </div>    
         </div>
         <div class="modal fade" id="supervisorSignOutModal" role="dialog">
             <div class="modal-dialog modal-dialog-custom" role="document">
@@ -33,12 +38,11 @@
                 <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-red': currentComponent !== 3 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(3)">Evaluation</a>
                 <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-red': currentComponent !== 4 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(4)">Settings</a>
             </div>
-            <button type="button" class="btn btn-dashboard-sign-out mt-auto mb-2 mx-2" data-toggle="modal" data-target="#supervisorSignOutModal">Sign Out</button>
         </div>
         <div class="d-flex flex-column page-content-wrapper">
             <div class="black-bar mx-3 mb-3"></div>
             <div class="mx-3" (click)="closeMenu()">
-                <app-supervisor-proposals *ngIf="currentComponent === 1" [departments]="departments" [supervisor]="supervisor"></app-supervisor-proposals>
+                <app-supervisor-proposals *ngIf="currentComponent === 1" [supervisor]="supervisor"></app-supervisor-proposals>
             </div>
             <div class="d-flex flex-column text-center flex-fill footer-dashboard">
                 <p class="mt-auto font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</p>       

@@ -4,6 +4,7 @@
     "getAdmin": "https://aichq-fyp.herokuapp.com/api/admin/get",
     "addDepartment": "https://aichq-fyp.herokuapp.com/api/department/add",
     "addProgram": "https://aichq-fyp.herokuapp.com/api/department/add/program",
+    "getPrograms": "https://aichq-fyp.herokuapp.com/api/department/get/programs",
     "getDepartment": "https://aichq-fyp.herokuapp.com/api/department/get/all",
     "addBatch": "https://aichq-fyp.herokuapp.com/api/batch/add",
     "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/get/all",
@@ -20,5 +21,6 @@
     "getGroups": "https://aichq-fyp.herokuapp.com/api/group/get/all",
     "loginGroup": "https://aichq-fyp.herokuapp.com/api/group/login",
     "getSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/get",
-    "submitSupervisorProposal": "https://aichq-fyp.herokuapp.com/api/supervisor/proposal"
+    "submitSupervisorProposal": "https://aichq-fyp.herokuapp.com/api/supervisor/proposal/submit",
+    "getSupervisorProposals": "https://aichq-fyp.herokuapp.com/api/supervisor/proposal/get/all"
 }

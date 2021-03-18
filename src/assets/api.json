@@ -4,6 +4,7 @@
     "getAdmin": "http://localhost:8080/api/admin/get",
     "addDepartment": "http://localhost:8080/api/department/add",
     "addProgram": "http://localhost:8080/api/department/add/program",
+    "getPrograms": "http://localhost:8080/api/department/get/programs",
     "getDepartment": "http://localhost:8080/api/department/get/all",
     "addBatch": "http://localhost:8080/api/batch/add",
     "getBatches": "http://localhost:8080/api/batch/get/all",
@@ -20,5 +21,6 @@
     "getGroups": "http://localhost:8080/api/group/get/all",
     "loginGroup": "http://localhost:8080/api/group/login",
     "getSupervisor": "http://localhost:8080/api/supervisor/get",
-    "submitSupervisorProposal": "http://localhost:8080/api/supervisor/proposal"
+    "submitSupervisorProposal": "http://localhost:8080/api/supervisor/proposal/submit",
+    "getSupervisorProposals": "http://localhost:8080/api/supervisor/proposal/get/all"
 }

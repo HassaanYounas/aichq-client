@@ -9,6 +9,8 @@ import { Group } from '../models/group.model';
 import { Batch } from '../models/batch.model';
 import { Department } from '../models/department.model';
 import { Student } from '../models/student.model';
+import { SupervisorProposal } from '../models/supervisor.proposal.model';
+import { Program } from '../models/program.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +18,11 @@ import { Student } from '../models/student.model';
 export class ApiService {
 
     private batches: Batch[];
+    private programs: Program[];
     private students: Student[];
     private departments: Department[];
     private supervisors: Supervisor[];
+    private proposals: SupervisorProposal[];
 
     constructor(private http: HttpClient) { }
 
@@ -57,6 +61,15 @@ export class ApiService {
     getStudents() {
         return this.students;
     }
+
+    getProposals() {
+        return this.proposals;
+    }
+
+    getPrograms() {
+        return this.programs;
+    }
+
 
     addSupervisor(body: any) {
         return this.requestWithToken(body, API.addSupervisor);
@@ -159,6 +172,24 @@ export class ApiService {
         this.requestWithToken({}, API.getStudents).subscribe(
             (res: any) => {
                 res.forEach(e => this.students.push(new Student(e)));
+            }, (error: any) => { console.log(error); }
+        );
+    }
+
+    loadProposals(body: any) {
+        this.proposals = new Array<SupervisorProposal>();
+        this.requestWithToken(body, API.getSupervisorProposals).subscribe(
+            (res: any) => {
+                res.forEach(e => this.proposals.push(new SupervisorProposal(e)));
+            }, (error: any) => { console.log(error); }
+        );
+    }
+
+    loadPrograms(body: any) {
+        this.programs = new Array<Program>();
+        this.requestWithToken(body, API.getPrograms).subscribe(
+            (res: any) => {
+                res.forEach(e => this.programs.push(new Program(e.Title)));
             }, (error: any) => { console.log(error); }
         );
     }
