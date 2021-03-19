@@ -1,5 +1,6 @@
 {
     "loginAdmin": "http://localhost:8080/api/admin/login",
+    "loginSuperAdmin": "http://localhost:8080/api/super/admin/login",
     "updateAdmin": "http://localhost:8080/api/admin/update",
     "getAdmin": "http://localhost:8080/api/admin/get",
     "addDepartment": "http://localhost:8080/api/department/add",
@@ -7,7 +8,7 @@
     "getPrograms": "http://localhost:8080/api/department/get/programs",
     "getDepartment": "http://localhost:8080/api/department/get/all",
     "addBatch": "http://localhost:8080/api/batch/add",
-    "getBatches": "http://localhost:8080/api/batch/get/all",
+    "getBatches": "http://localhost:8080/api/batch/get",
     "loginSupervisor": "http://localhost:8080/api/supervisor/login",
     "addSupervisor": "http://localhost:8080/api/supervisor/add",
     "addSupervisorsBulk": "http://localhost:8080/api/supervisor/add/bulk",

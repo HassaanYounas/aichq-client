@@ -21,6 +21,7 @@ export class AdminStudentsComponent implements OnInit {
 
     batches: Batch[];
     students: Student[];
+    programs: Program[];
     departments: Department[];
     batchesToDisplay: Batch[];
     batchesToDisplayBulk: Batch[];
@@ -78,12 +79,12 @@ export class AdminStudentsComponent implements OnInit {
         this.addStudentForm = new FormGroup({
             FullName: new FormControl(''),
             RollNumber: new FormControl(''),
-            Department: new FormControl('Department'),
+            Department: new FormControl(localStorage.getItem('department')),
             Program: new FormControl('Program'),
             Batch: new FormControl('Batch')
         });
         this.addStudentBulkForm = new FormGroup({
-            Department: new FormControl('Department'),
+            Department: new FormControl(localStorage.getItem('department')),
             Program: new FormControl('Program'),
             Batch: new FormControl('Batch')
         });
@@ -95,6 +96,12 @@ export class AdminStudentsComponent implements OnInit {
         this.fetchBatches();
         this.fetchStudents();
         this.fetchDepartments();
+        this.fetchPrograms();
+    }
+
+    fetchPrograms() {
+        this.api.loadPrograms({ Name: localStorage.getItem('department') });
+        this.programs = this.api.getPrograms();
     }
 
     fetchDepartments() {
@@ -103,7 +110,7 @@ export class AdminStudentsComponent implements OnInit {
     }
 
     fetchBatches() {
-        this.api.loadBatches();
+        this.api.loadBatches({});
         this.batches = this.api.getBatches();
     }
 
@@ -182,17 +189,17 @@ export class AdminStudentsComponent implements OnInit {
         }
     }
 
-    onDepartmentAddStudentBulk(departmentOption: String): void {
-        if (departmentOption === 'Department') this.departmentAddBulkSelectBoolean = false;
-        else {
-            for (let i = 0; i < this.departments.length; i++) {
-                if (departmentOption === this.departments[i].Name) {
-                    this.departmentAddBulkSelect = this.departments[i];
-                    this.departmentAddBulkSelectBoolean = true;
-                }
-            }
-        }
-    }
+    // onDepartmentAddStudentBulk(departmentOption: String): void {
+    //     if (departmentOption === 'Department') this.departmentAddBulkSelectBoolean = false;
+    //     else {
+    //         for (let i = 0; i < this.departments.length; i++) {
+    //             if (departmentOption === this.departments[i].Name) {
+    //                 this.departmentAddBulkSelect = this.departments[i];
+    //                 this.departmentAddBulkSelectBoolean = true;
+    //             }
+    //         }
+    //     }
+    // }
     
     onProgramAddStudentBulk(programOption: String): void {
         if (programOption === 'Program') this.programAddBulkSelectBoolean = false;

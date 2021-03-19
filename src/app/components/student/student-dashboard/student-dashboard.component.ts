@@ -16,6 +16,7 @@ export class StudentDashboardComponent {
   ) {
     if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
     else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
+    else if (localStorage.getItem('type') === 'Super Administrator') this.router.navigate(['/super/admin']);
   }
   
   changeComponent(currentComponent: number): void {

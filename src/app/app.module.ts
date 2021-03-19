@@ -27,43 +27,45 @@ import { SupervisorProposalsComponent } from './components/supervisor/supervisor
 import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 import { AboutComponent } from './components/about/about.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
-import { AdminDepartmentsComponent } from './components/admin/admin-dashboard/admin-departments/admin-departments.component';
+import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AdminDashboardComponent,
-    AdminLoginComponent,
-    HomeComponent,
-    StudentRegComponent,
-    StudentLoginComponent,
-    AdminFypBatchesComponent,
-    AdminSupervisorsComponent,
-    AdminStudentsComponent,
-    AdminSettingsComponent,
-    StudentDashboardComponent,
-    SupervisorDashboardComponent,
-    SupervisorLoginComponent,
-    AdminGroupsComponent,
-    AdminNotificationsComponent,
-    StudentRegPendingComponent,
-    SupervisorProposalsComponent,
-    TypeOfUserComponent,
-    AboutComponent,
-    PrivacyPolicyComponent,
-    AdminDepartmentsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxSpinnerModule,
-    NgxCsvParserModule,
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        AppComponent,
+        AdminDashboardComponent,
+        AdminLoginComponent,
+        HomeComponent,
+        StudentRegComponent,
+        StudentLoginComponent,
+        AdminFypBatchesComponent,
+        AdminSupervisorsComponent,
+        AdminStudentsComponent,
+        AdminSettingsComponent,
+        StudentDashboardComponent,
+        SupervisorDashboardComponent,
+        SupervisorLoginComponent,
+        AdminGroupsComponent,
+        AdminNotificationsComponent,
+        StudentRegPendingComponent,
+        SupervisorProposalsComponent,
+        TypeOfUserComponent,
+        AboutComponent,
+        PrivacyPolicyComponent,
+        SuperAdminComponent,
+        SuperAdminLoginComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgxSpinnerModule,
+        NgxCsvParserModule,
+        BrowserAnimationsModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

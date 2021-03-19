@@ -9,11 +9,10 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AdminDashboardComponent {
 
-    admin: Admin;
-
     toggle: Boolean = false;
     greetingMessage: String = '';
-    currentComponent: Number = 3;
+    topText: String = '';
+    currentComponent: Number = 2;
 
     constructor(
         private api: ApiService,
@@ -21,10 +20,10 @@ export class AdminDashboardComponent {
     ) {
         if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
         else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
-        this.api.getAdmin().subscribe((res: any) => {
-            this.admin = new Admin(res);
-            this.greetingMessage = 'Welcome, ' + this.admin.FullName;
-        }, (error: any) => { console.log(error); });
+        else if (localStorage.getItem('type') === 'Super Administrator') this.router.navigate(['/super/admin']);
+        this.greetingMessage = 'Welcome, ' + localStorage.getItem('fullName');
+        this.topText = 
+            `Aich<span class="color-red">Q</span> | ${localStorage.getItem('department')} Administrator`;
     }
     
     changeComponent(currentComponent: number) {

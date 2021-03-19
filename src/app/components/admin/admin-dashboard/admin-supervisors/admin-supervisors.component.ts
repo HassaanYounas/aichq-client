@@ -57,41 +57,42 @@ export class AdminSupervisorsComponent implements OnInit {
             let fileName = $(this).val().split('\\').pop();
             $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
         });
-        this.departmentSelectForm = new FormGroup({
-            Department: new FormControl('All Departments'),
-        });
+        // this.departmentSelectForm = new FormGroup({
+        //     Department: new FormControl('All Departments'),
+        // });
         this.addSupervisorForm = new FormGroup({
             Title: new FormControl('Title'),
             FullName: new FormControl(''),
             Email: new FormControl(''),
             Designation: new FormControl('Designation'),
-            Department: new FormControl('Department'),
+            Department: new FormControl(localStorage.getItem('department')),
         });
         this.addSupervisorBulkForm = new FormGroup({
-            Department: new FormControl('Department')
+            Department: new FormControl(localStorage.getItem('department'))
         });
-        this.fetchDepartments(); this.fetchSupervisors();
+        // this.fetchDepartments(); 
+        this.fetchSupervisors();
     }
 
-    fetchDepartments() {
-        this.api.loadDepartments();
-        this.departments = this.api.getDepartments();
-    }
+    // fetchDepartments() {
+    //     this.api.loadDepartments();
+    //     this.departments = this.api.getDepartments();
+    // }
 
     fetchSupervisors() {
-        this.api.loadSupervisors();
+        this.api.loadSupervisors({ Department: localStorage.getItem('department') });
         this.supervisors = this.api.getSupervisors();
     }
 
-    onDepartmentFilterSelect(departmentOption: String): void {
-        if (departmentOption !== 'All Departments') {
-            this.noFilterBoolean = false;
-            this.selectedFilterDepartment = departmentOption;
-        } else {
-            this.noFilterBoolean = true;
-            this.selectedFilterDepartment = '';
-        }
-    }
+    // onDepartmentFilterSelect(departmentOption: String): void {
+    //     if (departmentOption !== 'All Departments') {
+    //         this.noFilterBoolean = false;
+    //         this.selectedFilterDepartment = departmentOption;
+    //     } else {
+    //         this.noFilterBoolean = true;
+    //         this.selectedFilterDepartment = '';
+    //     }
+    // }
 
     onAddSupervisorFormSubmit(formData: any): void {
         if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
@@ -120,7 +121,7 @@ export class AdminSupervisorsComponent implements OnInit {
                     this.addSupervisorForm.controls['FullName'].setValue('');
                     this.addSupervisorForm.controls['Email'].setValue('');
                     this.addSupervisorForm.controls['Designation'].setValue('Designation');
-                    this.addSupervisorForm.controls['Department'].setValue('Department');
+                    this.addSupervisorForm.controls['Department'].setValue(localStorage.getItem('department'));
                     this.fetchSupervisors();
                 }, (error: any) => this.addSupervisorResponse(error)
             ); setTimeout(() => this.addSupervisorMessage = '', 4000);
@@ -162,7 +163,7 @@ export class AdminSupervisorsComponent implements OnInit {
     }
 
     onAddSupervisorBulkFormSubmit(formData: any): void {
-        if (formData.Department === 'Department' || !this.fileUploaded) this.validAddSupervisorBulk = false;
+        if (!this.fileUploaded) this.validAddSupervisorBulk = false;
         else {
             this.validAddSupervisorBulk = true;
             this.ngxCsvParser.parse(this.supervisorsCSV, { header: true, delimiter: ',' })
@@ -198,16 +199,6 @@ export class AdminSupervisorsComponent implements OnInit {
     handleFileInput(files: FileList): void { 
         this.supervisorsCSV = files[0];
         this.fileUploaded = true;
-    }
-
-    sortByDepartment() {
-        if (this.departmentSortAlternate === 1) {
-            this.supervisors.sort((a, b) => (a.Department > b.Department) ? 1 : ((b.Department > a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 0;
-        } else {
-            this.supervisors.sort((a, b) => (a.Department < b.Department) ? 1 : ((b.Department < a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 1;
-        }
     }
 
     sortByDesignation() {

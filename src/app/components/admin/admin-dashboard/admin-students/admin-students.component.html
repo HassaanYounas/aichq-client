@@ -13,27 +13,29 @@
                     <h5 class="font-weight-bold mb-3">Upload CSV File</h5>
                     <form id="addStudentBulkForm" [formGroup]="addStudentBulkForm" (ngSubmit)="onAddStudentBulkFormSubmit(addStudentBulkForm.value)">
                         <div class="row mb-2">
-                            <div class="col pr-1">
+                            <!-- <div class="col pr-1">
                                 <select #departmentAddStudentBulk formControlName="Department" class="form-control-dropdown" (change)="onDepartmentAddStudentBulk(departmentAddStudentBulk.value)">
                                     <option selected>Department</option>
                                     <option *ngFor="let department of departments">{{ department.Name }}</option>
                                 </select>
-                            </div>
-                            <div class="col pl-1">
+                            </div> -->
+                            <div class="col">
                                 <select #programAddStudentBulk formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudentBulk(programAddStudentBulk.value)">
                                     <option selected>Program</option>
-                                    <ng-container *ngIf="departmentAddBulkSelectBoolean">
-                                        <option *ngFor="let program of departmentAddBulkSelect.Programs">{{ program.Title }}</option>
+                                    <!-- <ng-container *ngIf="departmentAddBulkSelectBoolean"> -->
+                                        <option *ngFor="let program of programs">{{ program.Title }}</option>
+                                    <!-- </ng-container> -->
+                                </select>
+                            </div>
+                            <div class="col pl-1">
+                                <select #batchAddStudentBulk formControlName="Batch" class="form-control-dropdown mb-2">
+                                    <option selected>Batch</option>
+                                    <ng-container *ngIf="programAddBulkSelectBoolean">
+                                        <option *ngFor="let batch of batchesToDisplayBulk">{{ batch.Session }}-{{ batch.Year }}</option>
                                     </ng-container>
                                 </select>
                             </div>
                         </div>
-                        <select #batchAddStudentBulk formControlName="Batch" class="form-control-dropdown mb-2">
-                            <option selected>Batch</option>
-                            <ng-container *ngIf="programAddBulkSelectBoolean">
-                                <option *ngFor="let batch of batchesToDisplayBulk">{{ batch.Session }}-{{ batch.Year }}</option>
-                            </ng-container>
-                        </select>
                         <div class="custom-file mb-2">
                             <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input file-input pointer" id="customFileStudents">
                             <label class="custom-file-label pointer" for="customFileStudents" [innerHTML]="fileName"></label>
@@ -57,18 +59,18 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col pr-1">
+                            <!-- <div class="col pr-1">
                                 <select #departmentAddStudent formControlName="Department" class="form-control-dropdown" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
                                     <option selected>Department</option>
                                     <option *ngFor="let department of departments">{{ department.Name }}</option>
                                 </select>
-                            </div>
-                            <div class="col pl-1">
+                            </div> -->
+                            <div class="col">
                                 <select #programAddStudent formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudent(programAddStudent.value)">
                                     <option selected>Program</option>
-                                    <ng-container *ngIf="departmentAddSelectBoolean">
-                                        <option *ngFor="let program of departmentAddSelect.Programs">{{ program.Title }}</option>
-                                    </ng-container>
+                                    <!-- <ng-container *ngIf="departmentAddSelectBoolean"> -->
+                                        <option *ngFor="let program of programs">{{ program.Title }}</option>
+                                    <!-- </ng-container> -->
                                 </select>
                             </div>
                         </div>

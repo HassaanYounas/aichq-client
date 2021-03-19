@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Batch } from 'src/app/models/batch.model';
 import { Department } from 'src/app/models/department.model';
+import { Program } from 'src/app/models/program.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -12,26 +13,19 @@ import { ApiService } from 'src/app/services/api.service';
 export class AdminFypBatchesComponent implements OnInit {
 
     batches: Batch[];
-    departments: Department[];
-    selectedDepartment: Department;
-    departmentFilterSelect: Department;
+    programs: Program[];
 
     years: Number[];
     yearSortAlternate: Number = 0;
     sessionSortAlternate: Number = 0;
     programSortAlternate: Number = 0;
-    departmentSortAlternate: Number = 0;
     
     validAddBatch: Boolean = true;
     noFilterBoolean: Boolean = true;
     programFilterBoolean: Boolean = false;
-    departmentFilterBoolean: Boolean = false;
-    selectedDepartmentBoolean: Boolean = false;
-    departmentFilterSelectBoolean: Boolean = false;
 
     addBatchMessage: String = '';
-    selectedFilterDepartment: String = 'All Departments';
-    selectedFilterDepartmentProgram: String = 'All Programs';
+    selectedProgram: String = 'All Programs';
 
     addBatchForm: FormGroup;
     batchFilterSelectForm: FormGroup;
@@ -48,23 +42,23 @@ export class AdminFypBatchesComponent implements OnInit {
         this.addBatchForm = new FormGroup({
             Session: new FormControl('Session'),
             Year: new FormControl('Year'),
-            Department: new FormControl('Department'),
+            Department: new FormControl(localStorage.getItem('department')),
             Program: new FormControl('Program')
         });
         this.batchFilterSelectForm = new FormGroup({
-            Department: new FormControl('All Departments'),
             Program: new FormControl('All Programs')
         });
-        this.fetchDepartments(); this.fetchBatches();
+        this.fetchBatches();
+        this.fetchPrograms();
     }
 
-    fetchDepartments() {
-        this.api.loadDepartments();
-        this.departments = this.api.getDepartments();
+    fetchPrograms() {
+        this.api.loadPrograms({ Name: localStorage.getItem('department') });
+        this.programs = this.api.getPrograms();
     }
 
     fetchBatches() {
-        this.api.loadBatches();
+        this.api.loadBatches({ Department: localStorage.getItem('department') });
         this.batches = this.api.getBatches();
     }
 
@@ -72,7 +66,6 @@ export class AdminFypBatchesComponent implements OnInit {
         if (
             formData.Session !== 'Session' &&
             formData.Year !== 'Year' &&
-            formData.Department !== 'Department' &&
             formData.Program !== 'Program'
         ) {
         this.spinner.show();
@@ -81,15 +74,9 @@ export class AdminFypBatchesComponent implements OnInit {
                 this.addBatchResponse('Batch added successfully.');
                 this.addBatchForm.controls['Session'].setValue('Session');
                 this.addBatchForm.controls['Year'].setValue('Year');
-                this.addBatchForm.controls['Department'].setValue('Department');
                 this.addBatchForm.controls['Program'].setValue('Program');
+                this.batchFilterSelectForm.controls['All Programs'].setValue(formData.Program);
                 this.fetchBatches();
-                setTimeout(() => {
-                    this.batchFilterSelectForm.controls['All Departments'].setValue(formData.Department);
-                    this.batchFilterSelectForm.controls['All Programs'].setValue(formData.Program);
-                    this.onBatchFilterSelect(formData.Department);
-                    this.onBatchFilterCompleteSelect(formData.Program);
-                }, 1000);
             }, (error: any) => this.addBatchResponse(error));
             this.validAddBatch = true;
             setTimeout(() => this.addBatchMessage = '', 4000);
@@ -104,62 +91,20 @@ export class AdminFypBatchesComponent implements OnInit {
         }, 1000);
     }
 
-    onBatchFilterSelect(departmentOption: String): void {
-        if (departmentOption === 'All Departments') {
-            this.setBatchFilters(true, false, false, '', '');
-            this.departmentFilterSelectBoolean = false;
-        } else {
-            for (let i = 0; i < this.departments.length; i++) {
-                if (departmentOption === this.departments[i].Name) {
-                    this.departmentFilterSelect = this.departments[i];
-                    this.departmentFilterSelectBoolean = true;
-                }
-            } this.setBatchFilters(false, true, false, departmentOption, '');
-        }
-    }
-
-    onBatchFilterCompleteSelect(programOption: String): void {
+    onProgramFilterSelection(programOption: String): void {
         if (programOption === 'All Programs') {
-            if (this.selectedFilterDepartment === 'All Departments')
-                this.setBatchFilters(true, false, false, '', '');
-            else this.setBatchFilters(false, true, false, this.selectedFilterDepartment, '');
-        } else this.setBatchFilters(false, false, true, this.selectedFilterDepartment, programOption);
-    }
-
-    onDepartmentSelected(departmentOption: String): void {
-        if (departmentOption === 'Department') this.selectedDepartmentBoolean = false;
-        else {
-            for (let i = 0; i < this.departments.length; i++) {
-                if (departmentOption === this.departments[i].Name) {
-                    this.selectedDepartment = this.departments[i];
-                    this.selectedDepartmentBoolean = true;
-                }
-            }
-        }
+            this.setBatchFilters(true, false, 'All Programs');
+        } else this.setBatchFilters(false, true, programOption);
     }
 
     setBatchFilters(
         noFilterBoolean: Boolean, 
-        departmentFilterBoolean: Boolean,
         programFilterBoolean: Boolean,
-        selectedFilterDepartment: String,
-        selectedFilterDepartmentProgram: String
+        selectedProgram: String
     ) {
         this.noFilterBoolean = noFilterBoolean;
-        this.departmentFilterBoolean = departmentFilterBoolean;
         this.programFilterBoolean = programFilterBoolean;
-        this.selectedFilterDepartment = selectedFilterDepartment;
-        this.selectedFilterDepartmentProgram = selectedFilterDepartmentProgram;
-    }
-
-    sortByDepartment() {
-        if (this.departmentSortAlternate === 1) {
-            this.batches.sort((a, b) => (a.Department > b.Department) ? 1 : ((b.Department > a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 0;
-        } else {
-            this.batches.sort((a, b) => (a.Department < b.Department) ? 1 : ((b.Department < a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 1;
-        }
+        this.selectedProgram = selectedProgram;
     }
 
     sortBySession() {

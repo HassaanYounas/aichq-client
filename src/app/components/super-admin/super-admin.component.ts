@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Department } from 'src/app/models/department.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-admin-departments',
-  templateUrl: './admin-departments.component.html'
+  selector: 'app-super-admin',
+  templateUrl: './super-admin.component.html'
 })
-export class AdminDepartmentsComponent implements OnInit {
+export class SuperAdminComponent implements OnInit {
 
     departments: Department[];
 
@@ -20,8 +21,13 @@ export class AdminDepartmentsComponent implements OnInit {
 
     constructor(
         private api: ApiService,
-        private spinner: NgxSpinnerService
-    ) { }
+        private spinner: NgxSpinnerService,
+        private router: Router
+    ) { 
+        if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
+        else if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
+        else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
+    }
 
     ngOnInit(): void {
         this.addDepartmentForm = new FormGroup({
@@ -80,5 +86,10 @@ export class AdminDepartmentsComponent implements OnInit {
             this.spinner.hide();
             this.addProgramMessage = message;
         }, 1000);
+    }
+
+    signOut() {
+        localStorage.clear();
+        this.router.navigate(['/super/admin/login']);
     }
 }

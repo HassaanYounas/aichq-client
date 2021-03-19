@@ -11,6 +11,7 @@ import { Department } from '../models/department.model';
 import { Student } from '../models/student.model';
 import { SupervisorProposal } from '../models/supervisor.proposal.model';
 import { Program } from '../models/program.model';
+import { SuperAdmin } from '../models/super.admin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -126,6 +127,13 @@ export class ApiService {
         return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }
 
+    loginSuperAdmin(superAdmin: SuperAdmin) {
+        const url = API.loginSuperAdmin;
+        const body = { Username: superAdmin.Username, Password: superAdmin.Password };
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+    }
+
     loginSupervisor(supervisor: Supervisor) {
         const url = API.loginSupervisor;
         const body = { Email: supervisor.Email, Password: supervisor.Password };
@@ -144,23 +152,23 @@ export class ApiService {
         this.departments = new Array<Department>();
         this.requestWithToken({}, API.getDepartment).subscribe(
             (res: any) => {
-            res.forEach(e => this.departments.push(new Department(e)));
+                res.forEach(e => this.departments.push(new Department(e)));
             }, (error: any) => { console.log(error); }
         );
     }
 
-    loadBatches() {
+    loadBatches(body: any) {
         this.batches = new Array<Batch>();
-        this.requestWithToken({}, API.getBatches).subscribe(
+        this.requestWithToken(body, API.getBatches).subscribe(
             (res: any) => {
                 res.forEach(e => this.batches.push(new Batch(e)));
             }, (error: any) => { console.log(error); }
         );
     }
 
-    loadSupervisors() {
+    loadSupervisors(body: any) {
         this.supervisors = new Array<Supervisor>();
-        this.requestWithToken({}, API.getSupervisors).subscribe(
+        this.requestWithToken(body, API.getSupervisors).subscribe(
             (res: any) => {
                 res.forEach(e => this.supervisors.push(new Supervisor(e)));
             }, (error: any) => { console.log(error); }

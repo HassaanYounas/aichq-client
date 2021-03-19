@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/services/api.service';
 import { InputValidationService } from 'src/app/services/input-validation.service';
 
 @Component({
-  selector: 'app-admin-login',
-  templateUrl: './admin-login.component.html'
+  selector: 'app-super-admin-login',
+  templateUrl: './super-admin-login.component.html'
 })
-export class AdminLoginComponent implements OnInit {
+export class SuperAdminLoginComponent implements OnInit {
 
     loginForm: FormGroup;
     validLogin: Boolean = true;
@@ -41,16 +41,13 @@ export class AdminLoginComponent implements OnInit {
             this.errorMessage = 'Password cannot be empty.';
         } else {
             this.spinner.show();
-            this.api.loginAdmin(formData).subscribe(
+            this.api.loginSuperAdmin(formData).subscribe(
                 (res: any) => {
                     if (res.token !== '') {
                         this.validLogin = true;
                         localStorage.setItem('token', res.token);
                         localStorage.setItem('id', res._id);
-                        localStorage.setItem('department', res.Department);
-                        localStorage.setItem('fullName', res.FullName);
-                        localStorage.setItem('userName', res.Username);
-                        localStorage.setItem('type', 'Administrator');
+                        localStorage.setItem('type', 'Super Administrator');
                         setTimeout(() => { 
                             this.spinner.hide();
                             this.router.navigate(['/']);

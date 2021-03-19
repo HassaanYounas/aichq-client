@@ -9,7 +9,10 @@ export class DashboardGuardService {
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    if (localStorage.getItem('type') === 'Administrator') {
+    if (localStorage.getItem('type') === 'Super Administrator') {
+        this.router.navigate(['/admin/dashboard']);
+        return false;
+    } else if (localStorage.getItem('type') === 'Administrator') {
       this.router.navigate(['/admin/dashboard']);
       return false;
     } else if (localStorage.getItem('type') === 'Student') {

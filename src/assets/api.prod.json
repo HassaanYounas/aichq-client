@@ -1,5 +1,6 @@
 {
     "loginAdmin": "https://aichq-fyp.herokuapp.com/api/admin/login",
+    "loginSuperAdmin": "https://aichq-fyp.herokuapp.com/api/super/admin/login",
     "updateAdmin": "https://aichq-fyp.herokuapp.com/api/admin/update",
     "getAdmin": "https://aichq-fyp.herokuapp.com/api/admin/get",
     "addDepartment": "https://aichq-fyp.herokuapp.com/api/department/add",
@@ -7,7 +8,7 @@
     "getPrograms": "https://aichq-fyp.herokuapp.com/api/department/get/programs",
     "getDepartment": "https://aichq-fyp.herokuapp.com/api/department/get/all",
     "addBatch": "https://aichq-fyp.herokuapp.com/api/batch/add",
-    "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/get/all",
+    "getBatches": "https://aichq-fyp.herokuapp.com/api/batch/get",
     "loginSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/login",
     "addSupervisor": "https://aichq-fyp.herokuapp.com/api/supervisor/add",
     "addSupervisorsBulk": "https://aichq-fyp.herokuapp.com/api/supervisor/add/bulk",

@@ -23,6 +23,7 @@ export class SupervisorDashboardComponent {
     ) {
         if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
         else if (localStorage.getItem('type') === 'Administrator') this.router.navigate(['/admin/dashboard']);
+        else if (localStorage.getItem('type') === 'Super Administrator') this.router.navigate(['/super/admin']);
         this.api.getSupervisor({ _id: localStorage.getItem('id') }).subscribe(
             (res: any) => {
                 this.supervisor = new Supervisor(res);

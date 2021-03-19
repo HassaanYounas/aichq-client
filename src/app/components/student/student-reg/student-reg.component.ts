@@ -69,7 +69,7 @@ export class StudentRegComponent implements OnInit {
     }
 
     fetchBatches() {
-        this.api.loadBatches();
+        this.api.loadBatches({});
         this.batches = this.api.getBatches();
     }
 

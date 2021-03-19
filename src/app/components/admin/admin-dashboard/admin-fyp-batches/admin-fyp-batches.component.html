@@ -8,32 +8,24 @@
             <form id="addBatchForm" [formGroup]="addBatchForm" (ngSubmit)="onAddBatchFormSubmit(addBatchForm.value)">
                 <div class="row mb-2">
                     <div class="col pr-1">
+                        <select formControlName="Program" class="form-control-dropdown">
+                            <option selected>Program</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
+                        </select>
+                    </div>
+                    <div class="col pr-1">
                         <select formControlName="Session" class="form-control-dropdown">
                             <option selected>Session</option>
                             <option>Fall</option>
                             <option>Spring</option>
                         </select>
                     </div>
-                    <div class="col pr-1">
+                    <div class="col">
                         <select formControlName="Year" class="form-control-dropdown">
                             <option selected>Year</option>
                             <option *ngFor="let year of years">{{ year }}</option>
                         </select>
                     </div>
-                    <div class="col pr-1">
-                      <select formControlName="Department" #departmentSelect class="form-control-dropdown" (change)='onDepartmentSelected(departmentSelect.value)'>
-                          <option selected>Department</option>
-                          <option *ngFor="let department of departments">{{ department.Name }}</option>
-                      </select>
-                  </div>
-                  <div class="col">
-                      <select formControlName="Program" class="form-control-dropdown">
-                          <option selected>Program</option>
-                          <ng-container *ngIf="selectedDepartmentBoolean">
-                              <option *ngFor="let program of selectedDepartment.Programs">{{ program.Title }}</option>
-                          </ng-container>
-                      </select>
-                  </div>
                 </div>
                 <div class="text-danger" [ngClass]="{'d-none': validAddBatch}">Please select all options.</div>
             </form>
@@ -46,17 +38,9 @@
             <form [formGroup]="batchFilterSelectForm">
                 <div class="row mb-3">
                     <div class="col">
-                        <select formControlName="Department" #batchFilterSelect class="form-control-dropdown" (change)="onBatchFilterSelect(batchFilterSelect.value)">
-                            <option selected>All Departments</option>
-                            <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select formControlName="Program" #batchFilterCompleteSelect class="form-control-dropdown" (change)="onBatchFilterCompleteSelect(batchFilterCompleteSelect.value)">
+                        <select formControlName="Program" #onProgramFilterSelect class="form-control-dropdown" (change)="onProgramFilterSelection(onProgramFilterSelect.value)">
                             <option selected>All Programs</option>
-                            <ng-container *ngIf="departmentFilterSelectBoolean">
-                                <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                            </ng-container>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
                         </select>
                     </div>
                 </div>
@@ -66,10 +50,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th scope="col">
-                                    Department
-                                    <i class="pointer" (click)="sortByDepartment()">&nbsp;&#8597;</i>
-                                </th>
+                                <th scope="col">Department</th>
                                 <th scope="col">
                                     Program
                                     <i class="pointer" (click)="sortByProgram()">&nbsp;&#8597;</i>
@@ -91,13 +72,7 @@
                                     <td>{{ batch.Session }}</td>
                                     <td>{{ batch.Year }}</td>
                                 </ng-container>
-                                <ng-container *ngIf="departmentFilterBoolean && batch.Department === selectedFilterDepartment">
-                                    <td>{{ batch.Department }}</td>
-                                    <td>{{ batch.Program }}</td>
-                                    <td>{{ batch.Session }}</td>
-                                    <td>{{ batch.Year }}</td>
-                                </ng-container>
-                                <ng-container *ngIf="programFilterBoolean && batch.Department === selectedFilterDepartment && batch.Program === selectedFilterDepartmentProgram">
+                                <ng-container *ngIf="programFilterBoolean && batch.Program === selectedProgram">
                                     <td>{{ batch.Department }}</td>
                                     <td>{{ batch.Program }}</td>
                                     <td>{{ batch.Session }}</td>

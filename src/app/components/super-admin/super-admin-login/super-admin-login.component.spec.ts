@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminDepartmentsComponent } from './admin-departments.component';
+import { SuperAdminLoginComponent } from './super-admin-login.component';
 
-describe('AdminDepartmentsComponent', () => {
-  let component: AdminDepartmentsComponent;
-  let fixture: ComponentFixture<AdminDepartmentsComponent>;
+describe('SuperAdminLoginComponent', () => {
+  let component: SuperAdminLoginComponent;
+  let fixture: ComponentFixture<SuperAdminLoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminDepartmentsComponent ]
+      declarations: [ SuperAdminLoginComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminDepartmentsComponent);
+    fixture = TestBed.createComponent(SuperAdminLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

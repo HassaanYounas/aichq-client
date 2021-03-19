@@ -12,14 +12,6 @@
                 <div class="grey-container p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Upload CSV File</h5>
                     <form id="addSupervisorBulkForm" [formGroup]="addSupervisorBulkForm" (ngSubmit)="onAddSupervisorBulkFormSubmit(addSupervisorBulkForm.value)">
-                        <div class="form-row align-items-center mb-2">
-                            <div class="col">
-                                <select formControlName="Department" class="form-control-dropdown">
-                                    <option selected>Department</option>
-                                    <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="custom-file">
                             <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input file-input pointer" id="customFile">
                             <label class="custom-file-label pointer" for="customFile">Choose file</label>
@@ -64,12 +56,6 @@
                                     <option>Professor</option>
                                 </select>
                             </div>
-                            <div class="col">
-                                <select formControlName="Department" class="form-control-dropdown-sm">
-                                    <option selected>Department</option>
-                                    <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                                </select>
-                            </div>
                         </div>
                         <div class="text-danger mt-2" [ngClass]="{'d-none': validAddSupervisor}">Please select all options.</div>
                         <button form="addSupervisorForm" type="submit" class="btn btn-dashboard mt-3">Add</button>
@@ -93,13 +79,6 @@
         </div>
         <div class="grey-container p-4 mb-4">
             <h5 class="font-weight-bold mb-4">List of Supervisors</h5>
-            <h6 class="font-weight-bold mb-3">Filter Options</h6>
-            <form class="mb-3" [formGroup]="departmentSelectForm">
-                <select formControlName="Department" #departmentSelect class="form-control-dropdown" (change)="onDepartmentFilterSelect(departmentSelect.value)">
-                    <option selected>All Departments</option>
-                    <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                </select>
-            </form>
             <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
                 <div class="table-responsive">
                     <table>
@@ -117,10 +96,7 @@
                                     Designation
                                     <i class="pointer" (click)="sortByDesignation()">&nbsp;&#8597;</i>
                                 </th>
-                                <th scope="col">
-                                    Department
-                                    <i class="pointer" (click)="sortByDepartment()">&nbsp;&#8597;</i>
-                                </th>
+                                <th scope="col">Department</th>
                                 <th scope="col">
                                     Active
                                     <i class="pointer" (click)="sortByActive()">&nbsp;&#8597;</i>
@@ -129,30 +105,16 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let supervisor of supervisors; let i = index;">
-                                <ng-container *ngIf="noFilterBoolean">
-                                    <td>{{ supervisor.FullName }}</td>
-                                    <td>{{ supervisor.Email }}</td>
-                                    <td>{{ supervisor.Designation }}</td>
-                                    <td>{{ supervisor.Department }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" [checked]="supervisor.Active" [attr.id]="'customSwitch' + i" (click)="clickActiveToggle(i, supervisor.Active)"  data-toggle="modal" data-target="#supervisorActiveModal">
-                                            <label class="custom-control-label" [attr.for]="'customSwitch' + i"></label>
-                                        </div>
-                                    </td>
-                                </ng-container>
-                                <ng-container *ngIf="!noFilterBoolean && supervisor.Department === selectedFilterDepartment">
-                                    <td>{{ supervisor.FullName }}</td>
-                                    <td>{{ supervisor.Email }}</td>
-                                    <td>{{ supervisor.Designation }}</td>
-                                    <td>{{ supervisor.Department }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" [checked]="supervisor.Active" [attr.id]="'customSwitch' + i" (click)="clickActiveToggle(i, supervisor.Active)" data-toggle="modal" data-target="#supervisorActiveModal">
-                                            <label class="custom-control-label" [attr.for]="'customSwitch' + i"></label>
-                                        </div>
-                                    </td>
-                                </ng-container>
+                                <td>{{ supervisor.FullName }}</td>
+                                <td>{{ supervisor.Email }}</td>
+                                <td>{{ supervisor.Designation }}</td>
+                                <td>{{ supervisor.Department }}</td>
+                                <td>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" [checked]="supervisor.Active" [attr.id]="'customSwitch' + i" (click)="clickActiveToggle(i, supervisor.Active)"  data-toggle="modal" data-target="#supervisorActiveModal">
+                                        <label class="custom-control-label" [attr.for]="'customSwitch' + i"></label>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
