@@ -22,22 +22,13 @@ export class AdminStudentsComponent implements OnInit {
     batches: Batch[];
     students: Student[];
     programs: Program[];
-    departments: Department[];
     batchesToDisplay: Batch[];
     batchesToDisplayBulk: Batch[];
     batchesToDisplayFilter: Batch[];
 
-    programAddSelect: Program;
-    programFilterSelect: Program;
-    programAddBulkSelect: Program;
-    departmentAddSelect: Department;
-    departmentFilterSelect: Department;
-    departmentAddBulkSelect: Department;
-
     selectedFilterBatchYear: String = '';
     selectedFilterBatchSession: String = '';
     selectedFilterProgram: String = 'All Programs';
-    selectedFilterDepartment: String = 'All Departments';
 
     addStudentForm: FormGroup;
     addStudentBulkForm: FormGroup;
@@ -51,11 +42,7 @@ export class AdminStudentsComponent implements OnInit {
     programAddSelectBoolean: Boolean = false;
     tableProgramFilterBoolean: Boolean = false;
     programFilterSelectBoolean: Boolean = false;
-    departmentAddSelectBoolean: Boolean = false;
     programAddBulkSelectBoolean: Boolean = false;
-    tableDepartmentFilterBoolean: Boolean = false;
-    departmentFilterSelectBoolean: Boolean = false;
-    departmentAddBulkSelectBoolean: Boolean = false;
 
     fileName: String = 'Choose file';
     addStudentMessage: String = '';
@@ -66,7 +53,6 @@ export class AdminStudentsComponent implements OnInit {
     phaseSortAlternate: Number = 0;
     programSortAlternate: Number = 0;
     rollNumberSortAlternate: Number = 0;
-    departmentSortAlternate: Number = 0;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -95,28 +81,34 @@ export class AdminStudentsComponent implements OnInit {
         });
         this.fetchBatches();
         this.fetchStudents();
-        this.fetchDepartments();
         this.fetchPrograms();
     }
 
     fetchPrograms() {
-        this.api.loadPrograms({ Name: localStorage.getItem('department') });
-        this.programs = this.api.getPrograms();
-    }
-
-    fetchDepartments() {
-        this.api.loadDepartments();
-        this.departments = this.api.getDepartments();
+        this.api.loadPrograms({ Name: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.programs = new Array<Program>();
+                res.forEach(e => this.programs.push(new Program(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchBatches() {
-        this.api.loadBatches({});
-        this.batches = this.api.getBatches();
+        this.api.loadBatches({ Department: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.batches = new Array<Batch>();
+                res.forEach(e => this.batches.push(new Batch(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchStudents() {
-        this.api.loadStudents();
-        this.students = this.api.getStudents();
+        this.api.loadStudents().subscribe(
+            (res: any) => {
+                this.students = new Array<Student>();
+                res.forEach(e => this.students.push(new Student(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     onAddStudentFormSubmit(formData: any): void {
@@ -139,7 +131,6 @@ export class AdminStudentsComponent implements OnInit {
                 (res: any) => {
                     this.addStudentResponse('Student added successfully.');
                     this.addStudentForm.controls['Batch'].setValue('Batch');
-                    this.addStudentForm.controls['Department'].setValue('Department');
                     this.addStudentForm.controls['Program'].setValue('Program');
                     this.addStudentForm.controls['FullName'].setValue('');
                     this.addStudentForm.controls['RollNumber'].setValue('');
@@ -157,167 +148,106 @@ export class AdminStudentsComponent implements OnInit {
             this.addStudentMessage = message;
         }, 1000);
     }
-
-    onDepartmentAddStudent(departmentOption: String): void {
-        if (departmentOption === 'Department') this.departmentAddSelectBoolean = false;
-        else {
-            for (let i = 0; i < this.departments.length; i++) {
-                if (departmentOption === this.departments[i].Name) {
-                    this.departmentAddSelect = this.departments[i];
-                    this.departmentAddSelectBoolean = true;
-                }
-            }
-        }
-    }
     
     onProgramAddStudent(programOption: String): void {
         if (programOption === 'Program') this.programAddSelectBoolean = false;
         else {
-            for (let i = 0; i < this.departmentAddSelect.Programs.length; i++) {
-                if (programOption === this.departmentAddSelect.Programs[i].Title) {
-                    this.programAddSelect = this.departmentAddSelect.Programs[i];
-                    this.programAddSelectBoolean = true;
-                    this.batchesToDisplay = new Array<Batch>();
-                    this.batches.forEach(e => {
-                        if (
-                            this.departmentAddSelect.Name === e.Department &&
-                            this.programAddSelect.Title === e.Program
-                        ) this.batchesToDisplay.push(new Batch(e));
-                    });
-                }
-            }
+            this.programAddSelectBoolean = true;
+            this.batchesToDisplay = new Array<Batch>();
+            this.batches.forEach(e => {
+                if (
+                    localStorage.getItem('department') === e.Department &&
+                    programOption === e.Program
+                ) this.batchesToDisplay.push(new Batch(e));
+            });
         }
     }
-
-    // onDepartmentAddStudentBulk(departmentOption: String): void {
-    //     if (departmentOption === 'Department') this.departmentAddBulkSelectBoolean = false;
-    //     else {
-    //         for (let i = 0; i < this.departments.length; i++) {
-    //             if (departmentOption === this.departments[i].Name) {
-    //                 this.departmentAddBulkSelect = this.departments[i];
-    //                 this.departmentAddBulkSelectBoolean = true;
-    //             }
-    //         }
-    //     }
-    // }
     
     onProgramAddStudentBulk(programOption: String): void {
         if (programOption === 'Program') this.programAddBulkSelectBoolean = false;
         else {
-            for (let i = 0; i < this.departmentAddBulkSelect.Programs.length; i++) {
-                if (programOption === this.departmentAddBulkSelect.Programs[i].Title) {
-                    this.programAddBulkSelect = this.departmentAddBulkSelect.Programs[i];
-                    this.programAddBulkSelectBoolean = true;
-                    this.batchesToDisplayBulk = new Array<Batch>();
-                    this.batches.forEach(e => {
-                        if (
-                            this.departmentAddBulkSelect.Name === e.Department &&
-                            this.programAddBulkSelect.Title === e.Program
-                        ) this.batchesToDisplayBulk.push(new Batch(e));
-                    });
-                }
-            }
-        }
-    }
-
-    onDepartmentFilterSelect(departmentOption: String): void {
-        if (departmentOption === 'All Departments') {
-            this.departmentFilterSelectBoolean = false;
-            this.setStudentFilters(true, false, false, false, '', '', '', '');
-        } else {
-            for (let i = 0; i < this.departments.length; i++) {
-                if (departmentOption === this.departments[i].Name) {
-                    this.departmentFilterSelect = this.departments[i];
-                    this.departmentFilterSelectBoolean = true;
-                    this.setStudentFilters(
-                        false, 
-                        true, 
-                        false, 
-                        false,
-                        this.departmentFilterSelect.Name, 
-                        '', '', ''
-                    );
-                }
-            }
+            this.programAddBulkSelectBoolean = true;
+            this.batchesToDisplayBulk = new Array<Batch>();
+            this.batches.forEach(e => {
+                if (
+                    localStorage.getItem('department') === e.Department &&
+                    programOption === e.Program
+                ) this.batchesToDisplayBulk.push(new Batch(e));
+            });
         }
     }
 
     onProgramFilterSelect(programOption: String): void {
         if (programOption === 'All Programs') {
             this.programFilterSelectBoolean = false;
-            if (this.selectedFilterDepartment === 'All Departments')
-                this.setStudentFilters(true, false, false, false, '', '', '', '');
-            else
-                this.setStudentFilters(false, true, false, false, this.selectedFilterDepartment, '', '', '');
+            // if (this.selectedFilterDepartment === 'All Departments')
+            //     this.setStudentFilters(true, false, false, false, '', '', '', '');
+            // else
+            //     this.setStudentFilters(false, true, false, false, this.selectedFilterDepartment, '', '', '');
         } else {
-            for (let i = 0; i < this.departmentFilterSelect.Programs.length; i++) {
-                if (programOption === this.departmentFilterSelect.Programs[i].Title) {
-                    this.programFilterSelect = this.departmentFilterSelect.Programs[i];
-                    this.programFilterSelectBoolean = true;
-                    this.setStudentFilters(
-                        false, 
-                        false, 
-                        true, 
-                        false, 
-                        this.selectedFilterDepartment, 
-                        '', '', ''
-                    );                  
-                    this.batchesToDisplayFilter = new Array<Batch>();
-                    this.batches.forEach(e => {
-                        if (
-                            this.departmentFilterSelect.Name === e.Department &&
-                            this.programFilterSelect.Title === e.Program
-                        ) this.batchesToDisplayFilter.push(new Batch(e));
-                    });
-                }
-            }
+            this.programFilterSelectBoolean = true;
+            // this.setStudentFilters(
+            //     false, 
+            //     false, 
+            //     true, 
+            //     false, 
+            //     this.selectedFilterDepartment, 
+            //     '', '', ''
+            // );                  
+            this.batchesToDisplayFilter = new Array<Batch>();
+            this.batches.forEach(e => {
+                if (
+                    localStorage.getItem('department') === e.Department &&
+                    programOption === e.Program
+                ) this.batchesToDisplayFilter.push(new Batch(e));
+            });
         }
     }
 
     onBatchFilterSelect(batchOption: String): void {
-        if (batchOption === 'All Batches') {
-            this.setStudentFilters(
-                false,
-                false,
-                true,
-                false,
-                this.selectedFilterDepartment,
-                this.selectedFilterProgram,
-                '', ''
-            );
-        } else {
-            this.setStudentFilters(
-                false,
-                false,
-                false,
-                true,
-                this.selectedFilterDepartment,
-                this.selectedFilterProgram,
-                batchOption.split('-')[1],
-                batchOption.split('-')[0]
-            );
-        }
+        // if (batchOption === 'All Batches') {
+        //     this.setStudentFilters(
+        //         false,
+        //         false,
+        //         true,
+        //         false,
+        //         this.selectedFilterDepartment,
+        //         this.selectedFilterProgram,
+        //         '', ''
+        //     );
+        // } else {
+        //     this.setStudentFilters(
+        //         false,
+        //         false,
+        //         false,
+        //         true,
+        //         this.selectedFilterDepartment,
+        //         this.selectedFilterProgram,
+        //         batchOption.split('-')[1],
+        //         batchOption.split('-')[0]
+        //     );
+        // }
     }
 
-    setStudentFilters(
-        noFilterBoolean: Boolean, 
-        tableDepartmentFilterBoolean: Boolean,
-        tableProgramFilterBoolean: Boolean,
-        tableBatchFilterBoolean: Boolean,
-        selectedFilterDepartment: String,
-        selectedFilterProgram: String,
-        selectedFilterBatchYear: String,
-        selectedFilterBatchSession: String
-    ) {
-        this.noFilterBoolean = noFilterBoolean;
-        this.tableDepartmentFilterBoolean = tableDepartmentFilterBoolean;
-        this.tableProgramFilterBoolean = tableProgramFilterBoolean;
-        this.tableBatchFilterBoolean = tableBatchFilterBoolean;
-        this.selectedFilterDepartment = selectedFilterDepartment;
-        this.selectedFilterProgram = selectedFilterProgram;
-        this.selectedFilterBatchYear = selectedFilterBatchYear;
-        this.selectedFilterBatchSession = selectedFilterBatchSession;
-    }
+    // setStudentFilters(
+    //     noFilterBoolean: Boolean, 
+    //     tableDepartmentFilterBoolean: Boolean,
+    //     tableProgramFilterBoolean: Boolean,
+    //     tableBatchFilterBoolean: Boolean,
+    //     selectedFilterDepartment: String,
+    //     selectedFilterProgram: String,
+    //     selectedFilterBatchYear: String,
+    //     selectedFilterBatchSession: String
+    // ) {
+    //     this.noFilterBoolean = noFilterBoolean;
+    //     this.tableDepartmentFilterBoolean = tableDepartmentFilterBoolean;
+    //     this.tableProgramFilterBoolean = tableProgramFilterBoolean;
+    //     this.tableBatchFilterBoolean = tableBatchFilterBoolean;
+    //     this.selectedFilterDepartment = selectedFilterDepartment;
+    //     this.selectedFilterProgram = selectedFilterProgram;
+    //     this.selectedFilterBatchYear = selectedFilterBatchYear;
+    //     this.selectedFilterBatchSession = selectedFilterBatchSession;
+    // }
 
     onAddStudentBulkFormSubmit(formData: any): void {
         if (
@@ -367,16 +297,6 @@ export class AdminStudentsComponent implements OnInit {
         this.studentsCSV = files[0];
         this.fileName = this.studentsCSV.name;  
         this.fileUploaded = true;
-    }
-    
-    sortByDepartment() {
-        if (this.departmentSortAlternate === 1) {
-            this.students.sort((a, b) => (a.Department > b.Department) ? 1 : ((b.Department > a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 0;
-        } else {
-            this.students.sort((a, b) => (a.Department < b.Department) ? 1 : ((b.Department < a.Department) ? -1 : 0));
-            this.departmentSortAlternate = 1;
-        }
     }
 
     sortByPhase() {

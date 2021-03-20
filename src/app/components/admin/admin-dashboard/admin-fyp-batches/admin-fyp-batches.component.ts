@@ -53,13 +53,21 @@ export class AdminFypBatchesComponent implements OnInit {
     }
 
     fetchPrograms() {
-        this.api.loadPrograms({ Name: localStorage.getItem('department') });
-        this.programs = this.api.getPrograms();
+        this.api.loadPrograms({ Name: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.programs = new Array<Program>();
+                res.forEach(e => this.programs.push(new Program(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchBatches() {
-        this.api.loadBatches({ Department: localStorage.getItem('department') });
-        this.batches = this.api.getBatches();
+        this.api.loadBatches({ Department: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.batches = new Array<Batch>();
+                res.forEach(e => this.batches.push(new Batch(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     onAddBatchFormSubmit(formData: any): void {
@@ -75,7 +83,8 @@ export class AdminFypBatchesComponent implements OnInit {
                 this.addBatchForm.controls['Session'].setValue('Session');
                 this.addBatchForm.controls['Year'].setValue('Year');
                 this.addBatchForm.controls['Program'].setValue('Program');
-                this.batchFilterSelectForm.controls['All Programs'].setValue(formData.Program);
+                this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);
+                this.setBatchFilters(false, true, formData.Program);
                 this.fetchBatches();
             }, (error: any) => this.addBatchResponse(error));
             this.validAddBatch = true;

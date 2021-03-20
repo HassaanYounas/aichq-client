@@ -29,6 +29,8 @@ import { AboutComponent } from './components/about/about.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
 import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
+import { StudentProjectsComponent } from './components/student/student-dashboard/student-projects/student-projects.component';
+import { SupervisorRequestsComponent } from './components/supervisor/supervisor-dashboard/supervisor-requests/supervisor-requests.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import { SuperAdminLoginComponent } from './components/super-admin/super-admin-l
         AboutComponent,
         PrivacyPolicyComponent,
         SuperAdminComponent,
-        SuperAdminLoginComponent
+        SuperAdminLoginComponent,
+        StudentProjectsComponent,
+        SupervisorRequestsComponent
     ],
     imports: [
         BrowserModule,

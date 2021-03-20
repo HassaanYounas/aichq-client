@@ -13,18 +13,10 @@
                     <h5 class="font-weight-bold mb-3">Upload CSV File</h5>
                     <form id="addStudentBulkForm" [formGroup]="addStudentBulkForm" (ngSubmit)="onAddStudentBulkFormSubmit(addStudentBulkForm.value)">
                         <div class="row mb-2">
-                            <!-- <div class="col pr-1">
-                                <select #departmentAddStudentBulk formControlName="Department" class="form-control-dropdown" (change)="onDepartmentAddStudentBulk(departmentAddStudentBulk.value)">
-                                    <option selected>Department</option>
-                                    <option *ngFor="let department of departments">{{ department.Name }}</option>
-                                </select>
-                            </div> -->
                             <div class="col">
                                 <select #programAddStudentBulk formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudentBulk(programAddStudentBulk.value)">
                                     <option selected>Program</option>
-                                    <!-- <ng-container *ngIf="departmentAddBulkSelectBoolean"> -->
-                                        <option *ngFor="let program of programs">{{ program.Title }}</option>
-                                    <!-- </ng-container> -->
+                                    <option *ngFor="let program of programs">{{ program.Title }}</option>
                                 </select>
                             </div>
                             <div class="col pl-1">
@@ -59,18 +51,10 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <!-- <div class="col pr-1">
-                                <select #departmentAddStudent formControlName="Department" class="form-control-dropdown" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
-                                    <option selected>Department</option>
-                                    <option *ngFor="let department of departments">{{ department.Name }}</option>
-                                </select>
-                            </div> -->
                             <div class="col">
                                 <select #programAddStudent formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudent(programAddStudent.value)">
                                     <option selected>Program</option>
-                                    <!-- <ng-container *ngIf="departmentAddSelectBoolean"> -->
-                                        <option *ngFor="let program of programs">{{ program.Title }}</option>
-                                    <!-- </ng-container> -->
+                                    <option *ngFor="let program of programs">{{ program.Title }}</option>
                                 </select>
                             </div>
                         </div>
@@ -93,17 +77,9 @@
             <form class="mb-3" [formGroup]="studentFilterSelectForm">
                 <div class="row">
                     <div class="col">
-                        <select formControlName="Department" #studentsDepartmentFilterSelect class="form-control-dropdown" (change)="onDepartmentFilterSelect(studentsDepartmentFilterSelect.value)">
-                            <option selected>All Departments</option>
-                            <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                        </select>
-                    </div>
-                    <div class="col">
                         <select formControlName="Program" #studentsProgramFilterSelect class="form-control-dropdown" (change)="onProgramFilterSelect(studentsProgramFilterSelect.value)">
                             <option selected>All Programs</option>
-                            <ng-container *ngIf="departmentFilterSelectBoolean">
-                                <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                            </ng-container>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
                         </select>
                     </div>
                     <div class="col">
@@ -129,10 +105,7 @@
                                     Roll Number
                                     <i class="pointer" (click)="sortByRollNumber()">&nbsp;&#8597;</i>
                                 </th>
-                                <th scope="col">
-                                    Department
-                                    <i class="pointer" (click)="sortByDepartment()">&nbsp;&#8597;</i>
-                                </th>
+                                <th scope="col">Department</th>
                                 <th scope="col">
                                     Program
                                     <i class="pointer" (click)="sortByProgram()">&nbsp;&#8597;</i>
@@ -154,23 +127,15 @@
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
                                 </ng-container>
-                                <ng-container *ngIf="tableDepartmentFilterBoolean && departmentFilterSelect.Name === student.Department">
+                                <!-- <ng-container *ngIf="tableProgramFilterBoolean && departmentFilterSelect.Name === student.Department && programFilterSelect.Title === student.Program">
                                     <td>{{ student.FullName }}</td>
                                     <td>{{ student.RollNumber }}</td>
                                     <td>{{ student.Department }}</td>
                                     <td>{{ student.Program }}</td>
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
-                                </ng-container>
-                                <ng-container *ngIf="tableProgramFilterBoolean && departmentFilterSelect.Name === student.Department && programFilterSelect.Title === student.Program">
-                                    <td>{{ student.FullName }}</td>
-                                    <td>{{ student.RollNumber }}</td>
-                                    <td>{{ student.Department }}</td>
-                                    <td>{{ student.Program }}</td>
-                                    <td>{{ student.Session }}-{{ student.Year }}</td>
-                                    <td>{{ student.Phase }}</td>
-                                </ng-container>
-                                <ng-container 
+                                </ng-container> -->
+                                <!-- <ng-container 
                                     *ngIf=
                                     "
                                         tableBatchFilterBoolean && 
@@ -186,7 +151,7 @@
                                     <td>{{ student.Program }}</td>
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
-                                </ng-container>
+                                </ng-container> -->
                             </tr>
                         </tbody>
                     </table>

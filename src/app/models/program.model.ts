@@ -1,7 +1,7 @@
 export class Program {
     Title: String;
 
-    constructor(title: String) {
-        this.Title = title;
+    constructor(res: any) {
+        this.Title = res.Title;
     }
 }

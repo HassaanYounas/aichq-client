@@ -1,4 +1,5 @@
 export class SupervisorProposal {
+    id: String;
     Session: String;
 	Year: String;
     Department: String;
@@ -9,6 +10,7 @@ export class SupervisorProposal {
 	Email: String;
 
     constructor(res: any) {
+        this.id = res.id;
         this.Session = res.Session;
         this.Year = res.Year;
         this.Department = res.Department;

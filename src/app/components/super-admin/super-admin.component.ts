@@ -41,8 +41,12 @@ export class SuperAdminComponent implements OnInit {
     }
 
     fetchDepartments() {
-        this.api.loadDepartments();
-        this.departments = this.api.getDepartments();
+        this.api.loadDepartments().subscribe(
+            (res: any) => {
+                this.departments = new Array<Department>();
+                res.forEach(e => this.departments.push(new Department(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     onAddDepartmentSubmit(formData: any) {

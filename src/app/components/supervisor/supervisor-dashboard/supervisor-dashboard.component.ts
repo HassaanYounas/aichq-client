@@ -14,7 +14,7 @@ export class SupervisorDashboardComponent {
     supervisor: Supervisor;
 
     toggle: Boolean = false;
-    currentComponent: Number = 1;
+    currentComponent: Number = 0;
     greetingMessage: String = '';
 
     constructor(

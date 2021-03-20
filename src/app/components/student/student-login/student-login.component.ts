@@ -46,6 +46,10 @@ export class StudentLoginComponent implements OnInit {
             this.validLogin = true;
             localStorage.setItem('token', res.token);
             localStorage.setItem('id', res._id);
+            localStorage.setItem('department', res.Department);
+            localStorage.setItem('session', res.Session);
+            localStorage.setItem('year', res.Year);
+            localStorage.setItem('program', res.Program);
             localStorage.setItem('type', 'Student');
             setTimeout(() => { 
               this.spinner.hide();

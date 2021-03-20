@@ -57,9 +57,6 @@ export class AdminSupervisorsComponent implements OnInit {
             let fileName = $(this).val().split('\\').pop();
             $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
         });
-        // this.departmentSelectForm = new FormGroup({
-        //     Department: new FormControl('All Departments'),
-        // });
         this.addSupervisorForm = new FormGroup({
             Title: new FormControl('Title'),
             FullName: new FormControl(''),
@@ -70,29 +67,17 @@ export class AdminSupervisorsComponent implements OnInit {
         this.addSupervisorBulkForm = new FormGroup({
             Department: new FormControl(localStorage.getItem('department'))
         });
-        // this.fetchDepartments(); 
         this.fetchSupervisors();
     }
 
-    // fetchDepartments() {
-    //     this.api.loadDepartments();
-    //     this.departments = this.api.getDepartments();
-    // }
-
     fetchSupervisors() {
-        this.api.loadSupervisors({ Department: localStorage.getItem('department') });
-        this.supervisors = this.api.getSupervisors();
+        this.api.loadSupervisors({ Department: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.supervisors = new Array<Supervisor>();
+                res.forEach(e => this.supervisors.push(new Supervisor(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
-
-    // onDepartmentFilterSelect(departmentOption: String): void {
-    //     if (departmentOption !== 'All Departments') {
-    //         this.noFilterBoolean = false;
-    //         this.selectedFilterDepartment = departmentOption;
-    //     } else {
-    //         this.noFilterBoolean = true;
-    //         this.selectedFilterDepartment = '';
-    //     }
-    // }
 
     onAddSupervisorFormSubmit(formData: any): void {
         if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;

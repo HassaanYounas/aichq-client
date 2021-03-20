@@ -9,7 +9,7 @@ export class Department {
         this.Programs = new Array<Program>();
         if ('Programs' in res) {
             for (let i = 0; i < res.Programs.length; i++) {
-                this.Programs.push(new Program(res.Programs[i].Title));
+                this.Programs.push(new Program(res.Programs[i]));
             }
         }
     }

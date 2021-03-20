@@ -15,30 +15,34 @@ export class Group {
         this.Program = res.Program;
         this.Session = res.Session;
         this.Year = res.Year;
-        this.TeamName = res.TeamName;
         this.Username = res.Username;
-        this.ProjectID = res.ProjectID;
+        if ('TeamName' in res) this.TeamName = res.TeamName;
+        if ('ProjectID' in res) this.ProjectID = res.ProjectID;
         this.StudentOne = new Student(
-            res.StudentOne.RollNumber,
-            res.StudentOne.Contact,
-            res.StudentOne.CGPA
+            res.StudentOne.RollNumber
+            // res.StudentOne.Contact,
+            // res.StudentOne.CGPA
         );
         this.StudentTwo = new Student(
-            res.StudentTwo.RollNumber,
-            res.StudentTwo.Contact,
-            res.StudentTwo.CGPA
+            res.StudentTwo.RollNumber
+            // res.StudentTwo.Contact,
+            // res.StudentTwo.CGPA
         );
     }
 }
 
 class Student {
     RollNumber: String;
-    Contact: String;
-    CGPA: String;
+    // Contact: String;
+    // CGPA: String;
 
-    constructor(rollNumber: String, contact: String, cgpa: String) {
+    constructor(rollNumber: String) {
         this.RollNumber = rollNumber;
-        this.Contact = contact;
-        this.CGPA = cgpa;
     }
+
+    // constructor(rollNumber: String, contact: String, cgpa: String) {
+    //     this.RollNumber = rollNumber;
+    //     this.Contact = contact;
+    //     this.CGPA = cgpa;
+    // }
 }

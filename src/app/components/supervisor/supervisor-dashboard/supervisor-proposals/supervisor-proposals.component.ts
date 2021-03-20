@@ -64,18 +64,30 @@ export class SupervisorProposalsComponent implements OnInit {
     }
 
     fetchPrograms() {
-        this.api.loadPrograms({ Name: this.supervisor.Department });
-        this.programs = this.api.getPrograms();
+        this.api.loadPrograms({ Name: this.supervisor.Department }).subscribe(
+            (res: any) => {
+                this.programs = new Array<Program>();
+                res.forEach(e => this.programs.push(new Program(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchBatches() {
-        this.api.loadBatches({});
-        this.batches = this.api.getBatches();
+        this.api.loadBatches({}).subscribe(
+            (res: any) => {
+                this.batches = new Array<Batch>();
+                res.forEach(e => this.batches.push(new Batch(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchProposals() {
-        this.api.loadProposals({ Email: this.supervisor.Email });
-        this.proposals = this.api.getProposals();
+        this.api.loadProposals({ Email: this.supervisor.Email }).subscribe(
+            (res: any) => {
+                this.proposals = new Array<SupervisorProposal>();
+                res.forEach(e => this.proposals.push(new SupervisorProposal(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     onSubmitProposalFormSubmit(formData: any): void {

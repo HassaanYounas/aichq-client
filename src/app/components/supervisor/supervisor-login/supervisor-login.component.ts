@@ -46,6 +46,7 @@ export class SupervisorLoginComponent implements OnInit {
                     localStorage.setItem('token', res.token);
                     localStorage.setItem('id', res._id);
                     localStorage.setItem('type', 'Supervisor');
+                    localStorage.setItem('email', res.Email);
                     setTimeout(() => { 
                         this.spinner.hide();
                         this.router.navigate(['/']);

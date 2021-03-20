@@ -64,13 +64,21 @@ export class StudentRegComponent implements OnInit {
     }
 
     fetchDepartments() {
-        this.api.loadDepartments();
-        this.departments = this.api.getDepartments();
+        this.api.loadDepartments().subscribe(
+            (res: any) => {
+                this.departments = new Array<Department>();
+                res.forEach(e => this.departments.push(new Department(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchBatches() {
-        this.api.loadBatches({});
-        this.batches = this.api.getBatches();
+        this.api.loadBatches({}).subscribe(
+            (res: any) => {
+                this.batches = new Array<Batch>();
+                res.forEach(e => this.batches.push(new Batch(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     onSubmit(formData: any): void {
@@ -148,19 +156,19 @@ export class StudentRegComponent implements OnInit {
     onProgramAddStudent(programOption: String): void {
         if (programOption === 'Program') this.programAddSelectBoolean = false;
         else {
-        for (let i = 0; i < this.departmentAddSelect.Programs.length; i++) {
-            if (programOption === this.departmentAddSelect.Programs[i].Title) {
-                this.programAddSelect = this.departmentAddSelect.Programs[i];
-                this.programAddSelectBoolean = true;
-                this.batchesToDisplayFilter = new Array<Batch>();
-                this.batches.forEach(e => {
-                    if (
-                        this.departmentAddSelect.Name === e.Department &&
-                        this.programAddSelect.Title === e.Program
-                    ) this.batchesToDisplayFilter.push(new Batch(e));
-                });
+            for (let i = 0; i < this.departmentAddSelect.Programs.length; i++) {
+                if (programOption === this.departmentAddSelect.Programs[i].Title) {
+                    this.programAddSelect = this.departmentAddSelect.Programs[i];
+                    this.programAddSelectBoolean = true;
+                    this.batchesToDisplayFilter = new Array<Batch>();
+                    this.batches.forEach(e => {
+                        if (
+                            this.departmentAddSelect.Name === e.Department &&
+                            this.programAddSelect.Title === e.Program
+                        ) this.batchesToDisplayFilter.push(new Batch(e));
+                    });
+                }
             }
-        }
         }
     }
 }

@@ -6,24 +6,12 @@ import { catchError } from 'rxjs/operators';
 import * as API from '../../assets/api.json';
 import { Supervisor } from '../models/supervisor.model';
 import { Group } from '../models/group.model';
-import { Batch } from '../models/batch.model';
-import { Department } from '../models/department.model';
-import { Student } from '../models/student.model';
-import { SupervisorProposal } from '../models/supervisor.proposal.model';
-import { Program } from '../models/program.model';
 import { SuperAdmin } from '../models/super.admin.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
-    private batches: Batch[];
-    private programs: Program[];
-    private students: Student[];
-    private departments: Department[];
-    private supervisors: Supervisor[];
-    private proposals: SupervisorProposal[];
 
     constructor(private http: HttpClient) { }
 
@@ -47,30 +35,13 @@ export class ApiService {
         return this.requestWithToken({}, API.getAdmin);
     }
 
-    getDepartments() {
-        return this.departments;
+    addSupervisionRequest(body: any) {
+        return this.requestWithToken(body, API.addSupervisionRequest);
     }
 
-    getBatches() {
-        return this.batches;
+    getSupervisionRequests(body: any) {
+        return this.requestWithToken(body, API.getSupervisionRequests);
     }
-
-    getSupervisors() {
-        return this.supervisors;
-    }
-
-    getStudents() {
-        return this.students;
-    }
-
-    getProposals() {
-        return this.proposals;
-    }
-
-    getPrograms() {
-        return this.programs;
-    }
-
 
     addSupervisor(body: any) {
         return this.requestWithToken(body, API.addSupervisor);
@@ -94,6 +65,10 @@ export class ApiService {
 
     getGroups() {
         return this.requestWithToken({}, API.getGroups);
+    }
+
+    getGroup(body: any) {
+        return this.requestWithToken(body, API.getGroup);
     }
 
     getSupervisor(body: any) {
@@ -149,57 +124,27 @@ export class ApiService {
     }
 
     loadDepartments() {
-        this.departments = new Array<Department>();
-        this.requestWithToken({}, API.getDepartment).subscribe(
-            (res: any) => {
-                res.forEach(e => this.departments.push(new Department(e)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken({}, API.getDepartment);
     }
 
     loadBatches(body: any) {
-        this.batches = new Array<Batch>();
-        this.requestWithToken(body, API.getBatches).subscribe(
-            (res: any) => {
-                res.forEach(e => this.batches.push(new Batch(e)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken(body, API.getBatches);
     }
 
     loadSupervisors(body: any) {
-        this.supervisors = new Array<Supervisor>();
-        this.requestWithToken(body, API.getSupervisors).subscribe(
-            (res: any) => {
-                res.forEach(e => this.supervisors.push(new Supervisor(e)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken(body, API.getSupervisors);
     }
 
     loadStudents() {
-        this.students = new Array<Student>();
-        this.requestWithToken({}, API.getStudents).subscribe(
-            (res: any) => {
-                res.forEach(e => this.students.push(new Student(e)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken({}, API.getStudents);
     }
 
     loadProposals(body: any) {
-        this.proposals = new Array<SupervisorProposal>();
-        this.requestWithToken(body, API.getSupervisorProposals).subscribe(
-            (res: any) => {
-                res.forEach(e => this.proposals.push(new SupervisorProposal(e)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken(body, API.getSupervisorProposals);
     }
 
     loadPrograms(body: any) {
-        this.programs = new Array<Program>();
-        this.requestWithToken(body, API.getPrograms).subscribe(
-            (res: any) => {
-                res.forEach(e => this.programs.push(new Program(e.Title)));
-            }, (error: any) => { console.log(error); }
-        );
+        return this.requestWithToken(body, API.getPrograms);
     }
 
     private errorHandler(error: HttpErrorResponse) {
