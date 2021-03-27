@@ -22,7 +22,9 @@
                 <div class="grey-container p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Add a Department</h5>
                     <form id="addDepartmentForm" class="w-100" [formGroup]="addDepartmentForm" (ngSubmit)="onAddDepartmentSubmit(addDepartmentForm.value)">
-                        <input formControlName="Name" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. Computer Science" required>
+                        <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Full Name" required>
+                        <input formControlName="Email" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Email" required>
+                        <input formControlName="Department" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. Computer Science" required>
                         <div class="mt-2" [ngClass]="(addDepartmentMessage === 'Department added successfully.')?'text-success':'text-danger'" [innerHTML]="addDepartmentMessage"></div>
                         <button form="addDepartmentForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
                     </form>

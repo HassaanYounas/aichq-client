@@ -1,0 +1,19 @@
+<!-- <div class="text-dark">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h3 class="font-weight-bold">Supervision Requests</h3>
+        </div>
+        <ng-container *ngIf="requestsLoaded">
+            <div *ngFor="let request of requests" class="grey-container p-4 mb-4">
+                <p>
+                    {{ request.StudentOneRollNumber }} and {{ request.StudentTwoRollNumber }} want {{ request.SupervisorName }} to be their supervisor for project {{ request.ProposalTitle }}.
+                </p>
+                <button class="btn btn-success mr-3" (click)="updateSupervisionRequest(1, request.ID)">Approve</button>
+                <button class="btn btn-danger" (click)="updateSupervisionRequest(0, request.ID)">Reject</button>
+            </div>
+        </ng-container>
+    </div>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
+        <p class="mt-5" style="color:white;">Working on it!</p>
+    </ngx-spinner>
+</div> -->

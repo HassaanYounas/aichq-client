@@ -8,6 +8,7 @@ export class SupervisorProposal {
     Title: String;
 	Abstract: String;
 	Email: String;
+	Approved: Number;
 
     constructor(res: any) {
         this.id = res.id;
@@ -19,5 +20,6 @@ export class SupervisorProposal {
         this.Title = res.Title;
         this.Abstract = res.Abstract;
         this.Email = res.Email;
+        this.Approved = res.Approved;
     }
 }

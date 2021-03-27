@@ -1,12 +1,12 @@
 export class Admin {
     FullName: String;
-    Username: String;
+    Email: String;
     Password: String;
     Department: String;
 
     constructor(res: any) {
         this.FullName = res.FullName;
-        this.Username = res.Username;
+        this.Email = res.Email;
         this.Department = res.Department;
     }
 }

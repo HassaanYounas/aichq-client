@@ -31,7 +31,9 @@ export class SuperAdminComponent implements OnInit {
 
     ngOnInit(): void {
         this.addDepartmentForm = new FormGroup({
-            Name: new FormControl('')
+            FullName: new FormControl(''),
+            Email: new FormControl(''),
+            Department: new FormControl('')
         });
         this.addProgramForm = new FormGroup({
             Department: new FormControl(''),
@@ -50,16 +52,30 @@ export class SuperAdminComponent implements OnInit {
     }
 
     onAddDepartmentSubmit(formData: any) {
-        if (formData.Name !== '') {
+        if (
+            formData.FullName !== '' ||
+            formData.Email !== '' ||
+            formData.Department !== ''
+        ) {
             this.spinner.show();
-            this.api.addDepartment(formData).subscribe(
+            this.api.addDepartment({ Name: formData.Department }).subscribe(
                 (res: any) => {
-                    this.addDepartmentResponse('Department added successfully.');
-                    this.addDepartmentForm.controls['Name'].setValue('');
-                    this.fetchDepartments();
+                    this.api.createAdmin({
+                        FullName: formData.FullName,
+                        Email: formData.Email,
+                        Password: "123456789",
+                        Department: formData.Department
+                    }).subscribe(
+                        (res: any) => {
+                            this.addDepartmentResponse('Department added successfully.');
+                            this.addDepartmentForm.controls['Department'].setValue('');
+                            this.addDepartmentForm.controls['FullName'].setValue('');
+                            this.addDepartmentForm.controls['Email'].setValue('');
+                            this.fetchDepartments();
+                        }, (error: any) => this.addDepartmentResponse(error)
+                    );
                 }, (error: any) => this.addDepartmentResponse(error)
-            );
-            setTimeout(() => this.addDepartmentMessage = '', 4000);
+            ); setTimeout(() => this.addDepartmentMessage = '', 4000);
         }
     }
 

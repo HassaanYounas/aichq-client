@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Admin } from 'src/app/models/admin.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -10,9 +9,11 @@ import { ApiService } from 'src/app/services/api.service';
 export class AdminDashboardComponent {
 
     toggle: Boolean = false;
-    greetingMessage: String = '';
+
     topText: String = '';
-    currentComponent: Number = 2;
+    greetingMessage: String = '';
+
+    currentComponent: Number = 4;
 
     constructor(
         private api: ApiService,

@@ -62,6 +62,7 @@
                                 <th scope="col">
                                     Year<i class="pointer" (click)="sortByYear()">&nbsp;&#8597;</i>
                                 </th>
+                                <th scope="col">GPS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,12 +72,14 @@
                                     <td>{{ batch.Program }}</td>
                                     <td>{{ batch.Session }}</td>
                                     <td>{{ batch.Year }}</td>
+                                    <td>{{ batch.MaxGroups }}</td>
                                 </ng-container>
                                 <ng-container *ngIf="programFilterBoolean && batch.Program === selectedProgram">
                                     <td>{{ batch.Department }}</td>
                                     <td>{{ batch.Program }}</td>
                                     <td>{{ batch.Session }}</td>
                                     <td>{{ batch.Year }}</td>
+                                    <td>{{ batch.MaxGroups }}</td>
                                 </ng-container>
                             </tr>
                         </tbody>

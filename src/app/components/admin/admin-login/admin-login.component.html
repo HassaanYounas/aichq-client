@@ -7,7 +7,7 @@
             <div class="col page-right page-admin-right text-center d-flex align-items-center">
                 <form class="w-100 px-5 mx-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                     <h3 class="mb-4 font-weight-normal">Administrator Login</h3>
-                    <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>
+                    <input formControlName="Email" type="text" class="form-control form-control-custom mb-4" placeholder="Email" required>
                     <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
                     <div class="text-danger mb-4" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
                     <button class="btn btn-main mb-4" type="submit">Sign in</button>

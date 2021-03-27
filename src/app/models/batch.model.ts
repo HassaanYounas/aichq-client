@@ -4,6 +4,7 @@ export class Batch {
 	Year: String;
     Department: String;
 	Program: String;
+    MaxGroups: Number;
 
     constructor(res: any) {
         this.Archived = res.Archived;
@@ -11,5 +12,6 @@ export class Batch {
         this.Year = res.Year;
         this.Department = res.Department;
         this.Program = res.Program;
+        this.MaxGroups = res.MaxGroups;
     }
 }

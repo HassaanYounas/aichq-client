@@ -31,6 +31,10 @@ export class ApiService {
         return this.requestWithToken(body, API.addBatch);
     }
 
+    createAdmin(body: any) {
+        return this.requestWithToken(body, API.createAdmin);
+    }
+
     getAdmin() {
         return this.requestWithToken({}, API.getAdmin);
     }
@@ -75,6 +79,10 @@ export class ApiService {
         return this.requestWithToken(body, API.getSupervisor);
     }
 
+    updateSupervisorProposal(body: any) {
+        return this.requestWithToken(body, API.updateSupervisorProposal);
+    }
+
     setSupervisorActive(body: any) {
         return this.requestWithToken(body, API.setSupervisorActive);
     }
@@ -87,6 +95,10 @@ export class ApiService {
         return this.requestWithToken(body, API.submitSupervisorProposal);
     }
 
+    updateSupervisionRequest(body: any) {
+        return this.requestWithToken(body, API.updateSupervisionRequest);
+    }
+
     requestWithToken(body: any, url: any) {
         const headers = new HttpHeaders({ 
             'Content-Type': 'application/json',
@@ -97,7 +109,7 @@ export class ApiService {
 
     loginAdmin(admin: Admin) {
         const url = API.loginAdmin;
-        const body = { Username: admin.Username, Password: admin.Password };
+        const body = { Email: admin.Email, Password: admin.Password };
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }

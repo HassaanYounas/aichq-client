@@ -18,20 +18,21 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { DashboardGuardService } from './services/dashboard-guard.service';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [DashboardGuardService] },
-  { path: 'student/reg', component: StudentRegComponent, canActivate: [DashboardGuardService] },
-  { path: 'student/reg/pending', component: StudentRegPendingComponent, canActivate: [DashboardGuardService] },
-  { path: 'admin/login', component: AdminLoginComponent, canActivate: [DashboardGuardService] },
-  { path: 'super/admin/login', component: SuperAdminLoginComponent, canActivate: [DashboardGuardService] },
-  { path: 'student/login', component: StudentLoginComponent, canActivate: [DashboardGuardService] },
-  { path: 'supervisor/login', component: SupervisorLoginComponent, canActivate: [DashboardGuardService] },
-  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'student/dashboard', component: StudentDashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'supervisor/dashboard', component: SupervisorDashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'type', component: TypeOfUserComponent, canActivate: [DashboardGuardService] },
-  { path: 'about', component: AboutComponent, canActivate: [DashboardGuardService] },
-  { path: 'super/admin', component: SuperAdminComponent, canActivate: [AuthGuardService] },
-  { path: '**', component: HomeComponent, canActivate: [DashboardGuardService] }
+    { path: '', component: HomeComponent, canActivate: [DashboardGuardService] },
+    { path: 'student/reg', component: StudentRegComponent, canActivate: [DashboardGuardService] },
+    { path: 'student/reg/pending', component: StudentRegPendingComponent, canActivate: [DashboardGuardService] },
+    { path: 'admin/login', component: AdminLoginComponent, canActivate: [DashboardGuardService] },
+    { path: 'super/admin/login', component: SuperAdminLoginComponent, canActivate: [DashboardGuardService] },
+    { path: 'student/login', component: StudentLoginComponent, canActivate: [DashboardGuardService] },
+    { path: 'supervisor/login', component: SupervisorLoginComponent, canActivate: [DashboardGuardService] },
+    { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuardService] },
+    { path: 'student/dashboard', component: StudentDashboardComponent, canActivate: [AuthGuardService] },
+    { path: 'supervisor/dashboard', component: SupervisorDashboardComponent, canActivate: [AuthGuardService] },
+    { path: 'type', component: TypeOfUserComponent, canActivate: [DashboardGuardService] },
+    { path: 'about', component: AboutComponent, canActivate: [DashboardGuardService] },
+    { path: 'policy', component: PrivacyPolicyComponent, canActivate: [DashboardGuardService] },
+    { path: 'super/admin', component: SuperAdminComponent, canActivate: [AuthGuardService] },
+    { path: '**', component: HomeComponent, canActivate: [DashboardGuardService] }
 ];
 
 @NgModule({

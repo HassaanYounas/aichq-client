@@ -24,18 +24,18 @@ export class AdminLoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
-            Username: new FormControl(''),
+            Email: new FormControl(''),
             Password: new FormControl(''),
         });
     }
 
     onSubmit(formData: any): void {
-        if (formData.Password === '' && formData.Username === '') {
+        if (formData.Password === '' && formData.Email === '') {
             this.validLogin = false;
-            this.errorMessage = 'Username and password are required.';
-        } else if (formData.Username === '') {
+            this.errorMessage = 'Email and password are required.';
+        } else if (formData.Email === '') {
             this.validLogin = false;
-            this.errorMessage = 'Username cannot be empty.';
+            this.errorMessage = 'Email cannot be empty.';
         } else if (formData.Password === '') {
             this.validLogin = false;
             this.errorMessage = 'Password cannot be empty.';
@@ -49,7 +49,7 @@ export class AdminLoginComponent implements OnInit {
                         localStorage.setItem('id', res._id);
                         localStorage.setItem('department', res.Department);
                         localStorage.setItem('fullName', res.FullName);
-                        localStorage.setItem('userName', res.Username);
+                        localStorage.setItem('email', res.Email);
                         localStorage.setItem('type', 'Administrator');
                         setTimeout(() => { 
                             this.spinner.hide();

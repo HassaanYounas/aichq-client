@@ -31,6 +31,9 @@ import { SuperAdminComponent } from './components/super-admin/super-admin.compon
 import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
 import { StudentProjectsComponent } from './components/student/student-dashboard/student-projects/student-projects.component';
 import { SupervisorRequestsComponent } from './components/supervisor/supervisor-dashboard/supervisor-requests/supervisor-requests.component';
+import { AdminProjectIdeasComponent } from './components/admin/admin-dashboard/admin-project-ideas/admin-project-ideas.component';
+import { StudentGroupComponent } from './components/student/student-dashboard/student-group/student-group.component';
+import { AdminSupervisorRequestsComponent } from './components/admin/admin-dashboard/admin-supervisor-requests/admin-supervisor-requests.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +60,10 @@ import { SupervisorRequestsComponent } from './components/supervisor/supervisor-
         SuperAdminComponent,
         SuperAdminLoginComponent,
         StudentProjectsComponent,
-        SupervisorRequestsComponent
+        SupervisorRequestsComponent,
+        AdminProjectIdeasComponent,
+        StudentGroupComponent,
+        AdminSupervisorRequestsComponent
     ],
     imports: [
         BrowserModule,
