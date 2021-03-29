@@ -8,70 +8,39 @@ html, body {
     width: 100%;
 }
 
-// table {
-//     width: 100%;
-//     padding: 1em;
-//     text-align: center;
-//     background-color: #f7f7f7;
-// }
-
-// table,
-// th,
-// td {
-//     border: 0.15em solid #000000;
-//     padding: 0.5em;
-// }
-
-// th {
-//     background-color: #dddddd;
-// }
-
 #active {
     opacity: 0.5;
 }
 
-// .no-border {
-//     border: none;
-// }
+.active-dashboard {
+    background-color: #0036B7;
+    color: #ffffff;
+    border-left: 0.4em solid #ffffff;
+}
 
+table {
+    width: 100%;
+    border: 0.1em solid rgb(0,0,0,0.2);
+    text-align: center;
+}
 
+th, td {
+    padding: 0.7em;
+}
 
-// .grey-container {
-//     background-color: #f7f7f7;
-//     border-radius: 1em;
-//     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
-// }
+tr {
+    border-bottom: 0.1em solid rgb(0,0,0,0.2);
+    cursor: pointer;
+}
 
-// .bg-red {
-//     background-color: #ee2d42;
-//     color: #ffffff;
-// }
+th, tr:hover {
+    background-color: #eee;
+}
 
-// .border-top-right-round {
-//     border-top-right-radius: 1.3em;
-// }
-
-// .active-dashboard {
-//     background-color: darken($color: #ee2d42, $amount: 20);
-//     border-left: 0.4em solid #ffffff;
-//     color: #ffffff;
-// }
-
-// .black-bar {
-//     background-color: #000000;
-//     height: 0.4em;
-//     border-radius: 1em;
-//     margin-top: 3px;
-// }
-
-// .footer-dashboard {
-//     border-bottom: 0.4em solid #ee2d42;
-// }
-
-// option:hover {
-//     color: white;
-//     background: black;
-// }
+option:hover {
+    color: white;
+    background: black;
+}
 
 textarea:focus,
 input[type="text"]:focus,

@@ -1,3 +1,27 @@
+.no-border {
+    border: none;
+}
+
+.grey-container {
+    background-color: #f7f7f7;
+    border-radius: 1em;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+.bg-blue {
+    background-color: darken($color: #0036B7, $amount: 20);
+    color: #ffffff;
+}
+
+.navbar-shadow {
+    box-shadow: 0px 3px 5px -2px rgba(0,0,0,0.2);
+}
+
+.footer-dashboard {
+    background-color: #fff;
+    box-shadow: 0px -3px 5px -2px rgba(0,0,0,0.2);
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -47,20 +71,13 @@
     }
 }
 
-
-
-
-
-.avatar-border {
-    border: 2px solid black;
-    border-radius: 0.4rem;
-}
-
 .background-white {
     background-color: #ffffff;
 }
 
-
+.border {
+    border: 1px solid black;
+}
 
 .main-title {
     font-size: 6em;
@@ -124,26 +141,26 @@
     }
 
     &-dashboard {
-        background: #6776ed;
+        background: #51d675;
         color: #ffffff;
         border-radius: 0.3em;
         padding: 0.4em 1.5em;
         font-size: 1.1em;
         
         &:hover {
-            background: darken($color: #6776ed, $amount: 20);
+            background: darken($color: #51d675, $amount: 20);
             color: #FFFFFF;
         }
 
         &-modal {
-            background: #6776ed;
+            background: #e84343;
             color: #ffffff;
             border-radius: 0.3em;
             padding: 0.3em 1.2em;
             font-size: 1em;
             
             &:hover {
-                background: darken($color: #6776ed, $amount: 20);
+                background: darken($color: #e84343, $amount: 20);
                 color: #FFFFFF;
             }
 
@@ -159,16 +176,18 @@
                 } 
             }    
         }
+    }
 
-        &-sign-out {
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 0.6em;
-            font-weight: 600;
+    &-signout {
+        background-color: transparent;
+        color: #000000;
+        border: 0.1em solid rgba(0,0,0,0.2);
+        outline: none;
+        font-weight: 600;
+        width: 10rem;
 
-            &:hover {
-                background-color: darken($color: #ffffff, $amount: 20);
-            }
+        &:hover {
+            background-color: darken($color: #ffffff, $amount: 5);
         }
     }
 }
@@ -206,8 +225,9 @@
     &-dropdown {
         border: 0.15em solid #c0c0c0;
         border-radius: 0.3em;
-        padding: 0.3em 1em;
+        padding: 0.4em 1em;
         width: 100%;
+        outline: none;
 
         &-sm {
             border: 0.15em solid #c0c0c0;
@@ -218,23 +238,19 @@
     }
 }
 
-.img-hover {
-    border-radius: 40%;
-    animation-name: spin;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    filter: drop-shadow(5px 5px 5px #000000);
-}
-
 .sidebar {
     &-item {
+        background-color: darken($color: #0036B7, $amount: 20);
         transition: 0.1s ease;
         border: none;
     }
 
+    &-item:last-child {
+        border-bottom: 5px solid #0036B7;       
+    }
+
     &-hover:hover {
-        background-color: darken($color: #ee2d42, $amount: 20);
+        background-color: #0036B7;
         color: #ffffff;
         border-left: 0.4em solid #ffffff;
     }    
@@ -246,17 +262,21 @@
     min-height: 100vh;
 
     &-sidebar {
-        width: 16rem;
+        width: 18rem;
         transition: margin .25s ease-out;
         z-index: 1;
-        background-color: darken($color: #ee2d42, $amount: 20);
-        background-image: radial-gradient(#ee2d42 2px, darken($color: #ee2d42, $amount: 20) 2px);
+        background-image: radial-gradient(#0036B7 2px, darken($color: #0036B7, $amount: 20) 2px);
         background-size: 30px 30px;
     }
 }
 
+.card-shadow {
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+
 .page-content {
     flex: 1 1 auto;
+    background-color: #eee;
 
     &-wrapper {
         flex: 1 1 auto;
@@ -266,7 +286,7 @@
 .modal {    
     &-dialog-custom {
         padding: 0;
-        border: 0.15em solid #000000;
+        border: none;
         border-radius: 0.3em;
         background-color: #ffffff;
     }
@@ -277,20 +297,10 @@
     }
     
     &-header-custom {
-        background-color: #dddddd;
-        border-bottom: 0.15em solid #000000;
+        background-color: #fff;
     }
 
     &-footer-custom {
-        border-top: 0.15em solid #000000;
-    }
-}
-
-@keyframes spin {
-    40% {
-        transform:rotate(0deg);
-    }
-    60% {
-        transform:rotate(720deg);
+        border-top: 0.1em solid rgba(0,0,0,0.2);
     }
 }

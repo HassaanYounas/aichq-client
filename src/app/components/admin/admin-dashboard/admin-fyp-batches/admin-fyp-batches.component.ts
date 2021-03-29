@@ -24,6 +24,7 @@ export class AdminFypBatchesComponent implements OnInit {
     noFilterBoolean: Boolean = true;
     programFilterBoolean: Boolean = false;
 
+    batchesListText: String = '';
     addBatchMessage: String = '';
     selectedProgram: String = 'All Programs';
 
@@ -50,6 +51,7 @@ export class AdminFypBatchesComponent implements OnInit {
         });
         this.fetchBatches();
         this.fetchPrograms();
+        this.batchesListText = `FYP Batches in ${localStorage.getItem('department')} Department`;
     }
 
     fetchPrograms() {

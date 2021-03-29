@@ -10,10 +10,9 @@ export class AdminDashboardComponent {
 
     toggle: Boolean = false;
 
-    topText: String = '';
     greetingMessage: String = '';
 
-    currentComponent: Number = 4;
+    currentComponent: Number = 2;
 
     constructor(
         private api: ApiService,
@@ -22,9 +21,7 @@ export class AdminDashboardComponent {
         if (localStorage.getItem('type') === 'Student') this.router.navigate(['/student/dashboard']);
         else if (localStorage.getItem('type') === 'Supervisor') this.router.navigate(['/supervisor/dashboard']);
         else if (localStorage.getItem('type') === 'Super Administrator') this.router.navigate(['/super/admin']);
-        this.greetingMessage = 'Welcome, ' + localStorage.getItem('fullName');
-        this.topText = 
-            `Aich<span class="color-red">Q</span> | ${localStorage.getItem('department')} Administrator`;
+        this.greetingMessage = localStorage.getItem('fullName');
     }
     
     changeComponent(currentComponent: number) {

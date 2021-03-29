@@ -1,63 +1,53 @@
 <div class="text-dark">
     <div class="container">
-        <div class="row my-3">
-            <div class="col">
-                <div class="d-flex justify-content-between">
-                    <h3 class="font-weight-bold">Students</h3>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h3 class="font-weight-bold">Students</h3>
+            <p class="text-muted">Home / FYP Director / Students</p>
         </div>
         <div class="row">
             <div class="col">
-                <div class="grey-container p-4 mb-4">
+                <div class="card card-shadow p-4 mb-4">
+                    <h5 class="font-weight-bold mb-3">Information</h5>
+                    <p><span class="font-weight-bold">BSCS:</span> 25 Students</p>
+                    <p><span class="font-weight-bold">BSIT:</span> 0 Batches</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-shadow p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Upload CSV File</h5>
                     <form id="addStudentBulkForm" [formGroup]="addStudentBulkForm" (ngSubmit)="onAddStudentBulkFormSubmit(addStudentBulkForm.value)">
-                        <div class="row mb-2">
-                            <div class="col">
-                                <select #programAddStudentBulk formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudentBulk(programAddStudentBulk.value)">
-                                    <option selected>Program</option>
-                                    <option *ngFor="let program of programs">{{ program.Title }}</option>
-                                </select>
-                            </div>
-                            <div class="col pl-1">
-                                <select #batchAddStudentBulk formControlName="Batch" class="form-control-dropdown mb-2">
-                                    <option selected>Batch</option>
-                                    <ng-container *ngIf="programAddBulkSelectBoolean">
-                                        <option *ngFor="let batch of batchesToDisplayBulk">{{ batch.Session }}-{{ batch.Year }}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="custom-file mb-2">
+                        <select #programAddStudentBulk formControlName="Program" class="mb-2 form-control-dropdown" (change)="onProgramAddStudentBulk(programAddStudentBulk.value)">
+                            <option selected>Program</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
+                        </select>
+                        <select #batchAddStudentBulk formControlName="Batch" class=" mb-2 form-control-dropdown">
+                            <option selected>Batch</option>
+                            <ng-container *ngIf="programAddBulkSelectBoolean">
+                                <option *ngFor="let batch of batchesToDisplayBulk">{{ batch.Session }}-{{ batch.Year }}</option>
+                            </ng-container>
+                        </select>
+                        <div class="custom-file mb-3">
                             <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input file-input pointer" id="customFileStudents">
                             <label class="custom-file-label pointer" for="customFileStudents" [innerHTML]="fileName"></label>
                         </div>
                         <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBulk}">Invalid input.</div>
-                        <button form="addStudentBulkForm" type="submit" class="btn btn-dashboard">Upload</button>
+                        <div class="d-flex justify-content-end">
+                            <button form="addStudentBulkForm" type="submit" class="btn btn-dashboard">Upload</button>
+                        </div>
                     </form>
                     <div [ngClass]="(addStudentBulkMessage === 'Students uploaded successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addStudentBulkMessage"></div>
                 </div>
             </div>
             <div class="col">
-                <div class="grey-container p-4 mb-4">
+                <div class="card card-shadow p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Add New Student</h5>
                     <form id="addStudentForm" [formGroup]="addStudentForm" (ngSubmit)="onAddStudentFormSubmit(addStudentForm.value)">
-                        <div class="row">
-                            <div class="col pr-1">
-                                <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Full Name">
-                            </div>
-                            <div class="col pl-1">
-                                <input formControlName="RollNumber" type="number" class="form-control form-control-custom-sm mb-2" placeholder="Roll Number">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col">
-                                <select #programAddStudent formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudent(programAddStudent.value)">
-                                    <option selected>Program</option>
-                                    <option *ngFor="let program of programs">{{ program.Title }}</option>
-                                </select>
-                            </div>
-                        </div>
+                        <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Full Name">
+                        <input formControlName="RollNumber" type="number" class="form-control form-control-custom-sm mb-2" placeholder="Roll Number">
+                        <select #programAddStudent formControlName="Program" class="form-control-dropdown mb-2" (change)="onProgramAddStudent(programAddStudent.value)">
+                            <option selected>Program</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
+                        </select>
                         <select #batchAddStudent formControlName="Batch" class="form-control-dropdown mb-2">
                             <option selected>Batch</option>
                             <ng-container *ngIf="programAddSelectBoolean">
@@ -71,8 +61,8 @@
                 </div>
             </div>
         </div>
-        <div class="grey-container p-4 mb-4">
-            <h5 class="font-weight-bold mb-4">List of Students</h5>
+        <div class="card card-shadow p-4 mb-5">
+            <h5 class="font-weight-bold mb-4">List of Students in Computer Science Department</h5>
             <h6 class="font-weight-bold mb-3">Filter Options</h6>
             <form class="mb-3" [formGroup]="studentFilterSelectForm">
                 <div class="row">
@@ -99,21 +89,23 @@
                             <tr>
                                 <th scope="col">
                                     Name
-                                    <i class="pointer" (click)="sortByName()">&nbsp;&#8597;</i>
+                                    <i class="fa fa-sort pointer" (click)="sortByName()"></i>
                                 </th>
                                 <th scope="col">
                                     Roll Number
-                                    <i class="pointer" (click)="sortByRollNumber()">&nbsp;&#8597;</i>
+                                    <i class="fa fa-sort pointer" (click)="sortByRollNumber()"></i>
                                 </th>
-                                <th scope="col">Department</th>
                                 <th scope="col">
                                     Program
-                                    <i class="pointer" (click)="sortByProgram()">&nbsp;&#8597;</i>
+                                    <i class="fa fa-sort pointer" (click)="sortByProgram()"></i>
                                 </th>
                                 <th scope="col">Batch</th>
                                 <th scope="col">
                                     FYP-Phase
-                                    <i class="pointer" (click)="sortByPhase()">&nbsp;&#8597;</i>
+                                    <i class="fa fa-sort pointer" (click)="sortByPhase()"></i>
+                                </th>
+                                <th scope="col">
+                                    Edit
                                 </th>
                             </tr>
                         </thead>
@@ -122,10 +114,12 @@
                                 <ng-container *ngIf="noFilterBoolean">
                                     <td>{{ student.FullName }}</td>
                                     <td>{{ student.RollNumber }}</td>
-                                    <td>{{ student.Department }}</td>
                                     <td>{{ student.Program }}</td>
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
+                                    <td>
+                                        <i class="fa fa-edit pointer" [attr.id]="'customEdit' + i"></i>
+                                    </td>
                                 </ng-container>
                                 <!-- <ng-container *ngIf="tableProgramFilterBoolean && departmentFilterSelect.Name === student.Department && programFilterSelect.Title === student.Program">
                                     <td>{{ student.FullName }}</td>
@@ -158,59 +152,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- <form [formGroup]="studentFilterSelectForm">
-            <div class="row mb-3">
-                <div class="col">
-                    <select formControlName="Department" #departmentSelectFilter class="form-control-dropdown" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
-                        <option selected>Department</option>
-                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
-                        <option selected>Program</option>
-                        <ng-container *ngIf="departmentFilterSelectBoolean">
-                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col">
-                    <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
-                        <option selected>Batch</option>
-                        <ng-container *ngIf="programFilterSelectBoolean">
-                            <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <h5 class="mb-3" [innerHTML]="currentStudentsText"></h5>
-        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Roll Number</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">FYP Phase</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>170273</td>
-                            <td>Muhammad Hassaan Younas</td>
-                            <td>I</td>
-                        </tr>
-                        <tr>
-                            <td>170349</td>
-                            <td>Tehniat</td>
-                            <td>I</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div> -->
         <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
             <p style="color: white">Loading...</p>
         </ngx-spinner>
