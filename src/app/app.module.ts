@@ -26,7 +26,6 @@ import { StudentRegPendingComponent } from './components/student/student-reg/stu
 import { SupervisorProposalsComponent } from './components/supervisor/supervisor-dashboard/supervisor-proposals/supervisor-proposals.component';
 import { TypeOfUserComponent } from './components/type-of-user/type-of-user.component';
 import { AboutComponent } from './components/about/about.component';
-import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
 import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
 import { StudentProjectsComponent } from './components/student/student-dashboard/student-projects/student-projects.component';
@@ -56,7 +55,6 @@ import { AdminSupervisorRequestsComponent } from './components/admin/admin-dashb
         SupervisorProposalsComponent,
         TypeOfUserComponent,
         AboutComponent,
-        PrivacyPolicyComponent,
         SuperAdminComponent,
         SuperAdminLoginComponent,
         StudentProjectsComponent,

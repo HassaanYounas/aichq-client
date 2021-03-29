@@ -1,40 +1,47 @@
-<div class="container">
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand navbar-brand-custom" routerLink="/">Aich<span class="color-red">Q</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item mr-4">
-                    <a id="active" class="nav-link nav-link-custom px-0 " routerLink="/">Home</a>
-                </li>
-                <li class="nav-item mr-4">
-                    <a class="nav-link nav-link-custom px-0" routerLink="/type">Type of User</a>
-                </li>
-                <li class="nav-item mr-4">
-                    <a class="nav-link nav-link-custom px-0" routerLink="/about">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-custom px-0" routerLink="/policy">Privacy Policy</a>
-                </li>
-            </ul>
+<div class="homepage-main">
+    <nav class="navbar navbar-expand-lg background-white">
+        <div class="container py-2 px-5">
+            <a class="navbar-brand" routerLink="/">
+                <img src="../../../assets/img/logo.png" class="img-fluid pointer" width="110px" alt="AichQ Logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mr-4">
+                        <a id="active" class="nav-link nav-link-custom pointer" routerLink="/">Home</a>
+                    </li>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link nav-link-custom pointer" routerLink="/type">Type of User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom pointer" routerLink="/about">About Us</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <main>
-        <div class="row mx-5">
-            <div class="col-lg pt-4">
-                <h1 class="main-title mt-5 mb-4">Aich<span class="color-red">Q</span></h1>
-                <h4 class="mb-3">Project Management System for BS FYPs.</h4>
-                <h5 class="mb-5">Made with <span class="color-purple"> &#x2764; </span> for Air University, Islamabad.</h5>
-                <button class="btn btn-main" routerLink="/type">Get to Work!</button>
-            </div>
-            <div class="col-lg p-0 mt-3">
-                <img src="../../../assets/img/bg-main.png" class="img-fluid img-hover pointer" alt="Main Background Image">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0036B7" fill-opacity="1" d="M0,288L26.7,240C53.3,192,107,96,160,64C213.3,32,267,64,320,101.3C373.3,139,427,181,480,192C533.3,203,587,181,640,170.7C693.3,160,747,160,800,170.7C853.3,181,907,203,960,197.3C1013.3,192,1067,160,1120,149.3C1173.3,139,1227,149,1280,154.7C1333.3,160,1387,160,1413,160L1440,160L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z"></path></svg>
+        <div class="container">
+            <div class="row homepage-container">
+                <div class="col-lg d-flex align-items-center pt-3 pl-5">
+                    <ul class="text-white" class="homepage-list">
+                        <li>Group formation 🤝</li>
+                        <li>Project idea 🤓</li>
+                        <li>Supervisor selection 🙋‍♂️</li>
+                        <li>Reports submission 🏃</li>
+                        <li>Evaluation 😱</li>
+                    </ul>
+                </div>
+                <div class="col-lg p-5">
+                    <div class="text-white text-right">
+                        <h1 class="font-weight-bold homepage-heading mb-3">Seamless FYP Management</h1>
+                        <button class="btn btn-main mt-4" routerLink="/type">Get to Work!</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-    <footer class="text-center mt-5 pt-4 mb-4">
-        <p class="font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright © 2021.</p>
+    <footer class="sticky-footer text-center border pb-2 pt-4 background-white">
+        <p>FCAI, Air University, Islamabad. Copyright © 2021.</p>
     </footer>
 </div>

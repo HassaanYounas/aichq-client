@@ -1,24 +1,23 @@
-<div class="page page-student">
+<div class="page page-login">
     <div class="container">
-        <div class="row">
-            <div class="col page-left page-student-left">
-                <img src="../../../../assets/img/student-login.png" class="img-fluid" alt="Supervisor Login Image">
-            </div>
-            <div class="col page-right page-student-right text-center d-flex align-items-center">
-                <form class="w-100 px-5 mx-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-                    <h3 class="mb-4 font-weight-normal">Student Login</h3>
-                    <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>
-                    <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
-                    <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
-                    <button class="btn btn-main" type="submit">Sign in</button>
-                    <div class="mb-4">
-                        <p class="my-3 text-muted">If you haven't registered for FYP, then...</p>
-                        <button class="btn btn-card" routerLink="/student/reg">Go for Registration</button>
-                    </div>
-                    <div>
-                        <button class="btn-link-custom" routerLink="/type">Oops! Go Back</button>
-                    </div>
-                </form>
+        <div class="d-flex justify-content-center">
+            <div class="card p-5" style="width: 35rem;">
+                <div class="card-body text-center">
+                    <form class="w-100 p-3" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+                        <h3 class="mb-4 font-weight-normal">Student Login</h3>
+                        <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>
+                        <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
+                        <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
+                        <button class="btn btn-card" type="submit">Sign in</button>
+                        <div class="mb-4">
+                            <p class="my-3 text-muted">If you haven't registered for FYP, then</p>
+                            <button class="btn btn-card-secondary" routerLink="/student/reg">Go for Registration</button>
+                        </div>
+                        <div>
+                            <button class="btn-link-custom" routerLink="/type">Go Back</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -1,43 +1,66 @@
-.color {
-    &-red {
-        color: #ee2d42;
-        font-size: 1.2em;
+.pointer {
+    cursor: pointer;
+}
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.homepage {
+    &-main {
+        background-color: #174FD4;
+        height: 100%;
     }
 
-    &-purple {
-        color: #6776ed;
-        font-size: 1.1em;
+    &-heading {
+        font-size: 4em;
+    }
+
+    &-container {
+        padding: 4em;
+        margin-top: -17em;
+        z-index: 1;
+    }
+
+    &-list {
+        list-style-type: circle;
+        color: white;
+        font-size: 1.8em;
+        border: 2px solid white;
+        padding: 1em 2em;
+        line-height: 1.7em;
     }
 }
+
+.nav-link-custom {
+    font-weight: 500;
+    color: #000000;
+    font-size: 1.1em;
+    transition: 0.1s ease;
+
+    &:hover {
+        color: #000000;
+        opacity: 0.5;
+    }
+}
+
+
+
+
 
 .avatar-border {
     border: 2px solid black;
     border-radius: 0.4rem;
 }
 
-.navbar-brand-custom {
-    color: #000000;
-    font-weight: 700;
-    font-size: 2.5em;
-
-    &:hover,
-    &:focus {
-        color: #000000;
-    }
+.background-white {
+    background-color: #ffffff;
 }
 
-.nav-link-custom {
-    font-weight: 700;
-    color: #000000;
-    font-size: 1.1em;
-    border-bottom: 0.25rem solid transparent;
-    transition: 0.1s ease;
 
-    &:hover {
-        color: #000000;
-        border-bottom-color: #ee2d42;
-    }
-}
 
 .main-title {
     font-size: 6em;
@@ -46,28 +69,41 @@
 
 .btn {
     &-main {
-        background: #ee2d42;
-        color: #ffffff;
+        background: #fff;
+        color: #000;
         border-radius: 0.6em;
         padding: 0.5em 1.7em;
         font-size: 1.3em;
+        font-weight: 700;
 
         &:hover {
-            background-color: darken($color:  #ee2d42, $amount: 20);
-            color: #ffffff;
+            background-color: darken($color:  #fff, $amount: 20);
         }
     }
 
     &-card {
-        background: #6776ed;
+        background: #e84343;
         color: #ffffff;
         border-radius: 0.6em;
         padding: 0.5em 2.5em;
         font-size: 1.1em;
         
         &:hover {
-            background: darken($color: #6776ed, $amount: 20);
+            background: darken($color: #e84343, $amount: 20);
             color: #FFFFFF;
+        }
+    }
+
+    &-card-secondary {
+        background: #e8e23f;
+        color: #000;
+        border-radius: 0.6em;
+        padding: 0.5em 2.5em;
+        font-size: 1.1em;
+        
+        &:hover {
+            background: darken($color: #e8e23f, $amount: 20);
+            color: #000;
         }
     }
 
@@ -77,10 +113,9 @@
         font-size: 1.2em;
         border: none;
         transition: 0.1s ease;
-        border-bottom: 0.25rem solid transparent;
         
         &:hover {
-            border-bottom-color: #ee2d42;
+            opacity: 0.5;
         }
 
         &:focus {
@@ -143,73 +178,8 @@
     display: flex;
     align-items: center;
 
-    &-left {
-        background-color: #363636;
-        border-bottom-left-radius: 1em;
-        border-top-left-radius: 1em;
-        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
-    }
-
-    &-right {
-        border-bottom-right-radius: 1em;
-        border-top-right-radius: 1em;
-        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
-    }
-
-    &-admin {
-        background-color: #ee2d42;
-        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
-        background-size: 30px 30px;
-
-        &-left {
-            background-color: #292929;
-        }
-
-        &-right {
-            background-color: #dddddd;
-        }
-    }
-
-    &-supervisor {
-        background-color: #ee2d42;
-        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
-        background-size: 30px 30px;
-
-        &-left {
-            background-color: #292929;
-        }
-
-        &-right {
-            background-color: #dddddd;
-        }
-    }
-
-    &-student {
-        background-color: #ee2d42;
-        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
-        background-size: 30px 30px;
-
-        &-left {
-            background-color: #292929;
-        }
-
-        &-right {
-            background-color: #dddddd;
-        }
-    }
-
-    &-reg {
-        background-color: #ee2d42;
-        background-image: radial-gradient(darken($color: #ee2d42, $amount: 20) 2px, #ee2d42 2px);
-        background-size: 30px 30px;
-
-        &-left {
-            background-color: #fefefe;
-        }
-
-        &-right {
-            background-color: #dddddd;
-        }
+    &-login {
+        background-color: #0036B7;
     }
 }
 
@@ -222,25 +192,25 @@
 
 .form-control {
     &-custom {
-        border: 0.15em solid #000000;
+        border: 0.15em solid #c0c0c0;
         border-radius: 0.3em;
         padding: 1.3em 1em;
     
         &-sm {
-            border: 0.15em solid #000000;
+            border: 0.15em solid #c0c0c0;
             border-radius: 0.3em;
             padding: 1em 1em;
         }
     }
 
     &-dropdown {
-        border: 0.15em solid #000000;
+        border: 0.15em solid #c0c0c0;
         border-radius: 0.3em;
-        padding: 0.2em 1em;
+        padding: 0.3em 1em;
         width: 100%;
 
         &-sm {
-            border: 0.15em solid #000000;
+            border: 0.15em solid #c0c0c0;
             border-radius: 0.3em;
             padding: 0.1em 1em;
             width: 100%;
