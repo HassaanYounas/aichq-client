@@ -45,6 +45,7 @@ export class SuperAdminLoginComponent implements OnInit {
                 (res: any) => {
                     if (res.token !== '') {
                         this.validLogin = true;
+                        localStorage.setItem('username', res.Username);
                         localStorage.setItem('token', res.token);
                         localStorage.setItem('id', res._id);
                         localStorage.setItem('type', 'Super Administrator');

@@ -31,10 +31,8 @@
                             <label class="custom-file-label pointer" for="customFileStudents" [innerHTML]="fileName"></label>
                         </div>
                         <div class="text-danger mb-2" [ngClass]="{'d-none': validAddStudentBulk}">Invalid input.</div>
-                        <div class="d-flex justify-content-end">
-                            <button form="addStudentBulkForm" type="submit" class="btn btn-dashboard">Upload</button>
-                        </div>
                     </form>
+                    <button form="addStudentBulkForm" type="submit" class="btn btn-dashboard">Upload</button>
                     <div [ngClass]="(addStudentBulkMessage === 'Students uploaded successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addStudentBulkMessage"></div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 {
-    "createAdmin": "http://localhost:8080/api/admin/create",
     "loginAdmin": "http://localhost:8080/api/admin/login",
     "loginSuperAdmin": "http://localhost:8080/api/super/admin/login",
     "updateAdmin": "http://localhost:8080/api/admin/update",
+    "updateSuperAdmin": "http://localhost:8080/api/super/admin/update",
     "getAdmin": "http://localhost:8080/api/admin/get",
     "addDepartment": "http://localhost:8080/api/department/add",
     "addProgram": "http://localhost:8080/api/department/add/program",

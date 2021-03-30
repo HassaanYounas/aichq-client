@@ -8,9 +8,23 @@
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
 }
 
-.bg-blue {
-    background-color: darken($color: #0036B7, $amount: 20);
-    color: #ffffff;
+.bg {
+    &-blue {
+        background-color: darken($color: #0036B7, $amount: 20);
+        color: #ffffff;
+    }
+
+    &-white {
+        background-color: #ffffff;
+    }
+
+    &-gray {
+        background-color: #eee;
+    }
+
+    &-pink {
+        background-color: #ffe6f6;
+    }
 }
 
 .navbar-shadow {
@@ -20,6 +34,14 @@
 .footer-dashboard {
     background-color: #fff;
     box-shadow: 0px -3px 5px -2px rgba(0,0,0,0.2);
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .pointer {
@@ -69,10 +91,6 @@
         color: #000000;
         opacity: 0.5;
     }
-}
-
-.background-white {
-    background-color: #ffffff;
 }
 
 .border {
@@ -178,7 +196,7 @@
         }
     }
 
-    &-signout {
+    &-dropdown {
         background-color: transparent;
         color: #000000;
         border: 0.1em solid rgba(0,0,0,0.2);

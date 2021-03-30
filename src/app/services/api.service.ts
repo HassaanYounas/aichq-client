@@ -19,6 +19,10 @@ export class ApiService {
         return this.requestWithToken(body, API.updateAdmin);
     }
 
+    updateSuperAdmin(body: any) {
+        return this.requestWithToken(body, API.updateSuperAdmin);
+    }
+
     addDepartment(body: any) {
         return this.requestWithToken(body, API.addDepartment);
     }
@@ -29,10 +33,6 @@ export class ApiService {
 
     addBatch(body: any) {
         return this.requestWithToken(body, API.addBatch);
-    }
-
-    createAdmin(body: any) {
-        return this.requestWithToken(body, API.createAdmin);
     }
 
     getAdmin() {
@@ -99,12 +99,28 @@ export class ApiService {
         return this.requestWithToken(body, API.updateSupervisionRequest);
     }
 
-    requestWithToken(body: any, url: any) {
-        const headers = new HttpHeaders({ 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        });
-        return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+    loadDepartments() {
+        return this.requestWithToken({}, API.getDepartment);
+    }
+
+    loadBatches(body: any) {
+        return this.requestWithToken(body, API.getBatches);
+    }
+
+    loadSupervisors(body: any) {
+        return this.requestWithToken(body, API.getSupervisors);
+    }
+
+    loadStudents() {
+        return this.requestWithToken({}, API.getStudents);
+    }
+
+    loadProposals(body: any) {
+        return this.requestWithToken(body, API.getSupervisorProposals);
+    }
+
+    loadPrograms(body: any) {
+        return this.requestWithToken(body, API.getPrograms);
     }
 
     loginAdmin(admin: Admin) {
@@ -135,28 +151,12 @@ export class ApiService {
         return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }
 
-    loadDepartments() {
-        return this.requestWithToken({}, API.getDepartment);
-    }
-
-    loadBatches(body: any) {
-        return this.requestWithToken(body, API.getBatches);
-    }
-
-    loadSupervisors(body: any) {
-        return this.requestWithToken(body, API.getSupervisors);
-    }
-
-    loadStudents() {
-        return this.requestWithToken({}, API.getStudents);
-    }
-
-    loadProposals(body: any) {
-        return this.requestWithToken(body, API.getSupervisorProposals);
-    }
-
-    loadPrograms(body: any) {
-        return this.requestWithToken(body, API.getPrograms);
+    requestWithToken(body: any, url: any) {
+        const headers = new HttpHeaders({ 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        });
+        return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }
 
     private errorHandler(error: HttpErrorResponse) {

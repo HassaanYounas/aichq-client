@@ -1,67 +1,141 @@
-<div class="text-dark">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <h3 class="font-weight-bold">Faculty of Computing and Artificial Intelligence</h3>
-            <button type="button" class="btn btn-dashboard" data-toggle="modal" data-target="#adminSignOutModal">Sign Out</button>
-        </div>
-        <div class="modal fade" id="adminSignOutModal" role="dialog">
-            <div class="modal-dialog modal-dialog-custom" role="document">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title text-dark">Do you want to Sign Out?</h5>
-                    </div>
-                    <div class="modal-footer modal-footer-custom no-border">
-                        <button type="submit" class="btn btn-dashboard-modal" data-dismiss="modal" (click)="signOut()">Yes</button>
-                        <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">No</button>
+<div class="text-dark bg-gray">
+    <div class="bg-white navbar-shadow">
+        <div class="d-flex justify-content-between align-items-center container py-3">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand" routerLink="/">
+                    <img src="../../../assets/img/logo.png" class="img-fluid pointer" width="100px" alt="AichQ Logo">
+                </a>
+                <h5 class="font-weight-bold mt-3">Faculty of Computing and Artificial Intelligence</h5>
+            </div>
+            <div class="d-flex align-items-center">
+                <h6 class="font-weight-bold mt-3">FCAI Admin</h6>
+                <div class="btn-group">
+                    <img src="../../../../assets/img/user-avatar.png" data-toggle="dropdown" class="img-fluid pointer mx-3" width="50px" alt="Admin Avatar">
+                    <div class="dropdown-menu dropdown-menu-right mt-2 card-shadow p-4">
+                        <p>FCAI Administrator</p>
+                        <button type="button" class="btn btn-dropdown mb-3" (click)="showSettings(true)">
+                            <i class="fa fa-cog"></i>&nbsp;Settings
+                        </button>
+                        <button type="button" class="btn btn-dropdown" data-toggle="modal" data-target="#adminSignOutModal">
+                            <i class="fa fa-sign-out"></i>&nbsp;Sign Out
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+    </div>
+    <div class="container"  *ngIf="showSettingsBoolean">
+        <div class="card card shadow p-5 my-5 d-flex align-items-center">
+            <h3 class="font-weight-bold">Update your login credentials</h3>
+            <div style="width: 25em;" class="my-5">
+                <form id="settingsForm" [formGroup]="settingsForm" (ngSubmit)="onUpdateSubmit(settingsForm.value)">
+                    <label class="font-weight-bold">Username</label>
+                    <input formControlName="Username" type="text" class="form-control form-control-custom mb-2" placeholder="superadmin" required>
+                    <label class="font-weight-bold">Password</label>
+                    <input formControlName="Password" type="text" class="form-control form-control-custom mb-3" placeholder="123456789" required>
+                    <h6 class="mb-3">Kindly type the following text below to confirm.</h6>
+                    <div class="row">
+                        <div class="col pr-1">
+                            <h5 class="font-weight-bold text-center bg-pink py-2 unselectable" [innerHTML]="confirmationCode"></h5>
+                        </div>
+                        <div class="col pl-1">
+                            <input formControlName="Code" type="text" class="form-control form-control-custom-sm" placeholder="Code" required>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="invalidUpdate">Invalid input.</div>
+                </form>
+                <button form="settingsForm" type="submit" class="btn btn-dashboard mt-2 w-100">Update</button>
+                <div class="mt-2" [ngClass]="(updateMessage === 'Update successful.')?'text-success':'text-danger'" [innerHTML]="updateMessage"></div>
+            </div>
+            <button type="button" class="btn btn-link-custom" (click)="showSettings(false)">Go Back</button>
+        </div>
+    </div>
+    <div class="container" *ngIf="!showSettingsBoolean">
+        <div class="card card-shadow p-4 mt-5">
+            <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
+            <p>When you add a new department, a new account of an FYP Director will also be created. An email will be sent with login credentials for their account. That account will be responsible for managing this new department. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a department, once submitted.</span></p>
+            <p>Similar is the case with adding a program to a department, <span class="font-weight-bold text-danger">you cannot remove or edit once you have submitted.</span></p>
+        </div>
+        <div class="row mb-3 mt-4">
             <div class="col">
-                <div class="grey-container p-4 mb-4">
-                    <h5 class="font-weight-bold mb-3">Add a Department</h5>
+                <div class="card card-shadow p-4 mb-4">
+                    <h5 class="font-weight-bold mb-4">Add a Department</h5>
                     <form id="addDepartmentForm" class="w-100" [formGroup]="addDepartmentForm" (ngSubmit)="onAddDepartmentSubmit(addDepartmentForm.value)">
-                        <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Full Name" required>
-                        <input formControlName="Email" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Email" required>
+                        <label class="font-weight-bold">FYP Director Name</label>
+                        <input formControlName="FullName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="John Doe" required>
+                        <label class="font-weight-bold">FYP Director Email</label>
+                        <input formControlName="Email" type="text" class="form-control form-control-custom-sm mb-2" placeholder="john.doe@students.au.edu.pk" required>
+                        <label class="font-weight-bold">Department Name</label>
                         <input formControlName="Department" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. Computer Science" required>
-                        <div class="mt-2" [ngClass]="(addDepartmentMessage === 'Department added successfully.')?'text-success':'text-danger'" [innerHTML]="addDepartmentMessage"></div>
+                        <h6 class="mb-3">Kindly type the following text in the text field below to confirm.</h6>
+                        <div class="row">
+                            <div class="col pr-1">
+                                <h5 class="font-weight-bold text-center bg-pink py-2 unselectable" [innerHTML]="confirmationCode"></h5>
+                            </div>
+                            <div class="col pl-1">
+                                <input formControlName="Code" type="text" class="form-control form-control-custom-sm" placeholder="Code" required>
+                            </div>
+                        </div>
+                        <div class="text-danger" *ngIf="invalidAddDepartment">Invalid input.</div>
                         <button form="addDepartmentForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
+                        <div class="mt-2" [ngClass]="(addDepartmentMessage === 'Department added successfully.')?'text-success':'text-danger'" [innerHTML]="addDepartmentMessage"></div>
                     </form>
                 </div>
-            </div>
-            <div class="col">
-                <div class="grey-container p-4 mb-4">
+                <div class="card card-shadow p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Add Programs to Department</h5>
                     <form id="addProgramForm" class="w-100" [formGroup]="addProgramForm" (ngSubmit)="onAddProgramSubmit(addProgramForm.value)">
-                        <select formControlName="Department" class="form-control-dropdown-sm mb-3   ">
+                        <label class="font-weight-bold">Select Department</label>
+                        <select formControlName="Department" class="form-control-dropdown mb-2">
                             <option selected>Department</option>
                             <option *ngFor="let department of departments">{{ department.Name }}</option>
                         </select>
+                        <label class="font-weight-bold">Program Title</label>
                         <input formControlName="Title" type="text" class="form-control form-control-custom-sm mb-2" placeholder="e.g. BSCS" required>
-                        <div class="mt-2" [ngClass]="(addProgramMessage === 'Program added successfully.')?'text-success':'text-danger'" [innerHTML]="addProgramMessage"></div>
+                        <h6 class="mb-3">Kindly type the following text in the text field below to confirm.</h6>
+                        <div class="row">
+                            <div class="col pr-1">
+                                <h5 class="font-weight-bold text-center bg-pink py-2 unselectable" [innerHTML]="confirmationCode"></h5>
+                            </div>
+                            <div class="col pl-1">
+                                <input formControlName="Code" type="text" class="form-control form-control-custom-sm" placeholder="Code" required>
+                            </div>
+                        </div>
+                        <div class="text-danger" *ngIf="invalidAddProgram">Invalid input.</div>
                         <button form="addProgramForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
+                        <div class="mt-2" [ngClass]="(addProgramMessage === 'Program added successfully.')?'text-success':'text-danger'" [innerHTML]="addProgramMessage"></div>
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="grey-container p-4 mb-5">
-            <h5 class="font-weight-bold mb-3">List of Departments and Programs</h5>
-            <div id="accordionDepartments">
-                <div class="accordian-card mb-3" *ngFor="let department of departments; let i = index;">
-                    <div class="accordian-card-header" [attr.id]="'heading' + i">
-                        <button class="btn-link-custom" data-toggle="collapse" [attr.data-target]="'#collapse' + i">{{ department.Name }}&nbsp;&nbsp;&nbsp;&darr;</button>
-                    </div>
-                    <div [attr.id]="'collapse' +i" class="collapse" data-parent="#accordionDepartments">
-                        <div class="accordian-card-body mt-3">
-                            <ul class="list-group pb-2" *ngFor="let program of department.Programs">
-                                <li class="list-group-item mb-1 font-weight-bold list-group-item-action pointer">{{ program.Title }}</li>
-                            </ul>
+            <div class="col">
+                <div class="card card-shadow p-4 mb-5">
+                    <h4 class="font-weight-bold mb-4 mt-2">List of Departments and Programs</h4>
+                    <ul *ngFor="let department of departments; let i = index;" class="py-4 px-5 bg-pink">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="font-weight-bold">{{ i + 1 }}.&nbsp;&nbsp;{{ department.Name }}</h5>
                         </div>
-                    </div>
+                        <ul *ngFor="let program of department.Programs">
+                            <li>{{ program.Title }}</li>
+                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="adminSignOutModal" role="dialog">
+        <div class="modal-dialog modal-dialog-custom" role="document">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title text-dark font-weight-bold">Do you want to Sign Out?</h5>
+                </div>
+                <div class="modal-footer modal-footer-custom no-border">
+                    <button type="submit" class="btn btn-dashboard-modal" data-dismiss="modal" (click)="signOut()">Yes</button>
+                    <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column text-center flex-fill footer-dashboard">
+        <p class="mt-3">FCAI, Air University, Islamabad. Copyright © 2021.</p>       
     </div>
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
         <p class="mt-5" style="color:white;">Working on it!</p>
