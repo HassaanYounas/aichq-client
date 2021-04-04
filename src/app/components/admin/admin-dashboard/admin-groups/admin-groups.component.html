@@ -1,60 +1,67 @@
 <div class="text-dark">
     <div class="container">
-        <div class="row my-3">
-            <div class="col">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3 class="font-weight-bold">FYP Groups</h3>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h3 class="font-weight-bold">FYP Groups</h3>
+            <p class="text-muted">Home / FYP Director / FYP Groups</p>
         </div>
-        <form [formGroup]="groupFilterSelectForm">
-            <div class="row mb-3">
-                <div class="col">
-                    <select formControlName="Department" #departmentSelectFilter class="form-control-dropdown" (change)="onDepartmentSelectFilter(departmentSelectFilter.value)">
-                        <option selected>Department</option>
-                        <option *ngFor="let department of departments" [value]="department.Name">{{ department.Name }}</option>
-                    </select>
+        <div class="card card-shadow p-4 mb-5">
+            <h5 class="font-weight-bold mb-4">List of All FYP Groups</h5>
+            <h6 class="font-weight-bold mb-3">Filter Options</h6>
+            <!-- <form [formGroup]="groupFilterSelectForm">
+                <div class="row mb-3">
+                    <div class="col">
+                        <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
+                            <option selected>Program</option>
+                            <ng-container *ngIf="departmentFilterSelectBoolean">
+                                <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
+                            <option selected>Batch</option>
+                            <ng-container *ngIf="programFilterSelectBoolean">
+                                <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
-                        <option selected>Program</option>
-                        <ng-container *ngIf="departmentFilterSelectBoolean">
-                            <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                        </ng-container>
-                    </select>
+            </form> -->
+            <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
+                <div class="table-responsive table-borders">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">First Member</th>
+                                <th scope="col">Second Member</th>
+                                <th scope="col">Supervisor</th>
+                                <th scope="col">Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let group of groups; let i = index;">
+                                <td>{{ group.StudentOne.RollNumber }}</td>
+                                <td>{{ group.StudentTwo.RollNumber }}</td>
+                                <td>
+                                    <div *ngIf="group.SupervisorEmail === undefined; else supervisorName">
+                                        <i class="fa fa-minus color-red"></i>
+                                    </div>
+                                    <ng-template #supervisorName>{{ group.SupervisorEmail }}</ng-template>
+                                </td>
+                                <td>
+                                    <div *ngIf="group.ProjectTitle === undefined; else projectTitle">
+                                        <i class="fa fa-minus color-red"></i>
+                                    </div>
+                                    <ng-template #projectTitle>{{ group.ProjectTitle }}</ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col">
-                    <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
-                        <option selected>Batch</option>
-                        <ng-container *ngIf="programFilterSelectBoolean">
-                            <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
-                        </ng-container>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <h5 class="mb-3" [innerHTML]="currentGroupsText"></h5>
-        <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Student One</th>
-                            <th scope="col">Student Two</th>
-                            <th scope="col">Supervisor</th>
-                            <th scope="col">Project</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tehniat</td>
-                            <td>Muhammad Hassaan Younas</td>
-                            <td>Mr. Imran Ihsan</td>
-                            <td>AichQ - FYP Project Management System</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
+        <p style="color: white">Loading...</p>
+    </ngx-spinner>
 </div>

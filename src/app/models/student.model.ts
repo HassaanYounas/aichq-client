@@ -5,6 +5,7 @@ export class Student {
     Year: String;
     FullName: String;
     RollNumber: String;
+    Group: Boolean;
     Phase: Number;
 
     constructor(res: any) {
@@ -14,6 +15,7 @@ export class Student {
         this.Year = res.Year;
         this.FullName = res.FullName;
         this.RollNumber = res.RollNumber;
+        this.Group = res.Group;
         this.Phase = res.Phase;
     }
 }

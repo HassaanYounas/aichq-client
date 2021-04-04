@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Batch } from 'src/app/models/batch.model';
 import { Group } from 'src/app/models/group.model';
+import { Program } from 'src/app/models/program.model';
 import { Supervisor } from 'src/app/models/supervisor.model';
 import { SupervisorProposal } from 'src/app/models/supervisor.proposal.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,6 +14,25 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AdminProjectIdeasComponent implements OnInit {
 
+    studentsCSV: File = null;
+
+    batches: Batch[];
+    programs: Program[];
+    batchesToDisplayFilter: Batch[];
+
+    currentProjectID: String = '';
+    selectedFilterBatchYear: String = '';
+    selectedFilterBatchSession: String = '';
+    selectedFilterProgram: String = 'All Programs';
+
+    ideaFilterSelectForm: FormGroup;
+
+    noFilterBoolean: Boolean = true;
+    tableBatchFilterBoolean: Boolean = false;
+    programAddSelectBoolean: Boolean = false;
+    tableProgramFilterBoolean: Boolean = false;
+    programFilterSelectBoolean: Boolean = false;
+
     supervisors: Supervisor[];
     supervisorProposals: SupervisorProposal[];
 
@@ -17,11 +40,36 @@ export class AdminProjectIdeasComponent implements OnInit {
     currentSupervisorEmail: String;
 
     constructor(
-        private api: ApiService
+        private api: ApiService,
+        private spinner: NgxSpinnerService
     ) { }
 
     ngOnInit(): void {
+        this.ideaFilterSelectForm = new FormGroup({
+            Program: new FormControl('All Programs'),
+            Batch: new FormControl('All Batches')
+        });
+        this.fetchBatches();
         this.fetchSupervisors();
+        this.fetchPrograms();
+    }
+
+    fetchPrograms() {
+        this.api.loadPrograms({ Name: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.programs = new Array<Program>();
+                res.forEach(e => this.programs.push(new Program(e)));
+            }, (error: any) => { console.log(error); }
+        );
+    }
+
+    fetchBatches() {
+        this.api.loadBatches({ Department: localStorage.getItem('department') }).subscribe(
+            (res: any) => {
+                this.batches = new Array<Batch>();
+                res.forEach(e => this.batches.push(new Batch(e)));
+            }, (error: any) => { console.log(error); }
+        );
     }
 
     fetchSupervisors() {
@@ -51,21 +99,77 @@ export class AdminProjectIdeasComponent implements OnInit {
         this.currentProposalTitle = title;
     }
 
-    onSupervisorIdeaApproval(id: String) {
-        this.supervisorProposalUpdate(id, 1);
+    onSupervisorIdeaApproval() {
+        this.supervisorProposalUpdate(this.currentProjectID, 1);
     }
 
-    onSupervisorIdeaReject(id: String) {
-        this.supervisorProposalUpdate(id, 0);
+    onSupervisorIdeaReject() {
+        this.supervisorProposalUpdate(this.currentProjectID, 0);
+    }
+
+    setCurrentProjectID(id: String) {
+        this.currentProjectID = id;
     }
 
     supervisorProposalUpdate(id: String, approval: Number) {
+        this.spinner.show();
         this.api.updateSupervisorProposal({ _id: id, Approved: approval }).subscribe(
             (res: any) => {
                 this.fetchProposals();
-                if (approval == 1) alert('Proposal Accepted.');
-                else alert('Proposal Rejected.');
-            }, (error: any) => { alert(error); }
+                this.spinner.hide();
+            }, (error: any) => console.log(error)
         );
+    }
+
+    onProgramFilterSelect(programOption: String): void {
+        if (programOption === 'All Programs') {
+            this.programFilterSelectBoolean = false;
+            // if (this.selectedFilterDepartment === 'All Departments')
+            //     this.setStudentFilters(true, false, false, false, '', '', '', '');
+            // else
+            //     this.setStudentFilters(false, true, false, false, this.selectedFilterDepartment, '', '', '');
+        } else {
+            this.programFilterSelectBoolean = true;
+            // this.setStudentFilters(
+            //     false, 
+            //     false, 
+            //     true, 
+            //     false, 
+            //     this.selectedFilterDepartment, 
+            //     '', '', ''
+            // );                  
+            this.batchesToDisplayFilter = new Array<Batch>();
+            this.batches.forEach(e => {
+                if (
+                    localStorage.getItem('department') === e.Department &&
+                    programOption === e.Program
+                ) this.batchesToDisplayFilter.push(new Batch(e));
+            });
+        }
+    }
+
+    onBatchFilterSelect(batchOption: String): void {
+        // if (batchOption === 'All Batches') {
+        //     this.setStudentFilters(
+        //         false,
+        //         false,
+        //         true,
+        //         false,
+        //         this.selectedFilterDepartment,
+        //         this.selectedFilterProgram,
+        //         '', ''
+        //     );
+        // } else {
+        //     this.setStudentFilters(
+        //         false,
+        //         false,
+        //         false,
+        //         true,
+        //         this.selectedFilterDepartment,
+        //         this.selectedFilterProgram,
+        //         batchOption.split('-')[1],
+        //         batchOption.split('-')[0]
+        //     );
+        // }
     }
 }

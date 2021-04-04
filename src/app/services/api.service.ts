@@ -35,6 +35,14 @@ export class ApiService {
         return this.requestWithToken(body, API.addBatch);
     }
 
+    setMaxGroups(body: any) {
+        return this.requestWithToken(body, API.setMaxGroups);
+    }
+
+    getNumberOfBatches(body: any) {
+        return this.requestWithToken(body, API.getNumberOfBatches);
+    }
+
     getAdmin() {
         return this.requestWithToken({}, API.getAdmin);
     }
@@ -59,8 +67,16 @@ export class ApiService {
         return this.requestWithToken(body, API.registerGroup);
     }
 
+    assignSupervisor(body: any) {
+        return this.requestWithToken(body, API.assignSupervisor);
+    }
+
     addStudent(body: any) {
         return this.requestWithToken(body, API.addStudent);
+    }
+
+    getStudentsOfBatch(body: any) {
+        return this.requestWithToken(body, API.getStudentsOfBatch);
     }
 
     addStudentsBulk(body: any) {

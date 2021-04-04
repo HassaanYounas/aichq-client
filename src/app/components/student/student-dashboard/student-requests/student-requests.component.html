@@ -1,0 +1,35 @@
+<div class="text-dark">
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="font-weight-bold">Supervision Requests</h3>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="requestsLoaded">
+            <div class="card card-shadow p-4 mb-4">
+                <h5 class="font-weight-bold mb-3">Pending Requests</h5>
+                <ul class="list-group" *ngFor="let request of requests">
+                    <ng-container *ngIf="request.Accepted === -1">
+                        <li class="list-group-item mb-3">Request to {{ request.SupervisorEmail }} for {{ request.ProposalTitle }} awaiting response.</li>
+                    </ng-container>
+                </ul>
+            </div>
+            <div class="card card-shadow p-4 mb-4">
+                <h5 class="font-weight-bold mb-3">Accepted Requests</h5>
+                <ul class="list-group" *ngFor="let request of requests">
+                    <ng-container *ngIf="request.Accepted === 1">
+                        <li class="list-group-item mb-3 d-flex justify-content-between align-items-center">
+                            <div>Request to {{ request.SupervisorEmail }} for {{ request.ProposalTitle }} has been accepted.</div>
+                            <button class="btn btn-success mr-3" (click)="assignSupervisor(request.SupervisorEmail, request.ProposalTitle)">Confirm Supervisor</button>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </ng-container>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">
+            <p class="mt-5" style="color:white;">Working on it!</p>
+        </ngx-spinner>
+    </div>
+</div>

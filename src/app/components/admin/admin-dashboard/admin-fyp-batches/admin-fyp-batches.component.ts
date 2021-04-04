@@ -49,8 +49,8 @@ export class AdminFypBatchesComponent implements OnInit {
         this.batchFilterSelectForm = new FormGroup({
             Program: new FormControl('All Programs')
         });
-        this.fetchBatches();
         this.fetchPrograms();
+        this.fetchBatches();
         this.batchesListText = `FYP Batches in ${localStorage.getItem('department')} Department`;
     }
 
@@ -68,6 +68,15 @@ export class AdminFypBatchesComponent implements OnInit {
             (res: any) => {
                 this.batches = new Array<Batch>();
                 res.forEach(e => this.batches.push(new Batch(e)));
+
+                console.log(this.programs);
+                this.programs.forEach(e => {
+                    let count = 0;
+                    this.batches.forEach(b => {
+                        if (b.Program === e.Title) count++;
+                    });
+                    e.NumberOfBatches = count;
+                });
             }, (error: any) => { console.log(error); }
         );
     }
@@ -78,21 +87,23 @@ export class AdminFypBatchesComponent implements OnInit {
             formData.Year !== 'Year' &&
             formData.Program !== 'Program'
         ) {
-        this.spinner.show();
-        this.api.addBatch(formData).subscribe(
-            (res: any) => {
-                this.addBatchResponse('Batch added successfully.');
-                this.addBatchForm.controls['Session'].setValue('Session');
-                this.addBatchForm.controls['Year'].setValue('Year');
-                this.addBatchForm.controls['Program'].setValue('Program');
-                this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);
-                this.setBatchFilters(false, true, formData.Program);
-                this.fetchBatches();
-            }, (error: any) => this.addBatchResponse(error));
+            this.spinner.show();
+            this.api.addBatch(formData).subscribe(
+                (res: any) => {
+                    this.addBatchResponse('Batch added successfully.');
+                    this.addBatchForm.controls['Session'].setValue('Session');
+                    this.addBatchForm.controls['Year'].setValue('Year');
+                    this.addBatchForm.controls['Program'].setValue('Program');
+                    this.batchFilterSelectForm.controls['Program'].setValue(formData.Program);
+                    this.setBatchFilters(false, true, formData.Program);
+                    this.fetchBatches();
+                }, 
+                (error: any) => this.addBatchResponse(error)
+            );
             this.validAddBatch = true;
             setTimeout(() => this.addBatchMessage = '', 4000);
+            setTimeout(() => this.validAddBatch = true, 3000);
         } else this.validAddBatch = false;
-        setTimeout(() => this.validAddBatch = true, 3000);
     }
 
     addBatchResponse(message: String): void {

@@ -4,19 +4,40 @@
             <h3 class="font-weight-bold">Supervisors</h3>
             <p class="text-muted">Home / FYP Director / Supervisors</p>
         </div>
+        <div class="card card-shadow p-4 mb-4">
+            <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
+            <p>When you add a new supervisor, a new account of an FYP Supervisor will also be created. An email will be sent with login credentials for their account. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a supervisor, once submitted.</span> Setting a supervior inactive, will render their account inoperational.</p>
+            <p>To bulk insert supervisors, kindly upload a CSV file with the following format:</p>
+            <table class="table-borders">
+                <thead>
+                    <tr>
+                        <th scope="col">FullName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Designation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mr. ABC XYZ</td>
+                        <td>abc.xyz@students.au.edu.pk</td>
+                        <td>Lecturer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card card-shadow p-4 mb-4">
                     <h5 class="font-weight-bold mb-3">Upload CSV File</h5>
                     <form id="addSupervisorBulkForm" [formGroup]="addSupervisorBulkForm" (ngSubmit)="onAddSupervisorBulkFormSubmit(addSupervisorBulkForm.value)">
-                        <div class="custom-file">
+                        <div class="custom-file mb-2">
                             <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input file-input pointer" id="customFile">
                             <label class="custom-file-label pointer" for="customFile">Choose file</label>
                         </div>
-                        <div class="text-danger mt-2" [ngClass]="{'d-none': validAddSupervisorBulk}">Please choose a file.</div>
+                        <div class="text-danger mb-2" [ngClass]="{'d-none': validAddSupervisorBulk}">Invalid file.</div>
+                        <div [ngClass]="(addSupervisorBulkMessage === 'Supervisors uploaded successfully.')?'text-success':'text-danger'" class="mb-2" [innerHTML]="addSupervisorBulkMessage"></div>
                     </form>
-                    <button form="addSupervisorBulkForm" type="submit" class="btn btn-dashboard mt-3">Upload</button>
-                    <div [ngClass]="(addSupervisorBulkMessage === 'Supervisors uploaded successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addSupervisorBulkMessage"></div>
+                    <button form="addSupervisorBulkForm" type="submit" class="btn btn-dashboard">Upload</button>
                 </div>
             </div>
             <div class="col-8">
@@ -36,9 +57,7 @@
                                 <input formControlName="FullName" type="text" class="form-control form-control-custom-sm" placeholder="Full Name">
                             </div>
                         </div>
-                        <div class="text-danger mb-2" [ngClass]="{'d-none': validFullName}">Invalid full name.</div>
-                        <div class="text-danger mb-2" [ngClass]="{'d-none': validEmail}">Invalid email.</div>
-                        <div class="form-row align-items-center">
+                        <div class="form-row align-items-center mb-2">
                             <div class="col">
                                 <select formControlName="Designation" class="form-control-dropdown">
                                     <option selected>Designation</option>
@@ -52,9 +71,9 @@
                                 <input formControlName="Email" type="email" class="form-control form-control-custom-sm" placeholder="Email">
                             </div>
                         </div>
-                        <div class="text-danger mt-2" [ngClass]="{'d-none': validAddSupervisor}">Please select all options.</div>
+                        <div class="text-danger mt-2" [ngClass]="{'d-none': validAddSupervisor}">Invalid input.</div>
                         <div class="d-flex justify-content-end">
-                            <button form="addSupervisorForm" type="submit" class="btn btn-dashboard mt-3">Add</button>
+                            <button form="addSupervisorForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
                         </div>                        
                     </form>
                     <div [ngClass]="(addSupervisorMessage === 'Supervisor added successfully.')?'text-success':'text-danger'" class="mt-2" [innerHTML]="addSupervisorMessage"></div>
@@ -77,7 +96,7 @@
         <div class="card card-shadow p-4 mb-5">
             <h5 class="font-weight-bold mb-4">List of Supervisors of Computer Science Department</h5>
             <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-                <div class="table-responsive">
+                <div class="table-responsive table-borders">
                     <table>
                         <thead>
                             <tr>
@@ -97,7 +116,6 @@
                                     Active
                                     <i class="pointer" (click)="sortByActive()">&nbsp;&#8597;</i>
                                 </th>
-                                <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,9 +128,6 @@
                                         <input type="checkbox" class="custom-control-input" [checked]="supervisor.Active" [attr.id]="'customSwitch' + i" (click)="clickActiveToggle(i, supervisor.Active)"  data-toggle="modal" data-target="#supervisorActiveModal">
                                         <label class="custom-control-label" [attr.for]="'customSwitch' + i"></label>
                                     </div>
-                                </td>
-                                <td>
-                                    <i class="fa fa-edit pointer" [attr.id]="'customEdit' + i"></i>
                                 </td>
                             </tr>
                         </tbody>

@@ -1,20 +1,40 @@
 <div class="wrapper d-flex flex-column">
-    <nav class="navbar navbar-expand-lg navbar-light p-3">
-        <img src="../../../../assets/img/admin-avatar.png" class="img-fluid pointer mr-3" width="50px" alt="Admin Avatar">
-        <h3 class="font-weight-bold my-auto pointer">| Aich<span class="color-red">Q</span> | Student Dashboard</h3>
-        <button (click)="openMenu()" id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg navbar-shadow p-3">
+        <i (click)="openMenu()" class="fa fa-bars fa-2x mr-3 mt-1 ml-2 pointer" id="menu-toggle" data-toggle="collapse"></i>
+        <a class="navbar-brand ml-2" routerLink="/">
+            <img src="../../../assets/img/logo.png" class="img-fluid pointer" width="100px" alt="AichQ Logo">
+        </a>
+        <h3 class="font-weight-bold my-auto pointer pt-1">| &nbsp;FYP Group</h3>
+        <h6 class="font-weight-bold my-auto pointer pt-1">&nbsp; | &nbsp;Computer Science Department</h6>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav ml-auto mt-2">
+                <li class="nav-item font-weight-bold mr-4">
+                    <i class="pointer fa fa-expand"></i>
+                </li>
+                <li class="nav-item font-weight-bold mr-4">
+                    <i class="pointer fa fa-bell"></i>
+                </li>
+                <li class="nav-item font-weight-bold mr-4">
+                    <i class="pointer fa fa-inbox"></i>
+                </li>
                 <li class="nav-item font-weight-bold" [innerHTML]="greetingMessage"></li>
             </ul>
+            <div class="btn-group">
+                <img src="../../../../assets/img/user-avatar.png" data-toggle="dropdown" class="img-fluid pointer mx-3" width="50px" alt="Admin Avatar">
+                <div class="dropdown-menu dropdown-menu-right mr-3 mt-2 card-shadow p-4">
+                    <p>FYP Group</p>
+                    <p>Computer Science</p>
+                    <button type="button" class="btn btn-dropdown" data-toggle="modal" data-target="#adminSignOutModal">
+                        <i class="fa fa-sign-out"></i>&nbsp;Sign Out
+                    </button>
+                </div>
+            </div>              
         </div>
-        <div class="modal fade" id="studentSignOutModal" role="dialog">
+        <div class="modal fade" id="adminSignOutModal" role="dialog">
             <div class="modal-dialog modal-dialog-custom" role="document">
                 <div class="modal-content modal-content-custom">
                     <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title text-dark">Do you want to Sign Out?</h5>
+                        <h5 class="modal-title text-dark font-weight-bold">Do you want to Sign Out?</h5>
                     </div>
                     <div class="modal-footer modal-footer-custom no-border">
                         <button type="submit" class="btn btn-dashboard-modal" data-dismiss="modal" (click)="signOut()">Yes</button>
@@ -25,22 +45,22 @@
         </div>
     </nav>
     <div class="d-flex page-content">
-        <div class="d-flex flex-column wrapper-sidebar border-top-right-round">
-            <div class="pointer border-top-right-round">
-                <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-red': currentComponent !== 0 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(0)">Group</a>
-                <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-red': currentComponent !== 1 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(1)">Projects</a>
-                <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-red': currentComponent !== 2 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(2)">Submissions</a>
+        <div class="d-flex flex-column wrapper-sidebar">
+            <div class="pointer bg-blue">
+                <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-blue': currentComponent !== 0 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(0)">Group</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-blue': currentComponent !== 1 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(1)">Projects</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-blue': currentComponent !== 2 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(2)">Requests</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-blue': currentComponent !== 3 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover" (click)="changeComponent(3)">Submissions</a>
             </div>
-            <button type="button" class="btn btn-dashboard-sign-out mt-auto mb-2 mx-2" data-toggle="modal" data-target="#studentSignOutModal">Sign Out</button>
         </div>
         <div class="d-flex flex-column page-content-wrapper">
-            <div class="black-bar mx-3 mb-3"></div>
-            <div class="mx-3" (click)="closeMenu()">
+            <div class="mx-3 mt-3" (click)="closeMenu()">
                 <app-student-group *ngIf="currentComponent === 0"></app-student-group>
                 <app-student-projects *ngIf="currentComponent === 1"></app-student-projects>
+                <app-student-requests *ngIf="currentComponent === 2"></app-student-requests>
             </div>
             <div class="d-flex flex-column text-center flex-fill footer-dashboard">
-                <p class="mt-auto font-weight-bold">Made by Tehniat and Hassaan under supervision of Sir Imran Ihsan. Copyright &copy; 2020.</p>       
+                <p class="mt-3">FCAI, Air University, Islamabad. Copyright © 2021.</p>       
             </div>
         </div>
     </div>

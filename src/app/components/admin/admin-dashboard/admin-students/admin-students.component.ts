@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,6 +31,8 @@ export class AdminStudentsComponent implements OnInit {
     selectedFilterBatchSession: String = '';
     selectedFilterProgram: String = 'All Programs';
 
+    oddBatches: String[];
+
     addStudentForm: FormGroup;
     addStudentBulkForm: FormGroup;
     studentFilterSelectForm: FormGroup;
@@ -37,6 +40,7 @@ export class AdminStudentsComponent implements OnInit {
     fileUploaded: Boolean = false;
     noFilterBoolean: Boolean = true;
     validAddStudent: Boolean = true;
+    oddBatchesBoolean: Boolean = false;
     validAddStudentBulk: Boolean = true;
     tableBatchFilterBoolean: Boolean = false;
     programAddSelectBoolean: Boolean = false;
@@ -49,6 +53,7 @@ export class AdminStudentsComponent implements OnInit {
     addStudentBulkMessage: String = '';
 
     nameSortAlternate: Number = 0;
+    groupSortAlternate: Number = 0;
     batchSortAlternate: Number = 0;
     phaseSortAlternate: Number = 0;
     programSortAlternate: Number = 0;
@@ -58,7 +63,8 @@ export class AdminStudentsComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private api: ApiService,
         private validate: InputValidationService,
-        private ngxCsvParser: NgxCsvParser
+        private ngxCsvParser: NgxCsvParser,
+        @Inject(DOCUMENT) document
     ) { }
 
     ngOnInit(): void {
@@ -80,7 +86,6 @@ export class AdminStudentsComponent implements OnInit {
             Batch: new FormControl('All Batches')
         });
         this.fetchBatches();
-        this.fetchStudents();
         this.fetchPrograms();
     }
 
@@ -98,6 +103,7 @@ export class AdminStudentsComponent implements OnInit {
             (res: any) => {
                 this.batches = new Array<Batch>();
                 res.forEach(e => this.batches.push(new Batch(e)));
+                this.fetchStudents();
             }, (error: any) => { console.log(error); }
         );
     }
@@ -107,6 +113,15 @@ export class AdminStudentsComponent implements OnInit {
             (res: any) => {
                 this.students = new Array<Student>();
                 res.forEach(e => this.students.push(new Student(e)));
+                this.oddBatches = new Array<String>();
+                this.batches.forEach(e => {
+                    let count = 0;
+                    this.students.forEach(s => {
+                        if (s.Session === e.Session && s.Year === e.Year) count++;
+                    });
+                    if (count % 2 !== 0) this.oddBatches.push(e.Program + '-' + e.Session + '-' + e.Year);
+                });
+                if (this.oddBatches.length !== 0) this.oddBatchesBoolean = true;
             }, (error: any) => { console.log(error); }
         );
     }
@@ -135,6 +150,7 @@ export class AdminStudentsComponent implements OnInit {
                     this.addStudentForm.controls['FullName'].setValue('');
                     this.addStudentForm.controls['RollNumber'].setValue('');
                     this.fetchStudents();
+                    this.setMaxGroups(formData);
                 }, (error: any) => this.addStudentResponse(error)
             );
             this.validAddStudent = true;
@@ -180,20 +196,16 @@ export class AdminStudentsComponent implements OnInit {
     onProgramFilterSelect(programOption: String): void {
         if (programOption === 'All Programs') {
             this.programFilterSelectBoolean = false;
-            // if (this.selectedFilterDepartment === 'All Departments')
-            //     this.setStudentFilters(true, false, false, false, '', '', '', '');
-            // else
-            //     this.setStudentFilters(false, true, false, false, this.selectedFilterDepartment, '', '', '');
+            this.setStudentFilters(true, false, false, '', '', '');
         } else {
             this.programFilterSelectBoolean = true;
-            // this.setStudentFilters(
-            //     false, 
-            //     false, 
-            //     true, 
-            //     false, 
-            //     this.selectedFilterDepartment, 
-            //     '', '', ''
-            // );                  
+            this.setStudentFilters(
+                false, 
+                true, 
+                false, 
+                programOption, 
+                '', ''
+            );
             this.batchesToDisplayFilter = new Array<Batch>();
             this.batches.forEach(e => {
                 if (
@@ -205,49 +217,41 @@ export class AdminStudentsComponent implements OnInit {
     }
 
     onBatchFilterSelect(batchOption: String): void {
-        // if (batchOption === 'All Batches') {
-        //     this.setStudentFilters(
-        //         false,
-        //         false,
-        //         true,
-        //         false,
-        //         this.selectedFilterDepartment,
-        //         this.selectedFilterProgram,
-        //         '', ''
-        //     );
-        // } else {
-        //     this.setStudentFilters(
-        //         false,
-        //         false,
-        //         false,
-        //         true,
-        //         this.selectedFilterDepartment,
-        //         this.selectedFilterProgram,
-        //         batchOption.split('-')[1],
-        //         batchOption.split('-')[0]
-        //     );
-        // }
+        if (batchOption === 'All Batches') {
+            this.setStudentFilters(
+                false, 
+                true, 
+                false, 
+                this.selectedFilterProgram, 
+                '', ''
+            );
+        } else {
+            this.setStudentFilters(
+                false, 
+                true, 
+                true, 
+                this.selectedFilterProgram, 
+                batchOption.split('-')[0],
+                batchOption.split('-')[1]
+            );
+        }
     }
 
-    // setStudentFilters(
-    //     noFilterBoolean: Boolean, 
-    //     tableDepartmentFilterBoolean: Boolean,
-    //     tableProgramFilterBoolean: Boolean,
-    //     tableBatchFilterBoolean: Boolean,
-    //     selectedFilterDepartment: String,
-    //     selectedFilterProgram: String,
-    //     selectedFilterBatchYear: String,
-    //     selectedFilterBatchSession: String
-    // ) {
-    //     this.noFilterBoolean = noFilterBoolean;
-    //     this.tableDepartmentFilterBoolean = tableDepartmentFilterBoolean;
-    //     this.tableProgramFilterBoolean = tableProgramFilterBoolean;
-    //     this.tableBatchFilterBoolean = tableBatchFilterBoolean;
-    //     this.selectedFilterDepartment = selectedFilterDepartment;
-    //     this.selectedFilterProgram = selectedFilterProgram;
-    //     this.selectedFilterBatchYear = selectedFilterBatchYear;
-    //     this.selectedFilterBatchSession = selectedFilterBatchSession;
-    // }
+    setStudentFilters(
+        noFilterBoolean: Boolean, 
+        tableProgramFilterBoolean: Boolean,
+        tableBatchFilterBoolean: Boolean,
+        selectedFilterProgram: String,
+        selectedFilterBatchYear: String,
+        selectedFilterBatchSession: String
+    ) {
+        this.noFilterBoolean = noFilterBoolean;
+        this.tableProgramFilterBoolean = tableProgramFilterBoolean;
+        this.tableBatchFilterBoolean = tableBatchFilterBoolean;
+        this.selectedFilterProgram = selectedFilterProgram;
+        this.selectedFilterBatchYear = selectedFilterBatchYear;
+        this.selectedFilterBatchSession = selectedFilterBatchSession;
+    }
 
     onAddStudentBulkFormSubmit(formData: any): void {
         if (
@@ -276,14 +280,25 @@ export class AdminStudentsComponent implements OnInit {
                         (res: any) => {
                             this.addStudentsBulkResponse('Students uploaded successfully.');
                             this.fetchStudents();
+                            this.setMaxGroups(formData);
                         }, (error: any) => {
                             this.addStudentsBulkResponse(error);
                             this.fetchStudents();
+                            this.setMaxGroups(formData);
                         }
                     );
                 }, (error: NgxCSVParserError) => console.log(error));
             setTimeout(() => this.addStudentBulkMessage = '', 4000);
         }
+    }
+
+    setMaxGroups(formData) {
+        this.api.setMaxGroups({
+            Department: formData.Department,
+            Program: formData.Program,
+            Session: formData.Batch.split('-')[0],
+            Year: formData.Batch.split('-')[1],
+        }).subscribe((res: any) => {}, (error: any) => console.log(error));
     }
 
     addStudentsBulkResponse(message: String): void {
@@ -297,6 +312,16 @@ export class AdminStudentsComponent implements OnInit {
         this.studentsCSV = files[0];
         this.fileName = this.studentsCSV.name;  
         this.fileUploaded = true;
+    }
+
+    sortByGroup() {
+        if (this.groupSortAlternate === 1) {
+            this.students.sort((a, b) => (a.Group > b.Group) ? 1 : ((b.Group > a.Group) ? -1 : 0));
+            this.groupSortAlternate = 0;
+        } else {
+            this.students.sort((a, b) => (a.Group < b.Group) ? 1 : ((b.Group < a.Group) ? -1 : 0));
+            this.groupSortAlternate = 1;
+        }
     }
 
     sortByPhase() {
@@ -337,5 +362,9 @@ export class AdminStudentsComponent implements OnInit {
             this.students.sort((a, b) => (a.RollNumber < b.RollNumber) ? 1 : ((b.RollNumber < a.RollNumber) ? -1 : 0));
             this.rollNumberSortAlternate = 1;
         }
+    }
+
+    removeOddMessage() {
+        document.getElementById('oddMessage').style.display = 'none';
     }
 }

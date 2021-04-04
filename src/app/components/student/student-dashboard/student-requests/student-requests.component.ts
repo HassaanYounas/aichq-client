@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SupervisorRequest } from 'src/app/models/supervisor.request.model';
 import { ApiService } from 'src/app/services/api.service';
 
-declare var moment: any;
-
 @Component({
-  selector: 'app-supervisor-requests',
-  templateUrl: './supervisor-requests.component.html'
+  selector: 'app-student-requests',
+  templateUrl: './student-requests.component.html'
 })
-export class SupervisorRequestsComponent implements OnInit {
+export class StudentRequestsComponent implements OnInit {
 
     requestsLoaded: Boolean = false;
 
@@ -21,7 +19,7 @@ export class SupervisorRequestsComponent implements OnInit {
     }
 
     fetchRequests() {
-        this.api.getSupervisionRequests({ Email: localStorage.getItem('email') }).subscribe(
+        this.api.getSupervisionRequests({ GroupID: localStorage.getItem('id') }).subscribe(
             (res: any) => {
                 this.requests = new Array<SupervisorRequest>();
                 res.forEach(e => {
@@ -32,15 +30,17 @@ export class SupervisorRequestsComponent implements OnInit {
         );
     }
 
-    updateSupervisionRequest(accepted: Number, id: String) {
-        this.api.updateSupervisionRequest({ 
-            _id: id,
-            Accepted: accepted
+    assignSupervisor(supervisorEmail: String, proposalTitle: String) {
+        // console.log(localStorage.getItem('id'))
+        this.api.assignSupervisor({ 
+            _id: localStorage.getItem('id'),
+            SupervisorEmail: supervisorEmail,
+            ProposalTitle: proposalTitle
         }).subscribe(
             (res: any) => {
                 this.fetchRequests();
-                alert('Supervision request accepted.');
-            }, (error: any) => console.log(error)
+                alert('Congratulations! Your supervisor has been assigned.');
+            }, (error: any) => { console.log(error); }
         );
     }
 }

@@ -32,7 +32,7 @@ import { StudentProjectsComponent } from './components/student/student-dashboard
 import { SupervisorRequestsComponent } from './components/supervisor/supervisor-dashboard/supervisor-requests/supervisor-requests.component';
 import { AdminProjectIdeasComponent } from './components/admin/admin-dashboard/admin-project-ideas/admin-project-ideas.component';
 import { StudentGroupComponent } from './components/student/student-dashboard/student-group/student-group.component';
-import { AdminSupervisorRequestsComponent } from './components/admin/admin-dashboard/admin-supervisor-requests/admin-supervisor-requests.component';
+import { StudentRequestsComponent } from './components/student/student-dashboard/student-requests/student-requests.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +61,7 @@ import { AdminSupervisorRequestsComponent } from './components/admin/admin-dashb
         SupervisorRequestsComponent,
         AdminProjectIdeasComponent,
         StudentGroupComponent,
-        AdminSupervisorRequestsComponent
+        StudentRequestsComponent
     ],
     imports: [
         BrowserModule,

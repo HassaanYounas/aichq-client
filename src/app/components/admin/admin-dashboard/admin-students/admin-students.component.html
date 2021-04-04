@@ -59,6 +59,17 @@
                 </div>
             </div>
         </div>
+        <div id="oddMessage" *ngIf="oddBatchesBoolean" class="card card-shadow bg-red px-4 py-3 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="font-weight-bold mb-2">Odd Number of Students</h5>
+                <i class="fa fa-times fa-lg pointer" (click)="removeOddMessage()"></i>
+            </div>
+            <h6>Following batches have odd number of students:</h6>
+            <ul class="pb-0">
+                <li *ngFor="let batch of oddBatches">{{ batch }}</li>
+            </ul>
+            <h6>If no more students are available in the batch, then add a student with name 'ABC XYZ' and roll number '000000' in the concerned batch. The student left at the end will have to choose this student as their partner.</h6>
+        </div>
         <div class="card card-shadow p-4 mb-5">
             <h5 class="font-weight-bold mb-4">List of Students in Computer Science Department</h5>
             <h6 class="font-weight-bold mb-3">Filter Options</h6>
@@ -81,29 +92,30 @@
                 </div>
             </form>
             <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-                <div class="table-responsive">
+                <div class="table-responsive table-borders">
                     <table>
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    Name
+                                    Name&nbsp;
                                     <i class="fa fa-sort pointer" (click)="sortByName()"></i>
                                 </th>
                                 <th scope="col">
-                                    Roll Number
+                                    Roll Number&nbsp;
                                     <i class="fa fa-sort pointer" (click)="sortByRollNumber()"></i>
                                 </th>
                                 <th scope="col">
-                                    Program
+                                    Program&nbsp;
                                     <i class="fa fa-sort pointer" (click)="sortByProgram()"></i>
                                 </th>
                                 <th scope="col">Batch</th>
                                 <th scope="col">
-                                    FYP-Phase
+                                    FYP-Phase&nbsp;
                                     <i class="fa fa-sort pointer" (click)="sortByPhase()"></i>
                                 </th>
                                 <th scope="col">
-                                    Edit
+                                    Group&nbsp;
+                                    <i class="fa fa-sort pointer" (click)="sortByGroup()"></i>
                                 </th>
                             </tr>
                         </thead>
@@ -116,34 +128,52 @@
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
                                     <td>
-                                        <i class="fa fa-edit pointer" [attr.id]="'customEdit' + i"></i>
+                                        <ng-container *ngIf="student.Group === true">
+                                            <i class="fa fa-check color-green"></i>
+                                        </ng-container>
+                                        <ng-container *ngIf="student.Group === false">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </ng-container>
                                     </td>
                                 </ng-container>
-                                <!-- <ng-container *ngIf="tableProgramFilterBoolean && departmentFilterSelect.Name === student.Department && programFilterSelect.Title === student.Program">
+                                <ng-container *ngIf="tableProgramFilterBoolean && selectedFilterProgram === student.Program">
                                     <td>{{ student.FullName }}</td>
                                     <td>{{ student.RollNumber }}</td>
-                                    <td>{{ student.Department }}</td>
                                     <td>{{ student.Program }}</td>
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
-                                </ng-container> -->
-                                <!-- <ng-container 
+                                    <td>
+                                        <ng-container *ngIf="student.Group === true">
+                                            <i class="fa fa-check color-green"></i>
+                                        </ng-container>
+                                        <ng-container *ngIf="student.Group === false">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </ng-container>
+                                    </td>
+                                </ng-container>
+                                <ng-container 
                                     *ngIf=
                                     "
-                                        tableBatchFilterBoolean && 
-                                        departmentFilterSelect.Name === student.Department && 
-                                        programFilterSelect.Title === student.Program &&
+                                        tableBatchFilterBoolean &&
+                                        selectedFilterProgram === student.Program &&
                                         selectedFilterBatchYear === student.Year &&
                                         selectedFilterBatchSession === student.Session
                                     "
                                 >
                                     <td>{{ student.FullName }}</td>
                                     <td>{{ student.RollNumber }}</td>
-                                    <td>{{ student.Department }}</td>
                                     <td>{{ student.Program }}</td>
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
-                                </ng-container> -->
+                                    <td>
+                                    <ng-container *ngIf="student.Group === true">
+                                        <i class="fa fa-check color-green"></i>
+                                    </ng-container>
+                                    <ng-container *ngIf="student.Group === false">
+                                        <i class="fa fa-minus color-red"></i>
+                                    </ng-container>
+                                </td>
+                                </ng-container>
                             </tr>
                         </tbody>
                     </table>

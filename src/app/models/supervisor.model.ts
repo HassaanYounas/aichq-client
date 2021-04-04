@@ -22,5 +22,6 @@ export class Supervisor {
         proposals.forEach(e => {
             if (e.Email === this.Email) this.Proposals.push(new SupervisorProposal(e));
         });
+        this.Proposals.reverse();
     }
 }

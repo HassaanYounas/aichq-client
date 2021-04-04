@@ -7,8 +7,11 @@ export class Group {
     Username: String;
     Password: String;
     ProjectID: Number;
+    SupervisorEmail: String;
+    SupervisorName: String;
+    ProjectTitle: String;
     StudentOne: Student;
-    StudentTwo: Student;
+    StudentTwo: Student;    
 
     constructor(res: any) {
         this.Department = res.Department;
@@ -16,6 +19,8 @@ export class Group {
         this.Session = res.Session;
         this.Year = res.Year;
         this.Username = res.Username;
+        this.SupervisorEmail = res.SupervisorEmail;
+        this.ProjectTitle = res.ProjectTitle;
         if ('TeamName' in res) this.TeamName = res.TeamName;
         if ('ProjectID' in res) this.ProjectID = res.ProjectID;
         this.StudentOne = new Student(

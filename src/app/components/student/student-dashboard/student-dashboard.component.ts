@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class StudentDashboardComponent {
 
     toggle: boolean = false;
-    currentComponent: number = 0;
+    currentComponent: number = 2;
     greetingMessage: String = '';
 
     constructor(

@@ -4,13 +4,18 @@
             <h3 class="font-weight-bold">FYP Batches</h3>
             <p class="text-muted">Home / FYP Director / FYP Batches</p>
         </div>
+        <div class="card card-shadow p-4 mb-4">
+            <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
+            <p>A batch acts as a container for a list of students. When you add a new batch, make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a batch, once submitted.</span></p>
+            <p><span class="font-weight-bold">MGPS</span> means number of <span class="font-weight-bold">Maximum Groups Per Supervisor</span>. It is calculated based on the number of students in the batch and the number of active supervisors in the department. It is done, so as to equally distribute the workload among supervisors.</p>
+        </div>
         <div class="row mb-5">
             <div class="col">
                 <div class="card card-shadow p-4 flex-fill mb-4">
-                    <h5 class="font-weight-bold mb-3">Information</h5>
-                    <p><span class="font-weight-bold">BSCS:</span> 2 Batches</p>
-                    <p><span class="font-weight-bold">BSIT:</span> 0 Batches</p>
-                    <p><span class="font-weight-bold">GPS =</span> Groups Per Supervisor</p>
+                    <h5 class="font-weight-bold mb-3">Number of Batches</h5>
+                    <div *ngFor="let program of programs;let i = index;">
+                        <p><span class="font-weight-bold">{{ program.Title }}:&nbsp;</span>{{ program.NumberOfBatches }} Batches</p>
+                    </div>
                 </div>
                 <div class="card card-shadow p-4">
                     <h5 class="font-weight-bold mb-3">New FYP Batch</h5>
@@ -28,10 +33,10 @@
                             <option selected>Year</option>
                             <option *ngFor="let year of years">{{ year }}</option>
                         </select>
-                        <div class="text-danger" [ngClass]="{'d-none': validAddBatch}">Please select all options.</div>
+                        <div class="text-danger" [ngClass]="{'d-none': validAddBatch}">Invalid input.</div>
+                        <div [ngClass]="(addBatchMessage === 'Batch added successfully.')?'text-success':'text-danger'" [innerHTML]="addBatchMessage"></div>
                     </form>
                     <button form="addBatchForm" type="submit" class="btn btn-dashboard mt-2">Add</button>
-                    <div class="mt-2" [ngClass]="(addBatchMessage === 'Batch added successfully.')?'text-success':'text-danger'" [innerHTML]="addBatchMessage"></div>
                 </div>
             </div>
             <div class="col-8">
@@ -49,7 +54,7 @@
                         </div>
                     </form>
                     <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
-                        <div class="table-responsive">
+                        <div class="table-responsive table-borders">
                             <table>
                                 <thead>
                                     <tr>
@@ -65,7 +70,7 @@
                                             Year&nbsp;
                                             <i class="fa fa-sort pointer" (click)="sortByYear()"></i>
                                         </th>
-                                        <th scope="col">GPS</th>
+                                        <th scope="col">MGPS</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -8,7 +8,22 @@
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.7);
 }
 
+.color {
+    &-green {
+        color: #51d675;
+    }
+
+    &-red {
+        color: #e84343;
+    }
+}
+
 .bg {
+    &-red {
+        background-color: #e84343;
+        color: #ffffff;  
+    }
+    
     &-blue {
         background-color: darken($color: #0036B7, $amount: 20);
         color: #ffffff;
@@ -103,6 +118,43 @@
 }
 
 .btn {
+    &-accordian {
+        background: transparent;
+        color: #000;
+        border: none;
+        font-size: 1em;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &-decision {
+            background: transparent;
+            border-radius: 0.2em;
+            padding: 0.3em 1em;
+            
+            &-approve {
+                border: 0.15em solid #51d675;
+            }
+
+            &-reject {
+                border: 0.15em solid #e84343;
+            }
+
+            &:hover {
+                background-color: darken($color:  #fff, $amount: 20);
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
     &-main {
         background: #fff;
         color: #000;
@@ -221,10 +273,9 @@
 }
 
 .accordian-card {
-    background-color: #FFFFFF;
-    border: 0.15em solid #000000;
+    background-color: #f4e4f5;
     border-radius: 0.3em;
-    padding: 0.5em 1em;
+    padding: 0.7em 2em;
 }
 
 .form-control {
@@ -274,13 +325,21 @@
     }    
 }
 
+.table-borders {
+    border-top: none;
+    border-left: 0.1em solid rgb(0,0,0,0.2);
+    border-right: 0.1em solid rgb(0,0,0,0.2);
+    border-bottom: 0.1em solid rgb(0,0,0,0.2);
+}
+
 .wrapper {
     overflow-y: hidden;
     overflow-x: hidden;
     min-height: 100vh;
 
     &-sidebar {
-        width: 18rem;
+        min-width: 18rem;
+        max-width: 18rem;
         transition: margin .25s ease-out;
         z-index: 1;
         background-image: radial-gradient(#0036B7 2px, darken($color: #0036B7, $amount: 20) 2px);
@@ -298,6 +357,7 @@
 
     &-wrapper {
         flex: 1 1 auto;
+        position: relative;
     }
 }
 

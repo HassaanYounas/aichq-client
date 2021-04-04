@@ -25,9 +25,7 @@ export class AdminSupervisorsComponent implements OnInit {
     addSupervisorBulkForm: FormGroup;
     departmentSelectForm: FormGroup;
 
-    validEmail: Boolean = true;
     fileUploaded: Boolean = false;
-    validFullName: Boolean = true;
     noFilterBoolean: Boolean = true;
     validAddSupervisor: Boolean = true;
     validAddSupervisorBulk: Boolean = true;
@@ -80,17 +78,13 @@ export class AdminSupervisorsComponent implements OnInit {
     }
 
     onAddSupervisorFormSubmit(formData: any): void {
-        if (!this.validate.isAlphabetsOnly(formData.FullName)) this.validFullName = false;
-        else this.validFullName = true;
-        if (!this.validate.isEmail(formData.Email)) this.validEmail = false;
-        else this.validEmail = true;
         if (
-            formData.Title === 'Title' || 
-            formData.Department === 'Department' || 
-            formData.Designation === 'Designation'
+            formData.Title !== 'Title' && 
+            formData.Department !== 'Department' && 
+            formData.Designation !== 'Designation' &&
+            this.validate.isAlphabetsOnly(formData.FullName) &&
+            this.validate.isEmail(formData.Email)
         ) {
-            this.validAddSupervisor = false;
-        } else {
             this.validAddSupervisor = true;
             this.spinner.show();
             const body = {
@@ -110,7 +104,7 @@ export class AdminSupervisorsComponent implements OnInit {
                     this.fetchSupervisors();
                 }, (error: any) => this.addSupervisorResponse(error)
             ); setTimeout(() => this.addSupervisorMessage = '', 4000);
-        }
+        } else this.validAddSupervisor = false;
     }
 
     resetActiveToggle() {
@@ -155,12 +149,21 @@ export class AdminSupervisorsComponent implements OnInit {
                 .pipe().subscribe((result: Array<any>) => {
                     const body = [];
                     for (let i = 0; i < result.length; i++) {
-                        body.push({
-                            FullName: result[i].FullName,
-                            Email: result[i].Email,
-                            Department: formData.Department,
-                            Designation: result[i].Designation
-                        });
+                        if (
+                            'FullName' in result[i] &&
+                            'Email' in result[i] &&
+                            'Designation' in result[i]
+                        ) {
+                            body.push({
+                                FullName: result[i].FullName,
+                                Email: result[i].Email,
+                                Department: formData.Department,
+                                Designation: result[i].Designation
+                            });
+                        } else {
+                            this.validAddSupervisorBulk = false;
+                            return;
+                        }
                     }
                     this.spinner.show();
                     this.api.addSupervisorsBulk(body).subscribe(
@@ -169,7 +172,7 @@ export class AdminSupervisorsComponent implements OnInit {
                             this.fetchSupervisors();
                         }, (error: any) => this.addSupervisorsBulkResponse(error)
                     );
-                }, (error: NgxCSVParserError) => console.log(error));
+                }, (error: NgxCSVParserError) => this.validAddSupervisorBulk = false);
             setTimeout(() => this.addSupervisorBulkMessage = '', 4000);
         }
     }
