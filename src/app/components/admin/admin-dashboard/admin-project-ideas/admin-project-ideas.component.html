@@ -65,11 +65,11 @@
                                     </table>
                                     <p class="mt-4 px-2 mb-2 pb-0"><span class="font-weight-bold">Abstract: </span>{{ proposal.Abstract }}</p>
                                     <div class="d-flex justify-content-center" *ngIf="proposal.Approved === -1">
-                                        <button (click)="setCurrentProjectID(proposal.id)" data-toggle="modal" data-target="#approvalConfirmationModal" [attr.id]="'acceptIdeaBtn' +i" class="btn-accordian-decision btn-accordian-decision-approve mr-3">
+                                        <button (click)="setCurrentProjectID(proposal.id, proposal.Email)" data-toggle="modal" data-target="#approvalConfirmationModal" [attr.id]="'acceptIdeaBtn' +i" class="btn-accordian-decision btn-accordian-decision-approve mr-3">
                                             Approve&nbsp;
                                             <i class="fa fa-check color-green"></i>
                                         </button>
-                                        <button (click)="setCurrentProjectID(proposal.id)" data-toggle="modal" data-target="#rejectionConfirmationModal" [attr.id]="'rejectIdeaBtn' +i" class="btn-accordian-decision btn-accordian-decision-reject ml-3">
+                                        <button (click)="setCurrentProjectID(proposal.id, proposal.Email)" data-toggle="modal" data-target="#rejectionConfirmationModal" [attr.id]="'rejectIdeaBtn' +i" class="btn-accordian-decision btn-accordian-decision-reject ml-3">
                                             Reject&nbsp;
                                             <i class="fa fa-times color-red"></i>
                                         </button>

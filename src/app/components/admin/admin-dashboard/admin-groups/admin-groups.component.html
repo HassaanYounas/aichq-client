@@ -43,10 +43,10 @@
                                 <td>{{ group.StudentOne.RollNumber }}</td>
                                 <td>{{ group.StudentTwo.RollNumber }}</td>
                                 <td>
-                                    <div *ngIf="group.SupervisorEmail === undefined; else supervisorName">
+                                    <div *ngIf="group.SupervisorEmail === undefined; else supervisorEmail">
                                         <i class="fa fa-minus color-red"></i>
                                     </div>
-                                    <ng-template #supervisorName>{{ group.SupervisorEmail }}</ng-template>
+                                    <ng-template #supervisorEmail>{{ group.SupervisorEmail }}</ng-template>
                                 </td>
                                 <td>
                                     <div *ngIf="group.ProjectTitle === undefined; else projectTitle">

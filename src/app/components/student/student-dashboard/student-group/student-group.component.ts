@@ -10,16 +10,10 @@ export class StudentGroupComponent implements OnInit {
 
     group: Group;
 
-    groupLoaded: Boolean = false;
-
     constructor(private api: ApiService) { }
 
     ngOnInit(): void {
-        this.api.getGroup({ _id: localStorage.getItem('id') }).subscribe(
-            (res: any) => {
-                this.group = new Group(res);
-                this.groupLoaded = true;
-            }, (error: any) => { console.log(error); }
-        );
+        
+       
     }
 }

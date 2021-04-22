@@ -12,8 +12,8 @@
                 <p>
                     {{ request.StudentOneRollNumber }} and {{ request.StudentTwoRollNumber }} want you to be their supervisor for {{ request.ProposalTitle }} project.
                 </p>
-                <button class="btn btn-success mr-3" (click)="updateSupervisionRequest(1, request.ID)">Accept</button>
-                <button class="btn btn-danger" (click)="updateSupervisionRequest(0, request.ID)">Decline</button>
+                <button class="btn btn-success mr-3" (click)="updateSupervisionRequest(1, request.ID, request.Program, request.Session, request.Year, request.GroupID)">Accept</button>
+                <button class="btn btn-danger" (click)="updateSupervisionRequest(0, request.ID, request.Program, request.Session, request.Year, request.GroupID)">Decline</button>
             </div>
         </ng-container>
         <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color ="#fff" type="ball-fussion" [fullScreen]="true">

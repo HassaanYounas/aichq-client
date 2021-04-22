@@ -82,7 +82,12 @@ export class StudentRegComponent implements OnInit {
             formData.Username !== ''
         ) {
             this.validInput = true;
+            let departmentID: String = '';
+            this.departments.forEach(d => {
+                if (d.Name === formData.Department) departmentID = d.ID;
+            });
             const body = {
+                DepartmentID: departmentID,
                 Department: formData.Department,
                 Program: formData.Program,
                 Session: formData.Batch.split('-')[0],
@@ -158,7 +163,10 @@ export class StudentRegComponent implements OnInit {
             }).subscribe(
                 (res: any) => {
                     this.students = new Array<Student>();
-                    res.forEach(e => this.students.push(new Student(e)));
+                    res.forEach(e => {
+                        if (e.Group === false) this.students.push(new Student(e))
+                    });
+                    this.students.sort((a, b) => (a.RollNumber > b.RollNumber) ? 1 : ((b.RollNumber > a.RollNumber) ? -1 : 0));
                     this.batchAddSelectBoolean = true;
                     this.spinner.hide();
                 }, (error: any) => { console.log(error); }

@@ -1,8 +1,8 @@
 export class SupervisorProposal {
+    BatchID: String;
     id: String;
     Session: String;
 	Year: String;
-    Department: String;
 	Program: String
 	Domain: String;
     Title: String;
@@ -11,11 +11,11 @@ export class SupervisorProposal {
 	Approved: Number;
 
     constructor(res: any) {
+        this.BatchID = res.BatchID;
         this.id = res.id;
-        this.Session = res.Session;
-        this.Year = res.Year;
-        this.Department = res.Department;
-        this.Program = res.Program;
+        this.Program = this.BatchID.split('-')[0];
+        this.Session = this.BatchID.split('-')[1];
+        this.Year = this.BatchID.split('-')[2];
         this.Domain = res.Domain;
         this.Title = res.Title;
         this.Abstract = res.Abstract;

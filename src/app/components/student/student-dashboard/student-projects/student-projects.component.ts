@@ -23,7 +23,13 @@ export class StudentProjectsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.api.getGroup({ _id: localStorage.getItem('id') }).subscribe(
+        this.api.getGroup({ 
+            GroupID: localStorage.getItem('id'),
+            Department: localStorage.getItem('department'),
+            Program: localStorage.getItem('program'),
+            Session: localStorage.getItem('session'),
+            Year: localStorage.getItem('year')
+        }).subscribe(
             (res: any) => {
                 this.group = new Group(res);
             }, (error: any) => { console.log(error); }
@@ -43,10 +49,10 @@ export class StudentProjectsComponent implements OnInit {
 
     fetchProposals() {
         this.api.loadProposals({
+            Department: localStorage.getItem('department'),
             Program: localStorage.getItem('program'),
             Session: localStorage.getItem('session'),
-            Year: localStorage.getItem('year'),
-            Approved: 1
+            Year: localStorage.getItem('year')
         }).subscribe(
             (res: any) => {
                 this.supervisorProposals = new Array<SupervisorProposal>();
@@ -67,13 +73,12 @@ export class StudentProjectsComponent implements OnInit {
     onRequestSupervision() {
         this.api.addSupervisionRequest({
             Department: localStorage.getItem('department'),
+            Program: localStorage.getItem('program'),
+            Session: localStorage.getItem('session'),
+            Year: localStorage.getItem('year'),
             ProposalTitle: this.currentProposalTitle,
             SupervisorEmail: this.currentSupervisorEmail,
-            SupervisorName: this.currentSupervisorName,
             GroupID: localStorage.getItem('id'),
-            Session: this.group.Session,
-            Year: this.group.Year,
-            Program: this.group.Program,
             StudentOneRollNumber: this.group.StudentOne.RollNumber,
             StudentTwoRollNumber: this.group.StudentTwo.RollNumber
         }).subscribe(

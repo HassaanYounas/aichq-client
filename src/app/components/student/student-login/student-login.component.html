@@ -1,17 +1,41 @@
 <div class="page page-login">
     <div class="container">
         <div class="d-flex justify-content-center">
-            <div class="card p-5" style="width: 35rem;">
+            <div class="card py-2 px-5" style="width: 35rem;">
                 <div class="card-body text-center">
                     <form class="w-100 p-3" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                         <h3 class="mb-4 font-weight-normal">Student Login</h3>
-                        <input formControlName="Username" type="text" class="form-control form-control-custom mb-4" placeholder="Username" required>
-                        <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
+                        <select #departmentAddStudent formControlName="Department" class="form-control-dropdown mb-2" (change)="onDepartmentAddStudent(departmentAddStudent.value)">
+                            <option selected>Department</option>
+                            <option *ngFor="let department of departments">{{ department.Name }}</option>
+                        </select>
+                        <div class="mb-2">
+                            <div class="row">
+                                <div class="col pr-1">
+                                    <select #programAddStudent formControlName="Program" class="form-control-dropdown" (change)="onProgramAddStudent(programAddStudent.value)">
+                                        <option selected>Program</option>
+                                        <ng-container *ngIf="departmentAddSelectBoolean">
+                                            <option *ngFor="let program of departmentAddSelect.Programs">{{ program.Title }}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <div class="col pl-1">
+                                    <select #batchAddStudent formControlName="Batch" class="form-control-dropdown">
+                                        <option selected>Batch</option>
+                                        <ng-container *ngIf="programAddSelectBoolean">
+                                            <option *ngFor="let batch of batchesToDisplayFilter">{{ batch.Session }}-{{ batch.Year }}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input formControlName="Username" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Username" required>
+                        <input formControlName="Password" type="password" class="form-control form-control-custom-sm mb-3" placeholder="Password" required>
                         <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>
                         <button class="btn btn-card" type="submit">Sign in</button>
                         <div class="mb-4">
                             <p class="my-3 text-muted">If you haven't registered for FYP, then</p>
-                            <button class="btn btn-card-secondary" routerLink="/student/reg">Go for Registration</button>
+                            <button class="btn-link-custom" routerLink="/student/reg">Go for Registration</button>
                         </div>
                         <div>
                             <button class="btn-link-custom" routerLink="/type">Go Back</button>
@@ -25,3 +49,4 @@
         <p class="mt-5" style="color:white;">Working on it!</p>
     </ngx-spinner>
 </div>
+

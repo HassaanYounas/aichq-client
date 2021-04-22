@@ -3,7 +3,6 @@
     "loginSuperAdmin": "https://aichq-fyp.herokuapp.com/api/super/admin/login",
     "updateAdmin": "https://aichq-fyp.herokuapp.com/api/admin/update",
     "updateSuperAdmin": "https://aichq-fyp.herokuapp.com/api/super/admin/update",
-    "getAdmin": "https://aichq-fyp.herokuapp.com/api/admin/get",
     "addDepartment": "https://aichq-fyp.herokuapp.com/api/department/add",
     "addProgram": "https://aichq-fyp.herokuapp.com/api/department/add/program",
     "getPrograms": "https://aichq-fyp.herokuapp.com/api/department/get/programs",

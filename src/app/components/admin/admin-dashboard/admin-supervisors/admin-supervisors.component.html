@@ -6,7 +6,7 @@
         </div>
         <div class="card card-shadow p-4 mb-4">
             <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
-            <p>When you add a new supervisor, a new account of an FYP Supervisor will also be created. An email will be sent with login credentials for their account. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a supervisor, once submitted.</span> Setting a supervior inactive, will render their account inoperational.</p>
+            <p>When you add a new supervisor, a new account of an FYP Supervisor will also be created. An email will be sent with login credentials for their account. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove a supervisor, once submitted.</span> Setting a supervior inactive, will render their account inoperational.</p>
             <p>To bulk insert supervisors, kindly upload a CSV file with the following format:</p>
             <table class="table-borders">
                 <thead>
@@ -116,6 +116,7 @@
                                     Active
                                     <i class="pointer" (click)="sortByActive()">&nbsp;&#8597;</i>
                                 </th>
+                                <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,6 +129,9 @@
                                         <input type="checkbox" class="custom-control-input" [checked]="supervisor.Active" [attr.id]="'customSwitch' + i" (click)="clickActiveToggle(i, supervisor.Active)"  data-toggle="modal" data-target="#supervisorActiveModal">
                                         <label class="custom-control-label" [attr.for]="'customSwitch' + i"></label>
                                     </div>
+                                </td>
+                                <td>
+                                    <i class="fa fa-edit pointer"></i>
                                 </td>
                             </tr>
                         </tbody>

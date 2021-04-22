@@ -31,8 +31,7 @@ export class AdminGroupsComponent implements OnInit {
             Program: new FormControl('Program'),
             Batch: new FormControl('Batch')
         });
-
-        this.api.getGroups().subscribe(
+        this.api.getGroups({ Department: localStorage.getItem('department') }).subscribe(
             (res: any) => {
                 this.groups = new Array<Group>();
                 res.forEach(e => this.groups.push(new Group(e)));

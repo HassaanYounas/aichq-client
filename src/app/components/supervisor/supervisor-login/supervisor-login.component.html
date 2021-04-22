@@ -5,6 +5,10 @@
                 <div class="card-body text-center">
                     <form class="w-100 p-3" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
                         <h3 class="mb-4 font-weight-normal">Supervisor Login</h3>
+                        <select formControlName="Department" class="form-control-dropdown mb-4 py-2">
+                            <option selected>Department</option>
+                            <option *ngFor="let department of departments">{{ department.Name }}</option>
+                        </select>
                         <input formControlName="Email" type="email" class="form-control form-control-custom mb-4" placeholder="Email" required>
                         <input formControlName="Password" type="password" class="form-control form-control-custom mb-4" placeholder="Password" required>
                         <div class="text-danger mb-3" [ngClass]="{'d-none': validLogin}" [innerHTML]="errorMessage"></div>

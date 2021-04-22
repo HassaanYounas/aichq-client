@@ -68,8 +68,6 @@ export class AdminFypBatchesComponent implements OnInit {
             (res: any) => {
                 this.batches = new Array<Batch>();
                 res.forEach(e => this.batches.push(new Batch(e)));
-
-                console.log(this.programs);
                 this.programs.forEach(e => {
                     let count = 0;
                     this.batches.forEach(b => {

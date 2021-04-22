@@ -39,14 +39,6 @@ export class ApiService {
         return this.requestWithToken(body, API.setMaxGroups);
     }
 
-    getNumberOfBatches(body: any) {
-        return this.requestWithToken(body, API.getNumberOfBatches);
-    }
-
-    getAdmin() {
-        return this.requestWithToken({}, API.getAdmin);
-    }
-
     addSupervisionRequest(body: any) {
         return this.requestWithToken(body, API.addSupervisionRequest);
     }
@@ -83,16 +75,12 @@ export class ApiService {
         return this.requestWithToken(body, API.addStudentsBulk);
     }
 
-    getGroups() {
-        return this.requestWithToken({}, API.getGroups);
+    getGroups(body: any) {
+        return this.requestWithToken(body, API.getGroups);
     }
 
     getGroup(body: any) {
         return this.requestWithToken(body, API.getGroup);
-    }
-
-    getSupervisor(body: any) {
-        return this.requestWithToken(body, API.getSupervisor);
     }
 
     updateSupervisorProposal(body: any) {
@@ -127,8 +115,8 @@ export class ApiService {
         return this.requestWithToken(body, API.getSupervisors);
     }
 
-    loadStudents() {
-        return this.requestWithToken({}, API.getStudents);
+    loadStudents(body: any) {
+        return this.requestWithToken(body, API.getStudents);
     }
 
     loadProposals(body: any) {
@@ -155,14 +143,17 @@ export class ApiService {
 
     loginSupervisor(supervisor: Supervisor) {
         const url = API.loginSupervisor;
-        const body = { Email: supervisor.Email, Password: supervisor.Password };
+        const body = {
+            Department: supervisor.Department, 
+            Email: supervisor.Email, 
+            Password: supervisor.Password 
+        };
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }
 
-    loginGroup(group: Group) {
+    loginGroup(body: any) {
         const url = API.loginGroup;
-        const body = { Username: group.Username, Password: group.Password };
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
     }

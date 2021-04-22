@@ -21,7 +21,10 @@ export class SupervisorRequestsComponent implements OnInit {
     }
 
     fetchRequests() {
-        this.api.getSupervisionRequests({ Email: localStorage.getItem('email') }).subscribe(
+        this.api.getSupervisionRequests({ 
+            Department: localStorage.getItem('department'),
+            Email: localStorage.getItem('email') 
+        }).subscribe(
             (res: any) => {
                 this.requests = new Array<SupervisorRequest>();
                 res.forEach(e => {
@@ -32,8 +35,13 @@ export class SupervisorRequestsComponent implements OnInit {
         );
     }
 
-    updateSupervisionRequest(accepted: Number, id: String) {
-        this.api.updateSupervisionRequest({ 
+    updateSupervisionRequest(accepted: Number, id: String, program: String, session: String, year: String, groupID: String) {
+        this.api.updateSupervisionRequest({
+            GroupID: groupID,
+            Department: localStorage.getItem('department'),
+            Program: program,
+            Session: session,
+            Year: year,
             _id: id,
             Accepted: accepted
         }).subscribe(

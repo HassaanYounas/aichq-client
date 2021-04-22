@@ -4,12 +4,32 @@
             <h3 class="font-weight-bold">Students</h3>
             <p class="text-muted">Home / FYP Director / Students</p>
         </div>
+        <div class="card card-shadow p-4 mb-4">
+            <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
+            <p>For a student to be able to register for FYP, their information must be present within their respective batch. When you add a new student, make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove a student, once submitted.</span></p>
+            <p>To bulk insert students, kindly upload a CSV file with the following format:</p>
+            <table class="table-borders">
+                <thead>
+                    <tr>
+                        <th scope="col">FullName</th>
+                        <th scope="col">RollNumber</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ABC XYZ</td>
+                        <td>000000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card card-shadow p-4 mb-4">
-                    <h5 class="font-weight-bold mb-3">Information</h5>
-                    <p><span class="font-weight-bold">BSCS:</span> 25 Students</p>
-                    <p><span class="font-weight-bold">BSIT:</span> 0 Batches</p>
+                    <h5 class="font-weight-bold mb-3">Number of Students</h5>
+                    <div *ngFor="let program of programs">
+                        <p><span class="font-weight-bold">{{ program.Title }}: </span>{{ program.NumberOfStudents }} Students</p>
+                    </div>
                 </div>
             </div>
             <div class="col">
@@ -117,6 +137,7 @@
                                     Group&nbsp;
                                     <i class="fa fa-sort pointer" (click)="sortByGroup()"></i>
                                 </th>
+                                <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,6 +156,9 @@
                                             <i class="fa fa-minus color-red"></i>
                                         </ng-container>
                                     </td>
+                                    <td>
+                                        <i class="fa fa-edit pointer"></i>
+                                    </td>
                                 </ng-container>
                                 <ng-container *ngIf="tableProgramFilterBoolean && selectedFilterProgram === student.Program">
                                     <td>{{ student.FullName }}</td>
@@ -149,6 +173,9 @@
                                         <ng-container *ngIf="student.Group === false">
                                             <i class="fa fa-minus color-red"></i>
                                         </ng-container>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-edit pointer"></i>
                                     </td>
                                 </ng-container>
                                 <ng-container 
@@ -166,13 +193,16 @@
                                     <td>{{ student.Session }}-{{ student.Year }}</td>
                                     <td>{{ student.Phase }}</td>
                                     <td>
-                                    <ng-container *ngIf="student.Group === true">
-                                        <i class="fa fa-check color-green"></i>
-                                    </ng-container>
-                                    <ng-container *ngIf="student.Group === false">
-                                        <i class="fa fa-minus color-red"></i>
-                                    </ng-container>
-                                </td>
+                                        <ng-container *ngIf="student.Group === true">
+                                            <i class="fa fa-check color-green"></i>
+                                        </ng-container>
+                                        <ng-container *ngIf="student.Group === false">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </ng-container>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-edit pointer"></i>
+                                    </td>
                                 </ng-container>
                             </tr>
                         </tbody>

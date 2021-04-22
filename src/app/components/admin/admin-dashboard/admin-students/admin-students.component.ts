@@ -109,7 +109,7 @@ export class AdminStudentsComponent implements OnInit {
     }
 
     fetchStudents() {
-        this.api.loadStudents().subscribe(
+        this.api.loadStudents({ Department: localStorage.getItem('department') }).subscribe(
             (res: any) => {
                 this.students = new Array<Student>();
                 res.forEach(e => this.students.push(new Student(e)));
@@ -120,6 +120,13 @@ export class AdminStudentsComponent implements OnInit {
                         if (s.Session === e.Session && s.Year === e.Year) count++;
                     });
                     if (count % 2 !== 0) this.oddBatches.push(e.Program + '-' + e.Session + '-' + e.Year);
+                });
+                this.programs.forEach(p => {
+                    let count = 0;
+                    this.students.forEach(s => {
+                        if (p.Title === s.Program) count++;
+                    });
+                    p.NumberOfStudents = count;
                 });
                 if (this.oddBatches.length !== 0) this.oddBatchesBoolean = true;
             }, (error: any) => { console.log(error); }
@@ -266,14 +273,22 @@ export class AdminStudentsComponent implements OnInit {
                 .pipe().subscribe((result: Array<any>) => {
                     const body = [];
                     for (let i = 0; i < result.length; i++) {
-                        body.push({
-                            FullName: result[i].FullName,
-                            RollNumber: result[i].RollNumber,
-                            Department: formData.Department,
-                            Program: formData.Program,
-                            Session: formData.Batch.split('-')[0],
-                            Year: formData.Batch.split('-')[1]
-                        });
+                        if (
+                            'FullName' in result[i] &&
+                            'RollNumber' in result[i]
+                        ) {
+                            body.push({
+                                FullName: result[i].FullName,
+                                RollNumber: result[i].RollNumber,
+                                Department: formData.Department,
+                                Program: formData.Program,
+                                Session: formData.Batch.split('-')[0],
+                                Year: formData.Batch.split('-')[1]
+                            });
+                        } else {
+                            this.validAddStudentBulk = false;
+                            return;
+                        }
                     }
                     this.spinner.show();
                     this.api.addStudentsBulk(body).subscribe(

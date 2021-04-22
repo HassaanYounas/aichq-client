@@ -19,7 +19,13 @@ export class StudentRequestsComponent implements OnInit {
     }
 
     fetchRequests() {
-        this.api.getSupervisionRequests({ GroupID: localStorage.getItem('id') }).subscribe(
+        this.api.getSupervisionRequests({
+            Department: localStorage.getItem('department'),
+            Program: localStorage.getItem('program'),
+            Session: localStorage.getItem('session'),
+            Year: localStorage.getItem('year'),
+            GroupID: localStorage.getItem('id') 
+        }).subscribe(
             (res: any) => {
                 this.requests = new Array<SupervisorRequest>();
                 res.forEach(e => {
@@ -31,9 +37,12 @@ export class StudentRequestsComponent implements OnInit {
     }
 
     assignSupervisor(supervisorEmail: String, proposalTitle: String) {
-        // console.log(localStorage.getItem('id'))
-        this.api.assignSupervisor({ 
-            _id: localStorage.getItem('id'),
+        this.api.assignSupervisor({
+            Department: localStorage.getItem('department'),
+            Program: localStorage.getItem('program'),
+            Session: localStorage.getItem('session'),
+            Year: localStorage.getItem('year'),
+            GroupID: localStorage.getItem('id'),
             SupervisorEmail: supervisorEmail,
             ProposalTitle: proposalTitle
         }).subscribe(

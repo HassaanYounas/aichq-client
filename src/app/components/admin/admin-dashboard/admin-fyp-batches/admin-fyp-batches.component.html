@@ -6,7 +6,7 @@
         </div>
         <div class="card card-shadow p-4 mb-4">
             <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
-            <p>A batch acts as a container for a list of students. When you add a new batch, make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a batch, once submitted.</span></p>
+            <p>A batch acts as a container for a list of students. When you add a new batch, make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove a batch, once submitted.</span> When you archive a batch, all student accounts in the batch will be inaccessible.</p>
             <p><span class="font-weight-bold">MGPS</span> means number of <span class="font-weight-bold">Maximum Groups Per Supervisor</span>. It is calculated based on the number of students in the batch and the number of active supervisors in the department. It is done, so as to equally distribute the workload among supervisors.</p>
         </div>
         <div class="row mb-5">
@@ -71,6 +71,7 @@
                                             <i class="fa fa-sort pointer" (click)="sortByYear()"></i>
                                         </th>
                                         <th scope="col">MGPS</th>
+                                        <th scope="col">Archive</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,12 +81,18 @@
                                             <td>{{ batch.Session }}</td>
                                             <td>{{ batch.Year }}</td>
                                             <td>{{ batch.MaxGroups }}</td>
+                                            <td>
+                                                <i class="fa fa-archive pointer"></i>
+                                            </td>
                                         </ng-container>
                                         <ng-container *ngIf="programFilterBoolean && batch.Program === selectedProgram">
                                             <td>{{ batch.Program }}</td>
                                             <td>{{ batch.Session }}</td>
                                             <td>{{ batch.Year }}</td>
                                             <td>{{ batch.MaxGroups }}</td>
+                                            <td>
+                                                <i class="fa fa-archive pointer"></i>
+                                            </td>
                                         </ng-container>
                                     </tr>
                                 </tbody>

@@ -17,7 +17,7 @@ export class AdminDashboardComponent {
     departmentName: String = '';
     greetingMessage: String = '';
 
-    currentComponent: Number = 2;
+    currentComponent: Number = 0;
 
     constructor(
         private api: ApiService,

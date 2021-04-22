@@ -17,7 +17,6 @@ export class SupervisorProposalsComponent implements OnInit {
 
     batches: Batch[];
     programs: Program[];
-    supervisor: Supervisor;
     proposals: SupervisorProposal[];
     batchesToDisplaySubmit: Batch[];
     batchesToDisplayFilter: Batch[];
@@ -53,18 +52,13 @@ export class SupervisorProposalsComponent implements OnInit {
             Program: new FormControl('Program'),
             Batch: new FormControl('Batch')
         });
-        this.api.getSupervisor({ _id: localStorage.getItem('id') }).subscribe(
-            (res: any) => {
-                this.supervisor = new Supervisor(res);
-                this.fetchPrograms();
-                this.fetchBatches();
-                this.fetchProposals();
-            }, (error: any) => { console.log(error); }
-        );
+        this.fetchPrograms();
+        this.fetchBatches();
+        this.fetchProposals();
     }
 
     fetchPrograms() {
-        this.api.loadPrograms({ Name: this.supervisor.Department }).subscribe(
+        this.api.loadPrograms({ Name: localStorage.getItem('department') }).subscribe(
             (res: any) => {
                 this.programs = new Array<Program>();
                 res.forEach(e => this.programs.push(new Program(e)));
@@ -73,7 +67,7 @@ export class SupervisorProposalsComponent implements OnInit {
     }
 
     fetchBatches() {
-        this.api.loadBatches({}).subscribe(
+        this.api.loadBatches({ Name: localStorage.getItem('department') }).subscribe(
             (res: any) => {
                 this.batches = new Array<Batch>();
                 res.forEach(e => this.batches.push(new Batch(e)));
@@ -82,7 +76,10 @@ export class SupervisorProposalsComponent implements OnInit {
     }
 
     fetchProposals() {
-        this.api.loadProposals({ Email: this.supervisor.Email }).subscribe(
+        this.api.loadProposals({ 
+            Department: localStorage.getItem('department'),
+            Email: localStorage.getItem('email') 
+        }).subscribe(
             (res: any) => {
                 this.proposals = new Array<SupervisorProposal>();
                 res.forEach(e => this.proposals.push(new SupervisorProposal(e)));
@@ -100,14 +97,14 @@ export class SupervisorProposalsComponent implements OnInit {
         ) {
             this.spinner.show();
             this.api.submitSupervisorProposal({
-                Department: this.supervisor.Department,
+                Department: localStorage.getItem('department'),
                 Program: formData.Program,
                 Session: formData.Batch.split('-')[0],
                 Year: formData.Batch.split('-')[1],
                 Title: formData.Title,
                 Abstract: formData.Abstract,
                 Domain: formData.Domain,
-                Email: this.supervisor.Email
+                Email: localStorage.getItem('email')
             }).subscribe(
                 (res: any) => {
                     this.addSubmitProposalResponse('Proposal submitted successfully.');
@@ -120,14 +117,14 @@ export class SupervisorProposalsComponent implements OnInit {
                 }, (error: any) => this.addSubmitProposalResponse(error)
             );
             this.validSubmitProposal = true;
-            setTimeout(() => this.submitProposalMessage = '', 4000);
+            // setTimeout(() => this.submitProposalMessage = '', 4000);
         } else this.validSubmitProposal = false;
     }
 
     addSubmitProposalResponse(message: String): void {
         setTimeout(() => { 
-        this.spinner.hide();
-        this.submitProposalMessage = message;
+            this.spinner.hide();
+            this.submitProposalMessage = message;
         }, 1000);
     }
     

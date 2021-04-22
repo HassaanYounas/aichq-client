@@ -8,6 +8,7 @@
                 <h5 class="font-weight-bold mt-3">Faculty of Computing and Artificial Intelligence</h5>
             </div>
             <div class="d-flex align-items-center">
+                <i class="pointer fa fa-window-maximize mt-2 mr-4" (click)="toggleFullScreen()"></i>
                 <h6 class="font-weight-bold mt-3">FCAI Admin</h6>
                 <div class="btn-group">
                     <img src="../../../../assets/img/user-avatar.png" data-toggle="dropdown" class="img-fluid pointer mx-3" width="50px" alt="Admin Avatar">
@@ -32,7 +33,7 @@
                     <label class="font-weight-bold">Username</label>
                     <input formControlName="Username" type="text" class="form-control form-control-custom mb-2" placeholder="superadmin" required>
                     <label class="font-weight-bold">Password</label>
-                    <input formControlName="Password" type="text" class="form-control form-control-custom mb-3" placeholder="123456789" required>
+                    <input formControlName="Password" type="password" class="form-control form-control-custom mb-3" placeholder="123456789" required>
                     <h6 class="mb-3">Kindly type the following text below to confirm.</h6>
                     <div class="row">
                         <div class="col pr-1">
@@ -53,8 +54,8 @@
     <div class="container" *ngIf="!showSettingsBoolean">
         <div class="card card-shadow p-4 mt-5">
             <h4 class="font-weight-bold mb-4">IMPORTANT INFORMATION!</h4>
-            <p>When you add a new department, a new account of an FYP Director will also be created. An email will be sent with login credentials for their account. That account will be responsible for managing this new department. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove or edit a department, once submitted.</span></p>
-            <p>Similar is the case with adding a program to a department, <span class="font-weight-bold text-danger">you cannot remove or edit once you have submitted.</span></p>
+            <p>When you add a new department, a new account of an FYP Director will also be created. An email will be sent with login credentials for their account. That account will be responsible for managing this new department. Kindly make sure that all provided information is double checked.<span class="font-weight-bold text-danger"> You will not be able to remove a department, once submitted.</span></p>
+            <p>Similar is the case with adding a program to a department, <span class="font-weight-bold text-danger">you cannot edit or remove once you have submitted.</span></p>
         </div>
         <div class="row mb-3 mt-4">
             <div class="col">
@@ -110,13 +111,41 @@
                 <div class="card card-shadow p-4 mb-5">
                     <h4 class="font-weight-bold mb-4 mt-2">List of Departments and Programs</h4>
                     <ul *ngFor="let department of departments; let i = index;" class="py-4 px-5 bg-pink">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
                             <h5 class="font-weight-bold">{{ i + 1 }}.&nbsp;&nbsp;{{ department.Name }}</h5>
+                            <i class="fa fa-edit pointer" data-toggle="modal" data-target="#departmentEditModal" (click)="setDepartmentToEdit(department)"></i>    
+                        </div>
+                        <div class="py-2">
+                            <h6><span class="font-weight-bold">FYP Director: </span>{{ department.DirectorName }}</h6>
+                            <h6><span class="font-weight-bold">Email: </span>{{ department.Email }}</h6>
                         </div>
                         <ul *ngFor="let program of department.Programs">
                             <li>{{ program.Title }}</li>
                         </ul>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="departmentEditModal" role="dialog">
+        <div class="modal-dialog modal-dialog-custom" role="document">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title text-dark font-weight-bold">Edit Department Information</h5>
+                </div>
+                <div class="modal-body modal-body-custom px-5">
+                    <form id="editDepartmentForm" class="w-100" [formGroup]="editDepartmentForm" (ngSubmit)="onEditDepartmentFormSubmit(editDepartmentForm.value)">
+                        <label class="font-weight-bold">Department Name</label>
+                        <input formControlName="Name" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Computer Science" required>
+                        <label class="font-weight-bold">FYP Director Name</label>
+                        <input formControlName="DirectorName" type="text" class="form-control form-control-custom-sm mb-2" placeholder="Mr. John Doe" required>
+                        <label class="font-weight-bold">Email</label>
+                        <input formControlName="NewEmail" type="text" class="form-control form-control-custom-sm mb-2" placeholder="john.doe@students.au.edu.pk" required>
+                    </form>
+                </div>
+                <div class="modal-footer modal-footer-custom no-border">
+                    <button type="submit" class="btn btn-dashboard-modal" form="editDepartmentForm">Edit</button>
+                    <button type="button" class="btn btn-dashboard-modal-dark" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>

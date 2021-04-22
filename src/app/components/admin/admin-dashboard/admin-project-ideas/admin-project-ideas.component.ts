@@ -20,7 +20,6 @@ export class AdminProjectIdeasComponent implements OnInit {
     programs: Program[];
     batchesToDisplayFilter: Batch[];
 
-    currentProjectID: String = '';
     selectedFilterBatchYear: String = '';
     selectedFilterBatchSession: String = '';
     selectedFilterProgram: String = 'All Programs';
@@ -36,6 +35,7 @@ export class AdminProjectIdeasComponent implements OnInit {
     supervisors: Supervisor[];
     supervisorProposals: SupervisorProposal[];
 
+    currentProjectID: String;
     currentProposalTitle: String;
     currentSupervisorEmail: String;
 
@@ -94,11 +94,6 @@ export class AdminProjectIdeasComponent implements OnInit {
         );
     }
 
-    setRequestData(email: String, title: String) {
-        this.currentSupervisorEmail = email;
-        this.currentProposalTitle = title;
-    }
-
     onSupervisorIdeaApproval() {
         this.supervisorProposalUpdate(this.currentProjectID, 1);
     }
@@ -107,13 +102,19 @@ export class AdminProjectIdeasComponent implements OnInit {
         this.supervisorProposalUpdate(this.currentProjectID, 0);
     }
 
-    setCurrentProjectID(id: String) {
+    setCurrentProjectID(id: String, email: String) {
         this.currentProjectID = id;
+        this.currentSupervisorEmail = email;
     }
 
     supervisorProposalUpdate(id: String, approval: Number) {
         this.spinner.show();
-        this.api.updateSupervisorProposal({ _id: id, Approved: approval }).subscribe(
+        this.api.updateSupervisorProposal({
+            Department: localStorage.getItem('department'),
+            _id: id, 
+            Email: this.currentSupervisorEmail, 
+            Approved: approval 
+        }).subscribe(
             (res: any) => {
                 this.fetchProposals();
                 this.spinner.hide();

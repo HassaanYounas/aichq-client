@@ -114,13 +114,19 @@ export class AdminSupervisorsComponent implements OnInit {
 
     toggleSupervisorActive() {
         if (this.supervisors[this.currentSupervisorIndex].Active) {
-            this.api.setSupervisorInactive({ Email: this.supervisors[this.currentSupervisorIndex].Email }).subscribe(
+            this.api.setSupervisorInactive({ 
+                Department: localStorage.getItem('department'),
+                Email: this.supervisors[this.currentSupervisorIndex].Email 
+            }).subscribe(
                 (res: any) => {
                     this.fetchSupervisors();
                 }, (error: any) => console.log(error)
             ); 
         } else {
-            this.api.setSupervisorActive({ Email: this.supervisors[this.currentSupervisorIndex].Email }).subscribe(
+            this.api.setSupervisorActive({ 
+                Department: localStorage.getItem('department'),
+                Email: this.supervisors[this.currentSupervisorIndex].Email 
+            }).subscribe(
                 (res: any) => {
                     this.fetchSupervisors();
                 }, (error: any) => console.log(error)
