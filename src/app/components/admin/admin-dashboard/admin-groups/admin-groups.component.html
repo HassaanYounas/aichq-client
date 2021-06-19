@@ -7,26 +7,24 @@
         <div class="card card-shadow p-4 mb-5">
             <h5 class="font-weight-bold mb-4">List of All FYP Groups</h5>
             <h6 class="font-weight-bold mb-3">Filter Options</h6>
-            <!-- <form [formGroup]="groupFilterSelectForm">
-                <div class="row mb-3">
+            <form class="mb-3" [formGroup]="groupFilterSelectForm">
+                <div class="row">
                     <div class="col">
-                        <select formControlName="Program" #programSelectFilter class="form-control-dropdown" (change)="onProgramSelectFilter(programSelectFilter.value)">
-                            <option selected>Program</option>
-                            <ng-container *ngIf="departmentFilterSelectBoolean">
-                                <option *ngFor="let program of departmentFilterSelect.Programs">{{ program.Title }}</option>
-                            </ng-container>
+                        <select formControlName="Program" #groupProgramFilterSelect class="form-control-dropdown" (change)="onProgramFilterSelect(groupProgramFilterSelect.value)">
+                            <option selected>All Programs</option>
+                            <option *ngFor="let program of programs">{{ program.Title }}</option>
                         </select>
                     </div>
                     <div class="col">
-                        <select formControlName="Batch" #batchSelectFilter class="form-control-dropdown" (change)="onBatchSelectFilter(batchSelectFilter.value)">
-                            <option selected>Batch</option>
+                        <select formControlName="Batch" #groupBatchFilterSelect class="form-control-dropdown" (change)="onBatchFilterSelect(groupBatchFilterSelect.value)">
+                            <option selected>All Batches</option>
                             <ng-container *ngIf="programFilterSelectBoolean">
-                                <option *ngFor="let batch of programFilterSelect.Batches">{{ batch.BatchID }}</option>
+                                <option *ngFor="let batch of batchesToDisplayFilter">{{ batch.Session }}-{{ batch.Year }}</option>
                             </ng-container>
                         </select>
                     </div>
                 </div>
-            </form> -->
+            </form>
             <div style="height: 20em; overflow-x: hidden; overflow-y: scroll;">
                 <div class="table-responsive table-borders">
                     <table>
@@ -40,20 +38,62 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let group of groups; let i = index;">
-                                <td>{{ group.StudentOne.RollNumber }}</td>
-                                <td>{{ group.StudentTwo.RollNumber }}</td>
-                                <td>
-                                    <div *ngIf="group.SupervisorEmail === undefined; else supervisorEmail">
-                                        <i class="fa fa-minus color-red"></i>
-                                    </div>
-                                    <ng-template #supervisorEmail>{{ group.SupervisorEmail }}</ng-template>
-                                </td>
-                                <td>
-                                    <div *ngIf="group.ProjectTitle === undefined; else projectTitle">
-                                        <i class="fa fa-minus color-red"></i>
-                                    </div>
-                                    <ng-template #projectTitle>{{ group.ProjectTitle }}</ng-template>
-                                </td>
+                                <ng-container *ngIf="noFilterBoolean">
+                                    <td>{{ group.StudentOne.RollNumber }}</td>
+                                    <td>{{ group.StudentTwo.RollNumber }}</td>
+                                    <td>
+                                        <div *ngIf="group.SupervisorEmail === undefined; else supervisorEmail">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #supervisorEmail>{{ group.SupervisorEmail }}</ng-template>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="group.ProjectTitle === undefined; else projectTitle">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #projectTitle>{{ group.ProjectTitle }}</ng-template>
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="tableProgramFilterBoolean && selectedFilterProgram === group.Program">
+                                    <td>{{ group.StudentOne.RollNumber }}</td>
+                                    <td>{{ group.StudentTwo.RollNumber }}</td>
+                                    <td>
+                                        <div *ngIf="group.SupervisorEmail === undefined; else supervisorEmail">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #supervisorEmail>{{ group.SupervisorEmail }}</ng-template>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="group.ProjectTitle === undefined; else projectTitle">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #projectTitle>{{ group.ProjectTitle }}</ng-template>
+                                    </td>
+                                </ng-container>
+                                <ng-container 
+                                    *ngIf=
+                                    "
+                                        tableBatchFilterBoolean &&
+                                        selectedFilterProgram === group.Program &&
+                                        selectedFilterBatchYear === group.Year &&
+                                        selectedFilterBatchSession === group.Session
+                                    "
+                                >
+                                    <td>{{ group.StudentOne.RollNumber }}</td>
+                                    <td>{{ group.StudentTwo.RollNumber }}</td>
+                                    <td>
+                                        <div *ngIf="group.SupervisorEmail === undefined; else supervisorEmail">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #supervisorEmail>{{ group.SupervisorEmail }}</ng-template>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="group.ProjectTitle === undefined; else projectTitle">
+                                            <i class="fa fa-minus color-red"></i>
+                                        </div>
+                                        <ng-template #projectTitle>{{ group.ProjectTitle }}</ng-template>
+                                    </td>
+                                </ng-container>
                             </tr>
                         </tbody>
                     </table>

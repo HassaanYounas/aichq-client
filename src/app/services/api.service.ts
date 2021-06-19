@@ -15,6 +15,14 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
+    addAnnoucement(body: any) {
+        const url = 'http://localhost:8081/api/announcement/add';
+        const headers = new HttpHeaders({ 
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        });
+        return this.http.post(url, body, { headers }).pipe(catchError(this.errorHandler));
+    }
+
     updateAdmin(body: any) {
         return this.requestWithToken(body, API.updateAdmin);
     }

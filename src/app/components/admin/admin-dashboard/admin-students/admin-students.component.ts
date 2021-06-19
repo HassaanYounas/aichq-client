@@ -81,7 +81,6 @@ export class AdminStudentsComponent implements OnInit {
             Batch: new FormControl('Batch')
         });
         this.studentFilterSelectForm = new FormGroup({
-            Department: new FormControl('All Departments'),
             Program: new FormControl('All Programs'),
             Batch: new FormControl('All Batches')
         });

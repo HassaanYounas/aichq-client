@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-shadow p-3">
         <i (click)="toggleMenu()" class="fa fa-bars fa-2x mr-3 mt-1 ml-2 pointer"></i>
         <a class="navbar-brand ml-2" routerLink="/">
-            <img src="../../../assets/img/logo.png" class="img-fluid pointer" width="100px" alt="AichQ Logo">
+            <img src="../../../assets/img/logo.svg" class="img-fluid pointer" width="100px" alt="AichQ Logo">
         </a>
         <h2 class="font-weight-bold my-auto pointer pt-1">|</h2>
         <h3 class="font-weight-bold my-auto pointer pt-2">&nbsp;FYP Director</h3>
@@ -11,9 +11,6 @@
             <ul class="navbar-nav ml-auto mt-2">
                 <li class="nav-item font-weight-bold mr-4">
                     <i class="pointer fa fa-window-maximize" (click)="toggleFullScreen()"></i>
-                </li>
-                <li class="nav-item font-weight-bold mr-4">
-                    <i class="pointer fa fa-bell"></i>
                 </li>
                 <li class="nav-item font-weight-bold" [innerHTML]="greetingMessage"></li>
             </ul>
@@ -45,16 +42,14 @@
     <div class="d-flex page-content">
         <div id="sidebar" class="d-flex flex-column wrapper-sidebar">
             <div class="bg-blue">
+                <p class="px-4 pt-3 text-muted">FYP Session</p>
+                <a [ngClass]="{'active-dashboard': currentComponent === 5, 'bg-blue': currentComponent !== 5 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(5)">Dashboard</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-blue': currentComponent !== 3 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(3)">Project Ideas</a>
+                <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-blue': currentComponent !== 4 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(4)">FYP Groups</a>
                 <p class="px-4 pt-3 text-muted">Prerequisites</p>
                 <a [ngClass]="{'active-dashboard': currentComponent === 0, 'bg-blue': currentComponent !== 0 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(0)">Supervisors</a>
                 <a [ngClass]="{'active-dashboard': currentComponent === 1, 'bg-blue': currentComponent !== 1 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(1)">FYP Batches</a>
                 <a [ngClass]="{'active-dashboard': currentComponent === 2, 'bg-blue': currentComponent !== 2 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(2)">Students</a>
-                <p class="px-4 pt-3 text-muted">FYP Session</p>
-                <a [ngClass]="{'active-dashboard': currentComponent === 3, 'bg-blue': currentComponent !== 3 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(3)">Project Ideas</a>
-                <a [ngClass]="{'active-dashboard': currentComponent === 4, 'bg-blue': currentComponent !== 4 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(4)">FYP Groups</a>
-                <!-- <p class="px-4 pt-3 text-muted">Others</p>
-                <a [ngClass]="{'active-dashboard': currentComponent === 5, 'bg-blue': currentComponent !== 5 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(5)">Notifications</a>
-                <a [ngClass]="{'active-dashboard': currentComponent === 6, 'bg-blue': currentComponent !== 6 }" class="list-group-item list-group-item-action sidebar-item sidebar-hover pointer" (click)="changeComponent(6)">Settings</a> -->
             </div>
         </div>
         <div class="d-flex flex-column page-content-wrapper">
@@ -64,8 +59,7 @@
                 <app-admin-students *ngIf="currentComponent === 2"></app-admin-students>
                 <app-admin-project-ideas *ngIf="currentComponent === 3"></app-admin-project-ideas>
                 <app-admin-groups *ngIf="currentComponent === 4"></app-admin-groups>
-                <app-admin-notifications *ngIf="currentComponent === 5"></app-admin-notifications>
-                <app-admin-settings *ngIf="currentComponent === 6"></app-admin-settings>
+                <app-admin-main *ngIf="currentComponent === 5"></app-admin-main>
             </div>
             <div class="d-flex flex-column text-center flex-fill footer-dashboard">
                 <p class="mt-3">FCAI, Air University, Islamabad. Copyright © 2021.</p>       
